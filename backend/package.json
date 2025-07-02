@@ -1,0 +1,26 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend Laverrap",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --env-file=.env --watch index.js",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "backend",
+    "laverrap",
+    "auto",
+    "autos",
+    "lavados"
+  ],
+  "author": "Gonzalo Haag",
+  "license": "ISC",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.50.2",
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  }
+}
