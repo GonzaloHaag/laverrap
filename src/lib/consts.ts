@@ -37,7 +37,7 @@ export const buttonVariants = cva(
     },
   }
 );
-export const statusColors: Record<string, string> = {
+export const STATUS_COLORS: Record<string, string> = {
   basic: "bg-gray-100 text-slate-700",
   complete: "bg-green-600 text-slate-100",
   active: "bg-green-600 text-slate-100",
@@ -45,7 +45,7 @@ export const statusColors: Record<string, string> = {
   premium: "bg-orange-700 text-slate-100",
 };
 
-export const statusLabels: Record<string, string> = {
+export const STATUS_LABELS: Record<string, string> = {
   complete: "Completo",
   basic: "Básico",
   premium: "Premium",
@@ -53,25 +53,32 @@ export const statusLabels: Record<string, string> = {
   inactive: "Inactivo",
 };
 
+export const VEHICLES_TYPES_LABELS: Record<string, string> = {
+  car: "Auto",
+  pickup: "Camioneta",
+  motorcycle: "Moto",
+  other: "Otro",
+};
+
 export const VEHICLES_TYPES = [
   {
     id: 1,
-    type: "car",
+    value: "car",
     label: "Auto",
   },
   {
     id: 2,
-    type: "pickup",
+    value: "pickup",
     label: "Camioneta",
   },
   {
     id: 3,
-    type: "motorcycle",
+    value: "motorcycle",
     label: "Moto",
   },
   {
     id: 4,
-    type: "other",
+    value: "other",
     label: "Otro",
   },
 ];

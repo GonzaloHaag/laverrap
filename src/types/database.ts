@@ -23,7 +23,7 @@ export type Database = {
           model_brand: string | null
           name: string
           patent: string
-          phone: string
+          phone: string | null
           status: Database["public"]["Enums"]["client_status"]
           user_id: string
           vehicle_type: Database["public"]["Enums"]["vehicles_type"]
@@ -36,7 +36,7 @@ export type Database = {
           model_brand?: string | null
           name: string
           patent: string
-          phone: string
+          phone?: string | null
           status?: Database["public"]["Enums"]["client_status"]
           user_id: string
           vehicle_type: Database["public"]["Enums"]["vehicles_type"]
@@ -49,7 +49,7 @@ export type Database = {
           model_brand?: string | null
           name?: string
           patent?: string
-          phone?: string
+          phone?: string | null
           status?: Database["public"]["Enums"]["client_status"]
           user_id?: string
           vehicle_type?: Database["public"]["Enums"]["vehicles_type"]
@@ -72,7 +72,7 @@ export type Database = {
           duration: number | null
           id: number
           name: string
-          price: string
+          price: number
           status: Database["public"]["Enums"]["services_status"]
           user_id: string
         }
@@ -83,7 +83,7 @@ export type Database = {
           duration?: number | null
           id?: number
           name: string
-          price: string
+          price: number
           status: Database["public"]["Enums"]["services_status"]
           user_id: string
         }
@@ -94,7 +94,7 @@ export type Database = {
           duration?: number | null
           id?: number
           name?: string
-          price?: string
+          price?: number
           status?: Database["public"]["Enums"]["services_status"]
           user_id?: string
         }
@@ -176,7 +176,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      client_status: "Activo" | "Inactivo"
+      client_status: "active" | "inactive"
       services_category: "basic" | "complete" | "premium"
       services_status: "active" | "inactive"
       vehicles_type: "car" | "pickup" | "motorcycle" | "other"
@@ -307,7 +307,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      client_status: ["Activo", "Inactivo"],
+      client_status: ["active", "inactive"],
       services_category: ["basic", "complete", "premium"],
       services_status: ["active", "inactive"],
       vehicles_type: ["car", "pickup", "motorcycle", "other"],

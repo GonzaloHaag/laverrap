@@ -10,7 +10,7 @@ export const SelectFilter = ({ options, urlSet, placeholder }:SelectFilterProps)
 
     const handleSelectValue = (value: string) => {
         const params = new URLSearchParams(searchParams);
-        if (value) {
+        if (value !== "all") {
             params.set(urlSet, value);
         } else {
             params.delete(urlSet);
