@@ -18,7 +18,6 @@ export type Database = {
         Row: {
           created_at: string
           description: string | null
-          email: string | null
           id: number
           model_brand: string | null
           name: string
@@ -31,7 +30,6 @@ export type Database = {
         Insert: {
           created_at?: string
           description?: string | null
-          email?: string | null
           id?: number
           model_brand?: string | null
           name: string
@@ -44,7 +42,6 @@ export type Database = {
         Update: {
           created_at?: string
           description?: string | null
-          email?: string | null
           id?: number
           model_brand?: string | null
           name?: string
@@ -137,6 +134,7 @@ export type Database = {
           client_id: number
           created_at: string
           id: number
+          notified_client: boolean
           service_id: number
           status: Database["public"]["Enums"]["washed_status"]
           user_id: string
@@ -145,6 +143,7 @@ export type Database = {
           client_id: number
           created_at?: string
           id?: number
+          notified_client?: boolean
           service_id: number
           status?: Database["public"]["Enums"]["washed_status"]
           user_id: string
@@ -153,6 +152,7 @@ export type Database = {
           client_id?: number
           created_at?: string
           id?: number
+          notified_client?: boolean
           service_id?: number
           status?: Database["public"]["Enums"]["washed_status"]
           user_id?: string

@@ -1,8 +1,8 @@
 import { TableBodyClients } from "./table-body-clients";
-import type { Client } from "@/types/client";
+import type { ClientWithWashes } from "@/types/client";
 
 interface TableClientsProps {
-  clients: Client[];
+  clients: ClientWithWashes[];
   isLoading: boolean;
   isError: boolean;
   userId: string;

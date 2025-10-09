@@ -17,7 +17,10 @@ export const useServiceMutation = ({
       serviceId: number | null;
     }) => createOrUpdateService({ service: serviceData, serviceId }),
     onSuccess: (data) => {
-      console.log("Servicio creado");
+      if (!data.ok) {
+        toast.error(data.message);
+        return;
+      }
       queryClient.invalidateQueries({
         queryKey: ["services", data.data?.user_id],
       });

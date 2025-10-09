@@ -17,6 +17,7 @@ export const getAllWashes = async ({
   const query = supabaseClient
     .from("washed")
     .select(`*, clients(*), services(*)`)
+    .order("created_at", { ascending: false })
     .eq("user_id", userId);
   if (filters.searchValue.trim() !== "") {
     query.or(
@@ -75,6 +76,83 @@ export const createWashing = async ({
     return {
       ok: true,
       message: "Lavado creado",
+      data,
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      ok: false,
+      message: "Error inesperado",
+    };
+  }
+};
+
+export const updateStatusWashing = async ({
+  washingId,
+  status,
+}: {
+  washingId: number;
+  status: "in_progress" | "completed" | "cancelled";
+}): Promise<ApiResponse<Washing>> => {
+  try {
+    const { data, error } = await supabaseClient
+      .from("washed")
+      .update({ status })
+      .eq("id", washingId)
+      .select("*, clients(*), services(*)")
+      .single();
+
+    if (error) {
+      return {
+        ok: false,
+        message: error.message || "Error al actualizar el estado del lavado",
+      };
+    }
+
+    return {
+      ok: true,
+      message: "Estado del lavado actualizado",
+      data,
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      ok: false,
+      message: "Error inesperado",
+    };
+  }
+};
+
+export const deleteWashingById = async ({
+  washingId,
+}: {
+  washingId: number;
+}): Promise<ApiResponse<Washing>> => {
+
+  if (!washingId) {
+    return {
+      ok: false,
+      message: "ID de lavado inválido",
+    };
+  }
+  try {
+    const { data, error } = await supabaseClient
+      .from("washed")
+      .delete()
+      .eq("id", washingId)
+      .select("*, clients(*), services(*)")
+      .single();
+
+    if (error) {
+      return {
+        ok: false,
+        message: error.message || "Error al eliminar el lavado",
+      };
+    }
+
+    return {
+      ok: true,
+      message: "Lavado eliminado",
       data,
     };
   } catch (error) {

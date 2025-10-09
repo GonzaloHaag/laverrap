@@ -17,7 +17,10 @@ export const useClientMutation = ({
       clientId: number | null;
     }) => createOrUpdateClient({ client: clientData, clientId }),
     onSuccess: (data) => {
-      console.log("Cliente creado");
+      if (!data.ok) {
+        toast.error(data.message);
+        return;
+      }
       queryClient.invalidateQueries({
         queryKey: ["clients", data.data?.user_id],
       });

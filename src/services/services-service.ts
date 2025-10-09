@@ -109,6 +109,7 @@ export const getServicesForSelect = async ({
       .from("services")
       .select("id, name, price")
       .eq("user_id", userId)
+      .eq("status", "active")
       .order("name", { ascending: true });
 
     if (error) {

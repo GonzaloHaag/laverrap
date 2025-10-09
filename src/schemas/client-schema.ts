@@ -1,5 +1,4 @@
 import {
-  email,
   nonEmpty,
   nullable,
   object,
@@ -11,11 +10,6 @@ import {
 export const ClientSchema = object({
   user_id: string(),
   name: pipe(string(), nonEmpty("El nombre es obligatorio")),
-  email: pipe(
-    string(),
-    nonEmpty("El email es obligatorio"),
-    email("El email no es válido")
-  ),
   phone: nullable(string()),
   description: nullable(string()),
   status: picklist(["active", "inactive"]),

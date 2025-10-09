@@ -1,7 +1,7 @@
 import { ClientSchema } from "@/schemas";
 import { supabaseClient } from "@/supabase/supabase-client";
 import type { ApiResponse } from "@/types/api-response";
-import type { Client, NewClient } from "@/types/client";
+import type { Client, ClientWithWashes, NewClient } from "@/types/client";
 import { safeParse } from "valibot";
 
 export const getAllClients = async ({
@@ -13,12 +13,13 @@ export const getAllClients = async ({
     searchValue: string;
     statusValue: string;
   };
-}): Promise<ApiResponse<Client[]>> => {
+}): Promise<ApiResponse<ClientWithWashes[]>> => {
   const query = supabaseClient
     .from("clients")
-    .select("*")
+    .select(`*, washed!inner(count)`)
     .order("name", { ascending: true })
-    .eq("user_id", userId);
+    .eq("user_id", userId)
+    .eq("washed.status", "completed");
   if (filters.searchValue.trim() !== "") {
     query.or(
       `name.ilike.%${filters.searchValue}%, email.ilike.%${filters.searchValue}%, patent.ilike.%${filters.searchValue}%`
@@ -142,6 +143,7 @@ export const getClientsForSelect = async ({
       .from("clients")
       .select("id, name, model_brand, patent")
       .eq("user_id", userId)
+      .eq("status", "active")
       .order("name", { ascending: true });
 
     if (error) {

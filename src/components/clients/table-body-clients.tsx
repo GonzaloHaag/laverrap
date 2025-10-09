@@ -1,5 +1,5 @@
 import { Button } from "../ui/button";
-import type { Client } from "@/types/client";
+import type { ClientWithWashes } from "@/types/client";
 import { Badge } from "../ui/badge";
 import {
   STATUS_COLORS,
@@ -10,7 +10,7 @@ import { Link } from "react-router";
 import { ButtonEditClient } from "./button-edit-client";
 
 interface TableBodyClientsProps {
-  clients: Client[];
+  clients: ClientWithWashes[];
   isLoading: boolean;
   isError: boolean;
   userId:string;
@@ -62,16 +62,21 @@ export const TableBodyClients = ({
             </th>
             <td className="px-6 py-2">
               <div className="flex flex-col gap-y-1">
-                <Link
-                  to={`mailto:${client.email}`}
+               {
+                client.phone ? (
+                   <Link
+                  to={`tel:${client.phone}`}
                   className="text-blue-600 hover:underline"
-                  title={`Enviar email a ${client.email}`}
+                  title={`Contactar a ${client.name} por teléfono`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  {client.email}
+                  {client.phone}
                 </Link>
-                {client.phone && <span>{client.phone}</span>}
+                ) : (
+                  <span className="text-muted-foreground">Sin teléfono</span>
+                )
+               }
               </div>
             </td>
             <td className="px-6 py-2">
@@ -83,7 +88,7 @@ export const TableBodyClients = ({
                 <Badge variant={"outline"}>{client.patent}</Badge>
               </div>
             </td>
-            <td className="px-6 py-2">{20}</td>
+            <td className="px-6 py-2">{client.washed[0].count ?? 0}</td>
             <td className="px-6 py-2">
               <Badge className={STATUS_COLORS[client.status]}>
                 {STATUS_LABELS[client.status]}

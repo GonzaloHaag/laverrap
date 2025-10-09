@@ -15,15 +15,22 @@ import { VEHICLES_TYPES } from "@/lib/consts";
 import { Textarea } from "../ui/textarea";
 import { DialogFormFooter } from "../dialog-form-footer";
 import type { FormProps } from "@/types/form";
-import { useClientMutation } from "@/hooks/use-client-mutation";
 import type { Client } from "@/types/client";
+import { useClientMutation } from "@/hooks/mutations";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "../ui/input-group";
+import { CircleQuestionMarkIcon, PhoneIcon } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 interface FormClientProps extends FormProps {
   client: Client | null;
 }
 export const FormClient = ({
   userId,
   toggleModal,
-  client
+  client,
 }: FormClientProps) => {
   const {
     register,
@@ -36,7 +43,6 @@ export const FormClient = ({
     defaultValues: {
       user_id: userId,
       name: client?.name || "",
-      email: client?.email || "",
       phone: client?.phone || "",
       description: client?.description || "",
       vehicle_type: client?.vehicle_type || "car",
@@ -46,7 +52,7 @@ export const FormClient = ({
     },
   });
   const clientMutation = useClientMutation({
-    toggleModal
+    toggleModal,
   });
   const onSubmit = handleSubmit(async (data) => {
     console.log(data);
@@ -69,24 +75,31 @@ export const FormClient = ({
         </div>
         {errors.name && <ErrorMessage message={errors.name.message!} />}
       </div>
-      <div className="grid grid-cols-2 gap-4 items-start">
-        <div className="flex flex-col gap-y-1">
-          <div className="grid gap-2">
-            <Label htmlFor="email">Email *</Label>
-            <Input
-              id="email"
-              {...register("email")}
-              placeholder="Ej: juanperez@gmail.com"
-            />
-          </div>
-          {errors.email && <ErrorMessage message={errors.email.message!} />}
-        </div>
-        <div className="grid gap-2">
-          <Label htmlFor="phone">Teléfono</Label>
-          <Input id="phone" type="tel" {...register("phone")} />
-        </div>
+      <div className="grid gap-2">
+        <Label htmlFor="whatsapp" className="flex items-center gap-x-2">
+          WhatsApp
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <CircleQuestionMarkIcon
+                size={18}
+                className="text-muted-foreground"
+              />
+            </TooltipTrigger>
+            <TooltipContent className="max-w-72">
+              <p>
+                Si no colocas un teléfono, no se podrá notificar al cliente
+                cuando finalice su lavado.
+              </p>
+            </TooltipContent>
+          </Tooltip>
+        </Label>
+        <InputGroup>
+          <InputGroupInput type="tel" placeholder="WhatsApp del cliente" {...register("phone")} />
+          <InputGroupAddon>
+            <PhoneIcon />
+          </InputGroupAddon>
+        </InputGroup>
       </div>
-
       <div className="grid grid-cols-2 items-center gap-4">
         <div className="grid gap-2">
           <Label htmlFor="phone">Tipo de vehículo *</Label>

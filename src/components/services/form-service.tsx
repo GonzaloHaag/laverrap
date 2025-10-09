@@ -14,10 +14,10 @@ import {
 import { Textarea } from "../ui/textarea";
 import { DialogFormFooter, ErrorMessage } from "@/components";
 import { ServiceSchema } from "@/schemas";
-import { useServiceMutation } from "@/hooks";
+
 import type { FormProps } from "@/types/form";
 import type { Service } from "@/types/service";
-
+import { useServiceMutation } from "@/hooks/mutations";
 interface FormServiceProps extends FormProps {
   service: Service | null;
 }

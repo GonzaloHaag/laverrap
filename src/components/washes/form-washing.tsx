@@ -12,13 +12,13 @@ import {
 } from "../ui/select";
 import {
   useClientsSelect,
-  useServicesSelect,
-  useWashingMutation,
+  useServicesSelect
 } from "@/hooks";
 import { ErrorMessage } from "../error-message";
 import { Input } from "../ui/input";
 import { DialogFormFooter } from "../dialog-form-footer";
 import { formatMoney } from "@/lib/utils";
+import { useWashingMutation } from "@/hooks/mutations";
 
 export const FormWashing = ({ userId, toggleModal }: FormProps) => {
   const {

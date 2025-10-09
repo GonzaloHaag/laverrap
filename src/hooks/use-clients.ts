@@ -1,5 +1,5 @@
 import { getAllClients } from "@/services/clients-service";
-import type { Client } from "@/types/client";
+import type { ClientWithWashes } from "@/types/client";
 import { useQuery } from "@tanstack/react-query";
 
 interface Options {
@@ -13,7 +13,7 @@ export const useClients = ({
   userId,
   filters
 }: Options) => {
-  const clientsQuery = useQuery<Client[]>({
+  const clientsQuery = useQuery<ClientWithWashes[]>({
     queryKey: ["clients", userId, filters.searchValue, filters.statusValue],
     queryFn: async () => {
       const response = await getAllClients({
