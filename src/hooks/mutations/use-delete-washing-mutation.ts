@@ -1,7 +1,12 @@
 import { deleteWashingById } from "@/services/washes-service";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-export const useDeleteWashingMutation = () => {
+
+export const useDeleteWashingMutation = ({
+  toggleModal,
+}: {
+  toggleModal: () => void;
+}) => {
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: (washingId: number) => deleteWashingById({ washingId }),
@@ -13,6 +18,7 @@ export const useDeleteWashingMutation = () => {
       queryClient.invalidateQueries({
         queryKey: ["washes", data.data?.user_id],
       });
+      toggleModal();
       toast.success(data.message);
     },
     onError: (error) => {
