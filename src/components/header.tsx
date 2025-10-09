@@ -1,7 +1,9 @@
 import { buttonVariants } from "@/lib/consts";
 import { Link } from "react-router";
-import { CarIcon } from "lucide-react";
+import { CarIcon, MenuIcon } from "lucide-react";
 import { HeaderNavLinks } from "./header-nav-links";
+import { Button } from "./ui/button";
+import { DropdownUser } from "./dropdown-user";
 
 export const Header = () => {
   return (
@@ -25,7 +27,15 @@ export const Header = () => {
             </span>
           </div>
         </div>
-        <HeaderNavLinks />
+        <div className="flex items-center gap-x-2">
+          <HeaderNavLinks />
+          <DropdownUser />
+        </div>
+        <div className="block md:hidden">
+          <Button type="button" variant={"outline"} size={"icon-lg"}>
+            <MenuIcon />
+          </Button>
+        </div>
       </div>
     </header>
   );

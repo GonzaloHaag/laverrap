@@ -3,13 +3,13 @@ import {
   nonEmpty,
   nullable,
   object,
-  optional,
   picklist,
   pipe,
   string,
 } from "valibot";
 
 export const ClientSchema = object({
+  user_id: string(),
   name: pipe(string(), nonEmpty("El nombre es obligatorio")),
   email: pipe(
     string(),
@@ -18,7 +18,6 @@ export const ClientSchema = object({
   ),
   phone: nullable(string()),
   description: nullable(string()),
-  user_id: optional(string()),
   status: picklist(["active", "inactive"]),
   vehicle_type: picklist(
     ["car", "pickup", "motorcycle", "other"],

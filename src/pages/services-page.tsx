@@ -1,8 +1,5 @@
-import { Search, SelectFilter } from "@/components";
-import {
-  FormService,
-  TableServices,
-} from "@/components/services";
+import { Pagination, Search, SelectFilter } from "@/components";
+import { FormService, TableServices } from "@/components/services";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -50,7 +47,11 @@ export function ServicesPage() {
           <CardAction>
             <Dialog open={isOpen} onOpenChange={toggleModal}>
               <DialogTrigger asChild>
-                <Button type="button" title="Agregar servicio" className="min-w-32">
+                <Button
+                  type="button"
+                  title="Agregar servicio"
+                  className="min-w-32"
+                >
                   <PlusIcon />
                   Agregar servicio
                 </Button>
@@ -65,6 +66,7 @@ export function ServicesPage() {
                 <FormService
                   userId={session!.user.id}
                   toggleModal={toggleModal}
+                  service={null}
                 />
               </DialogContent>
             </Dialog>
@@ -88,7 +90,9 @@ export function ServicesPage() {
             services={servicesQuery.data || []}
             isLoading={servicesQuery.isLoading}
             isError={servicesQuery.isError}
+            userId={session!.user.id}
           />
+          <Pagination />
         </CardContent>
       </Card>
     </section>

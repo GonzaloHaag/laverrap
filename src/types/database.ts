@@ -137,18 +137,24 @@ export type Database = {
           client_id: number
           created_at: string
           id: number
+          service_id: number
+          status: Database["public"]["Enums"]["washed_status"]
           user_id: string
         }
         Insert: {
           client_id: number
           created_at?: string
           id?: number
+          service_id: number
+          status?: Database["public"]["Enums"]["washed_status"]
           user_id: string
         }
         Update: {
           client_id?: number
           created_at?: string
           id?: number
+          service_id?: number
+          status?: Database["public"]["Enums"]["washed_status"]
           user_id?: string
         }
         Relationships: [
@@ -157,6 +163,13 @@ export type Database = {
             columns: ["client_id"]
             isOneToOne: false
             referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "washed_service_id_fkey"
+            columns: ["service_id"]
+            isOneToOne: false
+            referencedRelation: "services"
             referencedColumns: ["id"]
           },
           {
@@ -177,9 +190,10 @@ export type Database = {
     }
     Enums: {
       client_status: "active" | "inactive"
-      services_category: "basic" | "complete" | "premium"
+      services_category: "basic" | "complete" | "premium" | "other"
       services_status: "active" | "inactive"
       vehicles_type: "car" | "pickup" | "motorcycle" | "other"
+      washed_status: "in_progress" | "completed" | "cancelled"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -308,9 +322,10 @@ export const Constants = {
   public: {
     Enums: {
       client_status: ["active", "inactive"],
-      services_category: ["basic", "complete", "premium"],
+      services_category: ["basic", "complete", "premium", "other"],
       services_status: ["active", "inactive"],
       vehicles_type: ["car", "pickup", "motorcycle", "other"],
+      washed_status: ["in_progress", "completed", "cancelled"],
     },
   },
 } as const

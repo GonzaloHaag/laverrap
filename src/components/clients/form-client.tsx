@@ -16,8 +16,15 @@ import { Textarea } from "../ui/textarea";
 import { DialogFormFooter } from "../dialog-form-footer";
 import type { FormProps } from "@/types/form";
 import { useClientMutation } from "@/hooks/use-client-mutation";
-
-export const FormClient = ({ userId, toggleModal }: FormProps) => {
+import type { Client } from "@/types/client";
+interface FormClientProps extends FormProps {
+  client: Client | null;
+}
+export const FormClient = ({
+  userId,
+  toggleModal,
+  client
+}: FormClientProps) => {
   const {
     register,
     handleSubmit,
@@ -27,20 +34,26 @@ export const FormClient = ({ userId, toggleModal }: FormProps) => {
     resolver: valibotResolver(ClientSchema),
     mode: "onSubmit",
     defaultValues: {
-      name: "",
-      email: "",
-      phone: "",
-      description: "",
-      vehicle_type: "car",
-      model_brand: "",
-      patent: "",
-      status: "active",
+      user_id: userId,
+      name: client?.name || "",
+      email: client?.email || "",
+      phone: client?.phone || "",
+      description: client?.description || "",
+      vehicle_type: client?.vehicle_type || "car",
+      model_brand: client?.model_brand || "",
+      patent: client?.patent || "",
+      status: client?.status || "active",
     },
   });
-  const clientMutation = useClientMutation({ toggleModal });
+  const clientMutation = useClientMutation({
+    toggleModal
+  });
   const onSubmit = handleSubmit(async (data) => {
     console.log(data);
-    clientMutation.mutate({ client: { ...data, user_id: userId } });
+    clientMutation.mutate({
+      clientData: data,
+      clientId: client ? client.id : null,
+    });
   });
   return (
     <form onSubmit={onSubmit} className="grid gap-4">

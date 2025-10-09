@@ -2,17 +2,19 @@ import { STATUS_LABELS } from "@/lib/consts";
 import { formatMoney } from "@/lib/utils";
 import type { Service } from "@/types/service";
 import { Button } from "../ui/button";
-import { PencilIcon, TrashIcon } from "lucide-react";
+import { ButtonEditService } from "./button-edit-service";
 
 interface TableBodyServicesProps {
   services: Service[];
   isLoading: boolean;
   isError: boolean;
+  userId:string;
 }
 export const TableBodyServices = ({
   services,
   isLoading,
   isError,
+  userId
 }: TableBodyServicesProps) => {
   if (isLoading) {
     return (
@@ -59,19 +61,25 @@ export const TableBodyServices = ({
             <td className="px-6 py-4">{service.duration} min</td>
             <td className="px-6 py-4">
               <div className="flex items-center gap-x-2">
-                 <Button type="button" variant={"outline"} size={"icon-sm"} title="Editar">
-                    <PencilIcon className="text-green-600" />
-                 </Button>
-                  <Button type="button" variant={"outline"} size={"icon-sm"} title="Eliminar">
-                    <TrashIcon className="text-red-600" />
-                 </Button>
+                <ButtonEditService userId={userId} service={service} />
+                <Button
+                  type="button"
+                  variant={"link"}
+                  title="Desactivar"
+                  className="p-0"
+                >
+                  Desactivar
+                </Button>
               </div>
             </td>
           </tr>
         ))
       ) : (
         <tr className="odd:bg-white even:bg-gray-50 border-gray-200">
-          <td colSpan={6} className="px-6 py-4 text-center text-muted-foreground">
+          <td
+            colSpan={6}
+            className="px-6 py-4 text-center text-muted-foreground"
+          >
             No se encontraron resultados
           </td>
         </tr>

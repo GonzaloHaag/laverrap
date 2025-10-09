@@ -39,18 +39,26 @@ export const buttonVariants = cva(
 );
 export const STATUS_COLORS: Record<string, string> = {
   basic: "bg-gray-100 text-slate-700",
-  complete: "bg-green-600 text-slate-100",
-  active: "bg-green-600 text-slate-100",
+  complete: "bg-green-700 text-slate-100",
+  active: "bg-green-700 text-slate-100",
   inactive: "bg-red-600 text-slate-100",
   premium: "bg-orange-700 text-slate-100",
+  other: "bg-blue-700 text-slate-100",
+  in_progress: "bg-blue-600 text-slate-100",
+  cancelled: "bg-red-600 text-slate-100",
+  completed: "bg-green-700 text-slate-100",
 };
 
 export const STATUS_LABELS: Record<string, string> = {
   complete: "Completo",
   basic: "Básico",
   premium: "Premium",
+  other: "Otra",
   active: "Activo",
   inactive: "Inactivo",
+  in_progress: "En progreso",
+  cancelled: "Cancelado",
+  completed: "Completado"
 };
 
 export const VEHICLES_TYPES_LABELS: Record<string, string> = {
@@ -124,6 +132,21 @@ export const STATES = [
   { id: 3, value: "inactive", label: "Inactivos" },
 ];
 
+export const WASHING_STATES = [
+  {
+    id: 1,
+    value: "all",
+    label: "Todos",
+  },
+  {
+    id: 2,
+    value: "in_progress",
+    label: "En progreso",
+  },
+  { id: 3, value: "completed", label: "Completados" },
+  { id: 4, value: "cancelled", label: "Cancelados" },
+];
+
 export const SERVICES_CATEGORIES = [
   {
     id: 1,
@@ -141,4 +164,9 @@ export const SERVICES_CATEGORIES = [
     label: "Completo",
   },
   { id: 4, value: "premium", label: "Premium" },
+  {
+    id: 5,
+    value: "other",
+    label: "Otra",
+  },
 ];

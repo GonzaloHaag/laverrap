@@ -7,9 +7,12 @@ import { valibotResolver } from "@hookform/resolvers/valibot";
 import { LoginSchema } from "@/schemas/login-schema";
 import { ErrorMessage } from "../error-message";
 import { loginUser } from "@/services/auth-service";
-import { LoaderCircleIcon } from "lucide-react";
+import { AlertCircleIcon, LoaderCircleIcon } from "lucide-react";
+import { useState } from "react";
+import { Alert, AlertTitle } from "../ui/alert";
 export const LoginForm = () => {
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
@@ -25,9 +28,10 @@ export const LoginForm = () => {
   const onSubmit = handleSubmit(async (data) => {
     const response = await loginUser(data);
     if (!response.ok) {
-      console.log(response.message);
+      setErrorMessage(response.message);
       return;
     }
+    setErrorMessage(null);
     navigate("/");
   });
   return (
@@ -53,6 +57,14 @@ export const LoginForm = () => {
           )}
         </div>
       </div>
+      {errorMessage && (
+        <Alert variant={"destructive"}>
+          <AlertCircleIcon />
+          <AlertTitle>
+            {errorMessage || "Ha ocurrido un error inesperado"}
+          </AlertTitle>
+        </Alert>
+      )}
       <div className="flex flex-col gap-y-2">
         <Button type="submit" title="Ingresar" disabled={isSubmitting}>
           {isSubmitting ? (

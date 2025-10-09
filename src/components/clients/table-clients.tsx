@@ -1,12 +1,18 @@
-import { TableBodyClients  } from "./table-body-clients";
+import { TableBodyClients } from "./table-body-clients";
 import type { Client } from "@/types/client";
 
-interface TableServicesProps {
-    clients: Client[];
-    isLoading:boolean;
-    isError:boolean;
+interface TableClientsProps {
+  clients: Client[];
+  isLoading: boolean;
+  isError: boolean;
+  userId: string;
 }
-export const TableClients = ({ clients, isLoading, isError } : TableServicesProps) => {
+export const TableClients = ({
+  clients,
+  isLoading,
+  isError,
+  userId,
+}: TableClientsProps) => {
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -25,11 +31,19 @@ export const TableClients = ({ clients, isLoading, isError } : TableServicesProp
               Lavados
             </th>
             <th scope="col" className="px-6 py-3">
+              Estado
+            </th>
+            <th scope="col" className="px-6 py-3">
               Acciones
             </th>
           </tr>
         </thead>
-        <TableBodyClients clients={clients} isLoading={isLoading} isError={isError} />
+        <TableBodyClients
+          clients={clients}
+          isLoading={isLoading}
+          isError={isError}
+          userId={userId}
+        />
       </table>
     </div>
   );

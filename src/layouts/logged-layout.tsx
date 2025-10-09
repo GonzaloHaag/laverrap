@@ -4,7 +4,6 @@ import { Header } from "@/components";
 import { Toaster } from "@/components/ui/sonner";
 export const LoggedLayout = () => {
   const { session } = useAuth();
-  console.log(session);
   if (session) {
     return (
      <>

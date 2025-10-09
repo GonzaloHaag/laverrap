@@ -1,4 +1,4 @@
-import { Search, SelectFilter } from "@/components";
+import { Pagination, Search, SelectFilter } from "@/components";
 import { FormClient, TableClients } from "@/components/clients";
 import { Button } from "@/components/ui/button";
 import {
@@ -61,6 +61,7 @@ export function ClientsPage() {
                 <FormClient
                   userId={session!.user.id}
                   toggleModal={toggleModal}
+                  client={null}
                 />
               </DialogContent>
             </Dialog>
@@ -79,7 +80,9 @@ export function ClientsPage() {
             clients={clientsQuery.data || []}
             isLoading={clientsQuery.isLoading}
             isError={clientsQuery.isError}
+            userId={session!.user.id}
           />
+          <Pagination />
         </CardContent>
       </Card>
     </section>

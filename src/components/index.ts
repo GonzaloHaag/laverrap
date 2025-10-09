@@ -4,3 +4,4 @@ export { SelectFilter } from "./select-filter";
 export { DialogFormFooter } from "./dialog-form-footer";
 export { ErrorMessage } from "./error-message";
 export { CardPage } from "./card-page";
+export { Pagination } from "./pagination";

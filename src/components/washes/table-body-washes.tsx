@@ -1,26 +1,23 @@
 import { Button } from "../ui/button";
-import type { Client } from "@/types/client";
+import { CheckIcon, XIcon } from "lucide-react";
 import { Badge } from "../ui/badge";
 import {
   STATUS_COLORS,
-  STATUS_LABELS,
-  VEHICLES_TYPES_LABELS,
+  STATUS_LABELS
 } from "@/lib/consts";
-import { Link } from "react-router";
-import { ButtonEditClient } from "./button-edit-client";
+import type { Washing } from "@/types/washing";
+import { formatMoney } from "@/lib/utils";
 
-interface TableBodyClientsProps {
-  clients: Client[];
+interface TableBodyWashesProps {
+  washes: Washing[];
   isLoading: boolean;
   isError: boolean;
-  userId:string;
 }
-export const TableBodyClients = ({
-  clients,
+export const TableBodyWashes = ({
+  washes,
   isLoading,
   isError,
-  userId
-}: TableBodyClientsProps) => {
+}: TableBodyWashesProps) => {
   if (isLoading) {
     return (
       <tbody>
@@ -48,57 +45,45 @@ export const TableBodyClients = ({
   }
   return (
     <tbody>
-      {clients.length > 0 ? (
-        clients.map((client) => (
+      {washes.length > 0 ? (
+        washes.map((wash) => (
           <tr
-            key={client.id}
+            key={wash.id}
             className="odd:bg-white even:bg-gray-50 border-gray-200"
           >
             <th
               scope="row"
               className="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white"
             >
-              {client.name}
+              {wash.clients.name}
             </th>
+            <td className="px-6 py-2">{wash.services.name}</td>
+            <td className="px-6 py-2">{formatMoney(wash.services.price)}</td>
             <td className="px-6 py-2">
-              <div className="flex flex-col gap-y-1">
-                <Link
-                  to={`mailto:${client.email}`}
-                  className="text-blue-600 hover:underline"
-                  title={`Enviar email a ${client.email}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {client.email}
-                </Link>
-                {client.phone && <span>{client.phone}</span>}
-              </div>
+              {new Date(wash.created_at).toLocaleDateString()}
             </td>
             <td className="px-6 py-2">
-              <div className="flex flex-col gap-y-1">
-                <span>
-                  {VEHICLES_TYPES_LABELS[client.vehicle_type]}
-                  {client.model_brand && ` - ${client.model_brand}`}
-                </span>
-                <Badge variant={"outline"}>{client.patent}</Badge>
-              </div>
-            </td>
-            <td className="px-6 py-2">{20}</td>
-            <td className="px-6 py-2">
-              <Badge className={STATUS_COLORS[client.status]}>
-                {STATUS_LABELS[client.status]}
+              <Badge className={STATUS_COLORS[wash.status]}>
+                {STATUS_LABELS[wash.status]}
               </Badge>
             </td>
             <td className="px-6 py-2">
               <div className="flex items-center gap-x-2">
-                <ButtonEditClient userId={userId} client={client} />
                 <Button
                   type="button"
-                  variant={"link"}
-                  title="Desactivar"
-                  className="p-0"
+                  variant={"outline"}
+                  size={"icon-sm"}
+                  title="Completar"
                 >
-                  Desactivar
+                  <CheckIcon className="text-green-700" />
+                </Button>
+                <Button
+                  type="button"
+                  variant={"outline"}
+                  size={"icon-sm"}
+                  title="Cancelar"
+                >
+                  <XIcon className="text-red-600" />
                 </Button>
               </div>
             </td>

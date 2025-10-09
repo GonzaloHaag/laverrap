@@ -16,10 +16,16 @@ import { DialogFormFooter, ErrorMessage } from "@/components";
 import { ServiceSchema } from "@/schemas";
 import { useServiceMutation } from "@/hooks";
 import type { FormProps } from "@/types/form";
+import type { Service } from "@/types/service";
+
+interface FormServiceProps extends FormProps {
+  service: Service | null;
+}
 export const FormService = ({
   userId,
+  service,
   toggleModal,
-}: FormProps) => {
+}: FormServiceProps) => {
   const {
     register,
     formState: { errors },
@@ -29,12 +35,13 @@ export const FormService = ({
     resolver: valibotResolver(ServiceSchema),
     mode: "onSubmit",
     defaultValues: {
-      name: "",
-      description: "",
-      category: "basic",
-      status: "active",
-      price: undefined,
-      duration: undefined,
+      user_id: userId,
+      name: service?.name ?? "",
+      description: service?.description ?? "",
+      category: service?.category ?? "basic",
+      status: service?.status ?? "active",
+      price: service?.price ?? 0,
+      duration: service?.duration ?? 0,
     },
   });
 
@@ -42,8 +49,13 @@ export const FormService = ({
 
   const onSubmit = handleSubmit(async (data) => {
     console.log(data);
-    serviceMutation.mutate({service: {...data, user_id: userId} }); // el servicio creado se manda al createService
+    serviceMutation.mutate({
+      serviceData: data,
+      serviceId: service ? service.id : null,
+    }); // el servicio creado se manda al createService
   });
+
+  console.log(errors);
   return (
     <form onSubmit={onSubmit} className="grid gap-4">
       <div className="flex flex-col gap-y-1">
@@ -140,7 +152,7 @@ export const FormService = ({
         </div>
         <div className="flex flex-col gap-y-1">
           <div className="grid gap-2">
-            <Label htmlFor="duration">Duración (en minutos) *</Label>
+            <Label htmlFor="duration">Duración aprox. (en minutos) *</Label>
             <Input
               id="duration"
               {...register("duration", { valueAsNumber: true })}

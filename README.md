@@ -1,73 +1,127 @@
-# React + TypeScript + Vite
+# LAVERRAP - Sistema de Gestión para Lavadero de Autos
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Una aplicación web moderna para la gestión integral de un lavadero de autos, desarrollada con React, TypeScript, Vite y Supabase.
 
-Currently, two official plugins are available:
+## Características
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Gestión de Clientes**: Registro y administración de clientes
+- **Servicios**: Catálogo de servicios de lavado con precios
+- **Lavados**: Control de lavados realizados y seguimiento
+- **Dashboard**: Estadísticas y gráficos de ingresos mensuales
+- **Autenticación**: Sistema de login seguro
+- **Responsive**: Diseño adaptable para dispositivos móviles y desktop
 
-## React Compiler
+## Tecnologías Utilizadas
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+- **Frontend**: React 19, TypeScript, Vite
+- **Routing**: React Router 7
+- **Styling**: Tailwind CSS 4
+- **UI Components**: Shadcn, Lucide React
+- **Forms**: React Hook Form + Valibot
+- **State Management**: TanStack Query (React Query)
+- **Backend**: Supabase
+- **Charts**: Recharts
+- **Notificationes**: Sonner
 
-## Expanding the ESLint configuration
+## Requisitos Previos
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Node.js** (versión 18 o superior)
+- **pnpm** (recomendado) o npm/yarn
+- Cuenta en **Supabase**
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Instalación y Configuración
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 1. Clonar el repositorio
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+git clone https://github.com/GonzaloHaag/laverrap.git
+cd laverrap
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Instalar dependencias
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+pnpm install
+# o si usas npm:
+# npm install
 ```
+
+### 3. Configurar variables de entorno
+
+Reenombrar archivo `.env.example` a `.env.local` y colocar tus credenciales de supabase:
+
+```
+VITE_SUPABASE_URL=tu_supabase_url
+VITE_SUPABASE_ANON_KEY=tu_supabase_anon_key
+```
+
+### 4. Configurar la base de datos
+
+El proyecto utiliza Supabase como backend. Asegúrate de:
+
+1. Configurar las tablas necesarias en tu proyecto de Supabase
+2. Configurar las políticas de seguridad (RLS) si es necesario
+3. Si tienes el esquema SQL, ejecútalo en el SQL Editor de Supabase
+
+### 5. Generar tipos de TypeScript (Opcional)
+
+Si has modificado la estructura de la base de datos:
+
+```bash
+pnpm run gen-types
+```
+
+Este comando generará los tipos de TypeScript actualizados basados en tu esquema de Supabase.
+
+## Ejecutar el Proyecto
+
+### Modo desarrollo
+
+```bash
+pnpm run dev
+```
+
+La aplicación estará disponible en `http://localhost:5173`
+
+### Build para producción
+
+```bash
+pnpm run build
+```
+
+### Preview del build
+
+```bash
+pnpm run preview
+```
+
+## 🔑 Funcionalidades Principales
+
+### Dashboard
+- Visualización de ingresos mensuales
+- Gráficos de tipos de lavado más populares
+- Tarjetas con estadísticas rápidas
+
+### Gestión de Clientes
+- CRUD completo de clientes
+- Búsqueda y filtrado
+- Paginación
+
+### Servicios
+- Catálogo de servicios de lavado
+- Gestión de precios
+- Categorización por tipos
+
+### Control de Lavados
+- Registro de lavados realizados
+- Asociación cliente-servicio
+- Seguimiento de fechas y montos
+
+## Contribuir
+
+1. Fork del proyecto
+2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
+3. Commit de tus cambios (`git commit -m 'Add some AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+---
