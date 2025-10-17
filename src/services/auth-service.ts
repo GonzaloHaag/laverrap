@@ -44,9 +44,6 @@ export const loginUser = async (data: UserLogin) => {
 export const loginWithGoogle = async () => {
   const { error } = await supabaseClient.auth.signInWithOAuth({
     provider: "google",
-    options: {
-      redirectTo: `${window.location.origin}/auth/callback`,
-    }
   });
 
   if (error) {
@@ -57,9 +54,9 @@ export const loginWithGoogle = async () => {
   }
 
   return {
-    ok:true,
-    message:"Login exitoso con Google"
-  }
+    ok: true,
+    message: "Login exitoso con Google",
+  };
 };
 
 export const logoutUser = async (): Promise<ApiResponse<null>> => {

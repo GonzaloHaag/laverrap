@@ -17,7 +17,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { FormWashing, TableWashes } from "@/components/washes";
-import { useAuth, useModal, useWashes } from "@/hooks";
+import { useAuth, useModal, usePagination, useWashes } from "@/hooks";
 import { WASHING_STATES } from "@/lib/consts";
 import { PlusIcon } from "lucide-react";
 import { useSearchParams } from "react-router";
@@ -29,8 +29,12 @@ export function WashesPage() {
     searchValue: searchParams.get("search")?.toString() ?? "",
     statusValue: searchParams.get("status")?.toString() ?? "",
   };
-
-  const { washesQuery } = useWashes({ userId: session!.user.id, filters });
+  const { page, goToPage, goToNextPage, goToPreviousPage } = usePagination();
+  const { washesQuery } = useWashes({
+    userId: session!.user.id,
+    filters,
+    page,
+  });
   return (
     <section className="flex flex-col gap-y-4">
       {/* <SectionCardsServices /> */}
@@ -77,12 +81,17 @@ export function WashesPage() {
             />
           </form>
           <TableWashes
-            washes={washesQuery.data || []}
+            washes={washesQuery.data?.data || []}
             isLoading={washesQuery.isLoading}
             isError={washesQuery.isError}
-            
           />
-          <Pagination />
+          <Pagination
+            goToPage={goToPage}
+            currentPage={page}
+            goToNextPage={goToNextPage}
+            goToPreviousPage={goToPreviousPage}
+            totalPages={washesQuery.data?.totalPages || 0}
+          />
         </CardContent>
       </Card>
     </section>

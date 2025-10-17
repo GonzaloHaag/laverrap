@@ -22,9 +22,14 @@ export const Pagination = ({
   goToPreviousPage,
 }: PaginationProps) => {
   return (
-    <PaginationContainer>
+    <PaginationContainer className={`${totalPages === 0 && "hidden"}`}>
       <PaginationContent>
-        <PaginationItem onClick={goToPreviousPage} className={`${currentPage === 0 ? 'pointer-events-none opacity-50' : ''}`}>
+        <PaginationItem
+          onClick={goToPreviousPage}
+          className={`${
+            currentPage === 0 ? "pointer-events-none opacity-50" : ""
+          }`}
+        >
           <PaginationPrevious href="#" />
         </PaginationItem>
         {Array.from({ length: totalPages }, (_, index) => (
@@ -38,7 +43,14 @@ export const Pagination = ({
             </PaginationLink>
           </PaginationItem>
         ))}
-        <PaginationItem onClick={goToNextPage} className={`${totalPages === currentPage + 1 ? 'pointer-events-none opacity-50' : ''}`}>
+        <PaginationItem
+          onClick={goToNextPage}
+          className={`${
+            totalPages === currentPage + 1
+              ? "pointer-events-none opacity-50"
+              : ""
+          }`}
+        >
           <PaginationNext href="#" title="Siguiente" />
         </PaginationItem>
       </PaginationContent>

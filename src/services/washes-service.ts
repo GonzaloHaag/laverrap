@@ -1,3 +1,4 @@
+import { ITEMS_PER_PAGE } from "@/lib/consts";
 import { WashingSchema } from "@/schemas";
 import { supabaseClient } from "@/supabase/supabase-client";
 import type { ApiResponse } from "@/types/api-response";
@@ -7,18 +8,23 @@ import { safeParse } from "valibot";
 export const getAllWashes = async ({
   userId,
   filters,
+  page,
 }: {
   userId: string;
   filters: {
     searchValue: string;
     statusValue: string;
   };
+  page: number;
 }): Promise<ApiResponse<Washing[]>> => {
+  const start = page * ITEMS_PER_PAGE;
+  const end = start + ITEMS_PER_PAGE - 1;
   const query = supabaseClient
     .from("washed")
-    .select(`*, clients(*), services(*)`)
+    .select(`*, clients(*), services(*)`, { count: "exact" })
     .order("created_at", { ascending: false })
-    .eq("user_id", userId);
+    .eq("user_id", userId)
+    .range(start, end);
   if (filters.searchValue.trim() !== "") {
     query.or(
       `clients.name.ilike.%${filters.searchValue}%, clients.patent.ilike.%${filters.searchValue}%, services.name.ilike.%${filters.searchValue}%`
@@ -30,7 +36,7 @@ export const getAllWashes = async ({
       filters.statusValue as "in_progress" | "completed" | "cancelled"
     );
   }
-  const { data, error } = await query;
+  const { data, error, count } = await query;
 
   if (error) {
     return {
@@ -38,11 +44,12 @@ export const getAllWashes = async ({
       message: error.message,
     };
   }
-
+  const totalPages = Math.ceil(count! / ITEMS_PER_PAGE);
   return {
     ok: true,
     message: "Exito al obtener los lavados",
     data: data,
+    totalPages,
   };
 };
 
@@ -128,7 +135,6 @@ export const deleteWashingById = async ({
 }: {
   washingId: number;
 }): Promise<ApiResponse<Washing>> => {
-
   if (!washingId) {
     return {
       ok: false,

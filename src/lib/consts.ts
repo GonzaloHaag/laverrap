@@ -58,7 +58,7 @@ export const STATUS_LABELS: Record<string, string> = {
   inactive: "Inactivo",
   in_progress: "En progreso",
   cancelled: "Cancelado",
-  completed: "Completado"
+  completed: "Completado",
 };
 
 export const VEHICLES_TYPES_LABELS: Record<string, string> = {
@@ -170,3 +170,4 @@ export const SERVICES_CATEGORIES = [
     label: "Otra",
   },
 ];
+export const ITEMS_PER_PAGE = 10;

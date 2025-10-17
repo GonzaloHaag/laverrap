@@ -17,7 +17,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useAuth, useClients, useModal } from "@/hooks";
+import { useAuth, useClients, useModal, usePagination } from "@/hooks";
 import { STATES } from "@/lib/consts";
 import { PlusIcon } from "lucide-react";
 import { useSearchParams } from "react-router";
@@ -29,7 +29,12 @@ export function ClientsPage() {
     searchValue: searchParams.get("search")?.toString() ?? "",
     statusValue: searchParams.get("status")?.toString() ?? "",
   };
-  const { clientsQuery } = useClients({ userId: session!.user.id, filters });
+  const { page, goToPage, goToNextPage, goToPreviousPage } = usePagination();
+  const { clientsQuery } = useClients({
+    userId: session!.user.id,
+    filters,
+    page: page,
+  });
   return (
     <section className="flex flex-col gap-y-4">
       {/* <SectionCardsServices /> */}
@@ -77,12 +82,18 @@ export function ClientsPage() {
             />
           </form>
           <TableClients
-            clients={clientsQuery.data || []}
+            clients={clientsQuery.data?.data || []}
             isLoading={clientsQuery.isLoading}
             isError={clientsQuery.isError}
             userId={session!.user.id}
           />
-          <Pagination />
+          <Pagination
+            goToPage={goToPage}
+            currentPage={page}
+            goToNextPage={goToNextPage}
+            goToPreviousPage={goToPreviousPage}
+            totalPages={clientsQuery.data?.totalPages || 0}
+          />
         </CardContent>
       </Card>
     </section>

@@ -1,3 +1,4 @@
+import { ITEMS_PER_PAGE } from "@/lib/consts";
 import { ClientSchema } from "@/schemas";
 import { supabaseClient } from "@/supabase/supabase-client";
 import type { ApiResponse } from "@/types/api-response";
@@ -7,19 +8,24 @@ import { safeParse } from "valibot";
 export const getAllClients = async ({
   userId,
   filters,
+  page,
 }: {
   userId: string;
   filters: {
     searchValue: string;
     statusValue: string;
   };
+  page: number;
 }): Promise<ApiResponse<ClientWithWashes[]>> => {
+  const start = page * ITEMS_PER_PAGE;
+  const end = start + ITEMS_PER_PAGE - 1;
   const query = supabaseClient
     .from("clients")
-    .select(`*, washed!inner(count)`)
+    .select(`*, washed!left(count)`, { count: "exact" })
     .order("name", { ascending: true })
     .eq("user_id", userId)
-    .eq("washed.status", "completed");
+    .eq("washed.status", "completed")
+    .range(start, end);
   if (filters.searchValue.trim() !== "") {
     query.or(
       `name.ilike.%${filters.searchValue}%, email.ilike.%${filters.searchValue}%, patent.ilike.%${filters.searchValue}%`
@@ -28,7 +34,7 @@ export const getAllClients = async ({
   if (filters.statusValue !== "") {
     query.eq("status", filters.statusValue as "active" | "inactive");
   }
-  const { data, error } = await query;
+  const { data, error, count } = await query;
 
   if (error) {
     return {
@@ -37,10 +43,13 @@ export const getAllClients = async ({
     };
   }
 
+  const totalPages = Math.ceil(count! / ITEMS_PER_PAGE);
+
   return {
     ok: true,
     message: "Exito al obtener los clientes",
     data: data,
+    totalPages,
   };
 };
 
@@ -62,7 +71,12 @@ export const createOrUpdateClient = async ({
 
     let query;
     if (clientId) {
-      query = supabaseClient.from("clients").update(client).eq("id", clientId).select().single();
+      query = supabaseClient
+        .from("clients")
+        .update(client)
+        .eq("id", clientId)
+        .select()
+        .single();
     } else {
       query = supabaseClient.from("clients").insert(client).select().single();
     }

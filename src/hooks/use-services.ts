@@ -1,7 +1,7 @@
 import { getAllServices } from "@/services/services-service";
 import type { ApiResponse } from "@/types/api-response";
 import type { Service } from "@/types/service";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 interface Options {
   userId: string;
@@ -33,7 +33,6 @@ export const useServices = ({ userId, filters, page }: Options) => {
       }
       return response;
     },
-    placeholderData: keepPreviousData,
     staleTime: 1000 * 60 * 60 * 4, // 4 horas
     enabled: !!userId,
   });

@@ -1,9 +1,9 @@
+import { ITEMS_PER_PAGE } from "@/lib/consts";
 import { ServiceSchema } from "@/schemas";
 import { supabaseClient } from "@/supabase/supabase-client";
 import type { ApiResponse } from "@/types/api-response";
 import type { NewService, Service } from "@/types/service";
 import { safeParse } from "valibot";
-const ITEMS_PER_PAGE = 10;
 export const getAllServices = async ({
   userId,
   filters,
@@ -25,7 +25,6 @@ export const getAllServices = async ({
     .order("name", { ascending: true })
     .eq("user_id", userId)
     .range(start, end);
-  // TODO: add pagination
   if (filters.searchValue.trim() !== "") {
     query.ilike("name", `%${filters.searchValue}%`);
   }
