@@ -17,11 +17,6 @@ import { DialogFormFooter } from "../dialog-form-footer";
 import type { FormProps } from "@/types/form";
 import type { Client } from "@/types/client";
 import { useClientMutation } from "@/hooks/mutations";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from "../ui/input-group";
 import { CircleQuestionMarkIcon, PhoneIcon } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 interface FormClientProps extends FormProps {
@@ -93,12 +88,15 @@ export const FormClient = ({
             </TooltipContent>
           </Tooltip>
         </Label>
-        <InputGroup>
-          <InputGroupInput type="tel" placeholder="WhatsApp del cliente" {...register("phone")} />
-          <InputGroupAddon>
-            <PhoneIcon />
-          </InputGroupAddon>
-        </InputGroup>
+        <div className="relative">
+          <PhoneIcon size={16} className="absolute top-0 bottom-0 my-auto mx-0 text-muted-foreground left-2" />
+           <Input
+          type="tel"
+          placeholder="WhatsApp del cliente"
+          {...register("phone")}
+          className="pl-8"
+        />
+        </div>
       </div>
       <div className="grid grid-cols-2 items-center gap-4">
         <div className="grid gap-2">

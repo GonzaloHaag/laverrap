@@ -17,7 +17,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useAuth, useModal, useServices } from "@/hooks";
+import { useAuth, useModal, usePagination, useServices } from "@/hooks";
 import { SERVICES_CATEGORIES, STATES } from "@/lib/consts";
 import { PlusIcon } from "lucide-react";
 import { useSearchParams } from "react-router";
@@ -30,9 +30,11 @@ export function ServicesPage() {
     categoryValue: searchParams.get("category")?.toString() ?? "",
     statusValue: searchParams.get("status")?.toString() ?? "",
   };
+  const { page, goToPage, goToNextPage, goToPreviousPage } = usePagination();
   const { servicesQuery } = useServices({
     userId: session!.user.id,
     filters,
+    page: page,
   });
 
   return (
@@ -87,12 +89,18 @@ export function ServicesPage() {
             />
           </form>
           <TableServices
-            services={servicesQuery.data || []}
+            services={servicesQuery.data?.data || []}
             isLoading={servicesQuery.isLoading}
             isError={servicesQuery.isError}
             userId={session!.user.id}
           />
-          <Pagination />
+          <Pagination
+            goToPage={goToPage}
+            currentPage={page}
+            goToNextPage={goToNextPage}
+            goToPreviousPage={goToPreviousPage}
+            totalPages={servicesQuery.data?.totalPages || 0}
+          />
         </CardContent>
       </Card>
     </section>

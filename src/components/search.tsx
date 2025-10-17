@@ -1,7 +1,7 @@
 import { SearchIcon } from "lucide-react";
-import { InputGroup, InputGroupAddon, InputGroupInput } from "./ui/input-group";
 import { useSearchParams } from "react-router";
 import type { ChangeEvent } from "react";
+import { Input } from "./ui/input";
 interface SearchProps {
   placeholder: string;
 }
@@ -19,15 +19,15 @@ export const Search = ({ placeholder }: SearchProps) => {
     setSearchParams(params);
   };
   return (
-    <InputGroup className="w-full max-w-xl">
-      <InputGroupInput
+    <div className="relative w-full">
+      <SearchIcon size={16} className="absolute bottom-0 top-0 my-auto left-2 text-muted-foreground" />
+      <Input
+        type="search"
         placeholder={placeholder}
         onChange={handleSearch}
         defaultValue={searchParams.get("search")?.toString()}
+        className="pl-8"
       />
-      <InputGroupAddon>
-        <SearchIcon />
-      </InputGroupAddon>
-    </InputGroup>
+    </div>
   );
 };

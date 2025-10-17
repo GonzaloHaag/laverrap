@@ -24,7 +24,7 @@ export const DropdownUser = () => {
   };
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger className="cursor-pointer">
         <img
           src="https://github.com/shadcn.png"
           width={35}

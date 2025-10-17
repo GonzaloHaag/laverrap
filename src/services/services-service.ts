@@ -3,10 +3,11 @@ import { supabaseClient } from "@/supabase/supabase-client";
 import type { ApiResponse } from "@/types/api-response";
 import type { NewService, Service } from "@/types/service";
 import { safeParse } from "valibot";
-
+const ITEMS_PER_PAGE = 10;
 export const getAllServices = async ({
   userId,
   filters,
+  page
 }: {
   userId: string;
   filters: {
@@ -14,12 +15,16 @@ export const getAllServices = async ({
     categoryValue: string;
     statusValue: string;
   };
+  page:number;
 }): Promise<ApiResponse<Service[]>> => {
+  const start = page * ITEMS_PER_PAGE;
+  const end = start + ITEMS_PER_PAGE - 1;
   const query = supabaseClient
     .from("services")
-    .select("*")
+    .select("*",{ count: "exact" })
     .order("name", { ascending: true })
-    .eq("user_id", userId);
+    .eq("user_id", userId)
+    .range(start, end);
   // TODO: add pagination
   if (filters.searchValue.trim() !== "") {
     query.ilike("name", `%${filters.searchValue}%`);
@@ -33,7 +38,7 @@ export const getAllServices = async ({
   if (filters.statusValue !== "") {
     query.eq("status", filters.statusValue as "active" | "inactive");
   }
-  const { data, error } = await query;
+  const { data, error, count } = await query;
 
   if (error) {
     return {
@@ -41,11 +46,13 @@ export const getAllServices = async ({
       message: error.message,
     };
   }
+  const totalPages = Math.ceil(count! / ITEMS_PER_PAGE);
 
   return {
     ok: true,
     message: "Exito al obtener servicios",
     data: data,
+    totalPages
   };
 };
 
