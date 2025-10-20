@@ -1,20 +1,20 @@
 import { STATUS_LABELS } from "@/lib/consts";
 import { formatMoney } from "@/lib/utils";
 import type { Service } from "@/types/service";
-import { Button } from "../ui/button";
 import { ButtonEditService } from "./button-edit-service";
+import { ButtonDeleteService } from "./button-delete-service";
 
 interface TableBodyServicesProps {
   services: Service[];
   isLoading: boolean;
   isError: boolean;
-  userId:string;
+  userId: string;
 }
 export const TableBodyServices = ({
   services,
   isLoading,
   isError,
-  userId
+  userId,
 }: TableBodyServicesProps) => {
   if (isLoading) {
     return (
@@ -62,14 +62,7 @@ export const TableBodyServices = ({
             <td className="px-6 py-4">
               <div className="flex items-center gap-x-2">
                 <ButtonEditService userId={userId} service={service} />
-                <Button
-                  type="button"
-                  variant={"link"}
-                  title="Desactivar"
-                  className="p-0"
-                >
-                  Desactivar
-                </Button>
+                <ButtonDeleteService serviceId={service.id} />
               </div>
             </td>
           </tr>

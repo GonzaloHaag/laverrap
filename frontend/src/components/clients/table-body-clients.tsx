@@ -1,4 +1,3 @@
-import { Button } from "../ui/button";
 import type { ClientWithWashes } from "@/types/client";
 import { Badge } from "../ui/badge";
 import {
@@ -8,18 +7,19 @@ import {
 } from "@/lib/consts";
 import { Link } from "react-router";
 import { ButtonEditClient } from "./button-edit-client";
+import { ButtonToggleStatusClient } from "./button-toggle-status-client";
 
 interface TableBodyClientsProps {
   clients: ClientWithWashes[];
   isLoading: boolean;
   isError: boolean;
-  userId:string;
+  userId: string;
 }
 export const TableBodyClients = ({
   clients,
   isLoading,
   isError,
-  userId
+  userId,
 }: TableBodyClientsProps) => {
   if (isLoading) {
     return (
@@ -62,21 +62,19 @@ export const TableBodyClients = ({
             </th>
             <td className="px-6 py-2">
               <div className="flex flex-col gap-y-1">
-               {
-                client.phone ? (
-                   <Link
-                  to={`tel:${client.phone}`}
-                  className="text-blue-600 hover:underline"
-                  title={`Contactar a ${client.name} por teléfono`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {client.phone}
-                </Link>
+                {client.phone ? (
+                  <Link
+                    to={`tel:${client.phone}`}
+                    className="text-blue-600 hover:underline"
+                    title={`Contactar a ${client.name} por teléfono`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {client.phone}
+                  </Link>
                 ) : (
                   <span className="text-muted-foreground">Sin teléfono</span>
-                )
-               }
+                )}
               </div>
             </td>
             <td className="px-6 py-2">
@@ -97,14 +95,10 @@ export const TableBodyClients = ({
             <td className="px-6 py-2">
               <div className="flex items-center gap-x-2">
                 <ButtonEditClient userId={userId} client={client} />
-                <Button
-                  type="button"
-                  variant={"link"}
-                  title="Desactivar"
-                  className="p-0"
-                >
-                  Desactivar
-                </Button>
+                <ButtonToggleStatusClient
+                  clientId={client.id}
+                  clientStatus={client.status}
+                />
               </div>
             </td>
           </tr>

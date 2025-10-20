@@ -22,6 +22,7 @@ export const getAllClients = async ({
   const query = supabaseClient
     .from("clients")
     .select(`*, washed!left(count)`, { count: "exact" })
+    .order("status", { ascending: true })
     .order("name", { ascending: true })
     .eq("user_id", userId)
     .eq("washed.status", "completed")
@@ -134,6 +135,49 @@ export const updateClient = async ({
     return {
       ok: true,
       message: "Cliente actualizado",
+      data,
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      ok: false,
+      message: "Error inesperado",
+    };
+  }
+};
+
+export const toggleStatusClient = async ({
+  clientId,
+  status
+}: {
+  clientId: number;
+  status: "active" | "inactive";
+}): Promise<ApiResponse<Client>> => {
+  if (!clientId) {
+    return {
+      ok: false,
+      message: "ID de cliente inválido",
+    };
+  }
+  try {
+    const { data, error } = await supabaseClient
+      .from("clients")
+      .update({ status })
+      .eq("id", clientId)
+      .select("*")
+      .single();
+
+    if (error) {
+      console.log(error);
+      return {
+        ok: false,
+        message: "Error al actualizar el estado del cliente",
+      };
+    }
+
+    return {
+      ok: true,
+      message: "Estado del cliente actualizado",
       data,
     };
   } catch (error) {

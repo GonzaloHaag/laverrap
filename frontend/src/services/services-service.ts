@@ -7,7 +7,7 @@ import { safeParse } from "valibot";
 export const getAllServices = async ({
   userId,
   filters,
-  page
+  page,
 }: {
   userId: string;
   filters: {
@@ -15,13 +15,13 @@ export const getAllServices = async ({
     categoryValue: string;
     statusValue: string;
   };
-  page:number;
+  page: number;
 }): Promise<ApiResponse<Service[]>> => {
   const start = page * ITEMS_PER_PAGE;
   const end = start + ITEMS_PER_PAGE - 1;
   const query = supabaseClient
     .from("services")
-    .select("*",{ count: "exact" })
+    .select("*", { count: "exact" })
     .order("name", { ascending: true })
     .eq("user_id", userId)
     .range(start, end);
@@ -51,7 +51,7 @@ export const getAllServices = async ({
     ok: true,
     message: "Exito al obtener servicios",
     data: data,
-    totalPages
+    totalPages,
   };
 };
 
@@ -94,6 +94,55 @@ export const createOrUpdateService = async ({
     return {
       ok: true,
       message: serviceId ? "Servicio actualizado" : "Servicio creado",
+      data,
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      ok: false,
+      message: "Error inesperado",
+    };
+  }
+};
+
+export const deleteServiceById = async ({
+  serviceId,
+}: {
+  serviceId: number;
+}): Promise<ApiResponse<Service>> => {
+  if (!serviceId) {
+    return {
+      ok: false,
+      message: "ID de servicio inválido",
+    };
+  }
+  try {
+    const { data, error } = await supabaseClient
+      .from("services")
+      .delete()
+      .eq("id", serviceId)
+      .select("*")
+      .single();
+
+    if (error) {
+      console.log(error.code);
+
+      if (error.code === "23503") {
+        return {
+          ok: false,
+          message:
+            "No se puede eliminar el servicio porque está asociado a lavados existentes.",
+        };
+      }
+      return {
+        ok: false,
+        message: error.message || "Error al eliminar el servicio",
+      };
+    }
+
+    return {
+      ok: true,
+      message: "Servicio eliminado",
       data,
     };
   } catch (error) {

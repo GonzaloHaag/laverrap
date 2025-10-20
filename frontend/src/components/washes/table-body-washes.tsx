@@ -72,7 +72,9 @@ export const TableBodyWashes = ({
                   washing={washing}
                   is_completed={washing.status === "completed"}
                 />
-                <ButtonNotifyClient washing={washing} />
+                {washing.status === "completed" && (
+                  <ButtonNotifyClient washing={washing} />
+                )}
               </div>
             </td>
           </tr>

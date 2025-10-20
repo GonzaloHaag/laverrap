@@ -6,3 +6,4 @@ export { useClientsSelect } from "./use-clients-select";
 export { useServicesSelect } from "./use-services-select";
 export { useWashes } from "./use-washes";
 export { usePagination } from "./use-pagination";
+export { useNotifications } from "./use-notifications";
