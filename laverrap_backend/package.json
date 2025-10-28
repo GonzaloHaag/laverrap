@@ -1,0 +1,30 @@
+{
+  "name": "laverrap_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --import=tsx --env-file=.env --watch index.ts",
+    "lint": "eslint"
+  },
+  "keywords": [
+    "backend",
+    "nodejs",
+    "express",
+    "supabase",
+    "laverrap"
+  ],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.14.0",
+  "devDependencies": {
+    "@eslint/js": "^9.38.0",
+    "eslint": "^9.38.0",
+    "globals": "^16.4.0",
+    "jiti": "^2.6.1",
+    "tsx": "^4.20.6",
+    "typescript-eslint": "^8.46.2"
+  }
+}
