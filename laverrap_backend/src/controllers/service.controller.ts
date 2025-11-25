@@ -44,6 +44,8 @@ export const serviceController = {
       });
     }
 
+    console.log(userId);
+
     try {
       const validatedFields = serviceSchema.parse(req.body);
       const service = await prisma.service.create({

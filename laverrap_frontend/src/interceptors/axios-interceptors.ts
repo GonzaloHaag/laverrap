@@ -1,7 +1,5 @@
 import { api } from "@/services";
 
-const token = localStorage.getItem("token");
-
 export const axiosInterceptor = () => {
   api.interceptors.request.use(
     (config) => {
@@ -9,8 +7,13 @@ export const axiosInterceptor = () => {
       if (config.url?.includes("/auth")) {
         return config; // NO hago nada
       }
-      config.headers["Authorization"] = `Bearer ${token}`;
-      config.headers["Content-Type"] = "application/json";
+      const token = localStorage.getItem("token");
+      if (token) {
+        config.headers["Authorization"] = `Bearer ${token}`;
+      }
+      if (!config.headers["Content-Type"]) {
+        config.headers["Content-Type"] = "application/json";
+      }
       return config;
     },
     (error) => {
@@ -27,8 +30,14 @@ export const axiosInterceptor = () => {
     (error) => {
       /** Hacer algo con el error de la respuesta */
       if (error.response.data) {
+        if (error.response.status === 403 || error.response.status === 401) {
+          /** Expiro el token o es inváido, redirigr */
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+          window.location.href = "/auth/login";
+        }
         console.log("Error backend", error.response.data);
-        return Promise.reject(error.response.data.message); // el catch lo agarrar con el message ya
+        if (error.response) return Promise.reject(error.response.data.message); // el catch lo agarrar con el message ya
       }
       console.log(error);
       return Promise.reject(error);

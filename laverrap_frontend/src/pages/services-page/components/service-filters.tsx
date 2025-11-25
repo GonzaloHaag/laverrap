@@ -1,6 +1,6 @@
 import { Search } from "@/components/shared";
 import { NativeSelect, NativeSelectOption } from "@/components/ui";
-import { SERVICE_TYPE } from "@/utils/const";
+import { SERVICES_CATEGORY } from "@/utils/const";
 
 
 export const ServiceFilters = () => {
@@ -9,7 +9,7 @@ export const ServiceFilters = () => {
       <Search placeholder="Buscar servicios" />
       <NativeSelect>
         <NativeSelectOption value="">Seleccionar tipo</NativeSelectOption>
-        {SERVICE_TYPE.map((type) => (
+        {SERVICES_CATEGORY.map((type) => (
           <NativeSelectOption key={type.id} value={type.value}>
             {type.label}
           </NativeSelectOption>

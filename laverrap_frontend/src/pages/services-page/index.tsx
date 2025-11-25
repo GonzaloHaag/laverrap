@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Button,
   Card,
@@ -13,17 +14,21 @@ import {
   DialogTrigger,
 } from "@/components/ui";
 import {
+  FormService,
   SectionCards,
   ServiceFilters,
-  ServiceForm,
   TableServices,
 } from "./components";
 import { PlusCircleIcon } from "lucide-react";
 import { useServices } from "@/hooks";
 
-
 export const ServicesPage = () => {
   const { services, isLoading, error } = useServices();
+  const [open, setOpen] = useState(false);
+
+  const closeDialog = () => {
+    setOpen((prev) => !prev);
+  };
   return (
     <Card>
       <CardHeader>
@@ -36,7 +41,7 @@ export const ServicesPage = () => {
         <SectionCards />
         <div className="flex items-center justify-between">
           <ServiceFilters />
-          <Dialog>
+          <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <Button type="button" title="Agregar servicio">
                 <PlusCircleIcon />
@@ -50,7 +55,7 @@ export const ServicesPage = () => {
                   Colocá los detalles del nuevo servicio que ofrecerás
                 </DialogDescription>
               </DialogHeader>
-              <ServiceForm />
+              <FormService service={null} closeDialog={closeDialog} />
             </DialogContent>
           </Dialog>
         </div>

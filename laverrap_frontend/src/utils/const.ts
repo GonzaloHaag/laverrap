@@ -33,13 +33,13 @@ export const buttonVariants = cva(
 );
 
 export const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
-export const SERVICE_TYPE = [
-  { id: 1, value: "basic", label: "Básico" },
-  { id: 2, value: "complete", label: "Completo" },
-  { id: 3, value: "premium", label: "Premium" },
-  { id: 4, value: "other", label: "Otro" },
+export const SERVICES_CATEGORY = [
+  { id: 1, value: "BASIC", label: "Básico" },
+  { id: 2, value: "COMPLETE", label: "Completo" },
+  { id: 3, value: "PREMIUM", label: "Premium" },
+  { id: 4, value: "OTHER", label: "Otro" },
 ];
-export const SERVICE_STATUS = [
-  { id: 1, value: "active", label: "Activo" },
-  { id: 2, value: "inactive", label: "Inactivo" }
+export const SERVICES_STATUS = [
+  { id: 1, value: "ACTIVE", label: "Activo" },
+  { id: 2, value: "INACTIVE", label: "Inactivo" }
 ];

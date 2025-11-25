@@ -15,7 +15,7 @@ export const DialogFooterForm = ({
         </Button>
       </DialogClose>
       <Button type="submit" title={title} variant={"default"} className="min-w-28" disabled={isLoading}>
-        {isLoading ? "Creando..." : title}
+        { title }
       </Button>
     </DialogFooter>
   );

@@ -8,8 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import type { Service } from "@/schemas";
-import { formatCategoryService, formatMoney } from "@/utils/formatters";
-import { ClockIcon } from "lucide-react";
+import { TableRowService } from "./table-row-service";
 
 interface Props {
   isLoading: boolean;
@@ -52,26 +51,7 @@ export const TableServices = ({ isLoading, error, services }: Props) => {
           </TableRow>
         ) : (
           services.map((service) => (
-            <TableRow key={service.id}>
-              <TableCell className="font-medium">{service.name}</TableCell>
-              <TableCell>{service.description}</TableCell>
-              <TableCell>{formatCategoryService(service.category)}</TableCell>
-              <TableCell>
-                <div className="flex items-center gap-x-0">
-                  <ClockIcon size={16} className="text-gray-400" />
-                  <span className="ml-1">{service.duration} min</span>
-                </div>
-              </TableCell>
-              <TableCell className="font-medium">{formatMoney(service.price)}</TableCell>
-              <TableCell>
-                <button className="text-blue-500 hover:underline mr-2">
-                  Editar
-                </button>
-                <button className="text-red-500 hover:underline">
-                  Eliminar
-                </button>
-              </TableCell>
-            </TableRow>
+            <TableRowService key={service.id} service={service} />
           ))
         )}
       </TableBody>

@@ -2,7 +2,7 @@ import { prisma } from "../src/lib/prisma";
 import bcrypt from "bcrypt";
 async function main() {
   console.log("Seeding database...");
-  const user = await prisma.user.create({
+  const userTesting = await prisma.user.create({
     data: {
       username: "Gonzalo",
       email: "test@example.com",
@@ -26,7 +26,18 @@ async function main() {
       },
     },
   });
-  console.log("Created user with services and clients:", user);
+  console.log("Created user with services and clients:", userTesting);
+
+  const anotherUser = await prisma.user.create({
+    data: {
+      username: "María",
+      email: "maria@example.com",
+      password: await bcrypt.hash("123456", 5),
+    },
+  });
+  console.log("Created another user:", anotherUser);
+
+  console.log("Database seeding completed.");
 }
 
 main()

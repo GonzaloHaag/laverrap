@@ -1,4 +1,5 @@
 import { Header } from "@/components/layout";
+import { Toaster } from "@/components/ui/sonner";
 import { Navigate, Outlet } from "react-router";
 
 export const ProtectedLayout = () => {
@@ -14,6 +15,7 @@ export const ProtectedLayout = () => {
           <Outlet />
         </div>
       </main>
+      <Toaster duration={3000} position="top-right" richColors={true} />
     </>
   );
 };

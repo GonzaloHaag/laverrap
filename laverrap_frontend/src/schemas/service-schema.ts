@@ -16,6 +16,10 @@ export const serviceSchema = object({
     .max(500, "La descripción no puede exceder los 500 caracteres")
     .defined()
     .nullable(),
+  status: string()
+    .oneOf(["ACTIVE", "INACTIVE"], "Estado inválido")
+    .required("El estado del servicio es obligatorio")
+    .default("ACTIVE"),
 }).required();
 
 export type Service = InferType<typeof serviceSchema> & { id: number };

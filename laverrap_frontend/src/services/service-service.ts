@@ -6,4 +6,30 @@ export const serviceService = {
     const { data } = await api.get<ServiceResponse<Service[]>>("/services");
     return data.data;
   },
+
+  create: async ({
+    service,
+  }: {
+    service: Omit<Service, "id">;
+  }): Promise<Service> => {
+    const { data } = await api.post<ServiceResponse<Service>>(
+      "/services",
+      service
+    );
+    return data.data;
+  },
+
+  update: async ({
+    id,
+    service,
+  }: {
+    id: Service["id"];
+    service: Partial<Omit<Service, "id">>;
+  }): Promise<Service> => {
+    const { data } = await api.put<ServiceResponse<Service>>(
+      `/services/${id}`,
+      service
+    );
+    return data.data;
+  },
 };
