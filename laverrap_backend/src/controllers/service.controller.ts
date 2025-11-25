@@ -82,10 +82,12 @@ export const serviceController = {
   },
   updateById: async (req: Request, res: Response) => {
     const serviceId = parseInt(req.params.id);
+    const userId = req.user?.id;
     try {
       const serviceExists = await prisma.service.findUnique({
         where: {
           id: serviceId,
+          userId: userId,
         },
       });
       if (!serviceExists) {
@@ -98,6 +100,7 @@ export const serviceController = {
       const service = await prisma.service.update({
         where: {
           id: serviceId,
+          userId: userId,
         },
         data: {
           name: validatedFields.name,
@@ -128,34 +131,37 @@ export const serviceController = {
     }
   },
   deleteById: async (req: Request, res: Response) => {
-     const serviceId = parseInt(req.params.id);
-     try {
-       const serviceExists = await prisma.service.findUnique({
-         where: {
-           id: serviceId,
-         },
-       });
-       if (!serviceExists) {
-         return res.status(404).json({
-           ok: false,
-           message: "Servicio no encontrado",
-         });
-       }
-       await prisma.service.delete({
-         where: {
-           id: serviceId,
-         },
-       });
-       return res.status(200).json({
-         ok: true,
-         message: "Servicio eliminado correctamente",
-       });
-     } catch (error) {
-       console.error(error);
-       return res.status(500).json({
-         ok: false,
-         message: "Error en el servidor",
-       });
-     }
+    const serviceId = parseInt(req.params.id);
+    const userId = req.user?.id;
+    try {
+      const serviceExists = await prisma.service.findUnique({
+        where: {
+          id: serviceId,
+          userId: userId,
+        },
+      });
+      if (!serviceExists) {
+        return res.status(404).json({
+          ok: false,
+          message: "Servicio no encontrado",
+        });
+      }
+      await prisma.service.delete({
+        where: {
+          id: serviceId,
+          userId: userId,
+        },
+      });
+      return res.status(200).json({
+        ok: true,
+        message: "Servicio eliminado correctamente",
+      });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        ok: false,
+        message: "Error en el servidor",
+      });
+    }
   },
 };

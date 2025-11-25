@@ -2,7 +2,7 @@
 CREATE TYPE "Role" AS ENUM ('USER', 'ADMIN');
 
 -- CreateEnum
-CREATE TYPE "ServiceCategory" AS ENUM ('COMPLETE', 'BASIC', 'PREMIUM');
+CREATE TYPE "ServiceCategory" AS ENUM ('COMPLETE', 'BASIC', 'PREMIUM', 'OTHER');
 
 -- CreateEnum
 CREATE TYPE "Status" AS ENUM ('ACTIVE', 'INACTIVE');

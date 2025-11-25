@@ -97,6 +97,7 @@ enum ServiceCategory {
   COMPLETE
   BASIC
   PREMIUM
+  OTHER
 }
 
 enum Status {

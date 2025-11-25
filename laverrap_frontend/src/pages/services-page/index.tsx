@@ -12,10 +12,18 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui";
-import { SectionCards, ServiceFilters, ServiceForm } from "./components";
+import {
+  SectionCards,
+  ServiceFilters,
+  ServiceForm,
+  TableServices,
+} from "./components";
 import { PlusCircleIcon } from "lucide-react";
+import { useServices } from "@/hooks";
+
 
 export const ServicesPage = () => {
+  const { services, isLoading, error } = useServices();
   return (
     <Card>
       <CardHeader>
@@ -46,6 +54,11 @@ export const ServicesPage = () => {
             </DialogContent>
           </Dialog>
         </div>
+        <TableServices
+          isLoading={isLoading}
+          error={error}
+          services={services ?? []}
+        />
       </CardContent>
     </Card>
   );

@@ -19,6 +19,11 @@ const NAV_LINKS = [
   },
   {
     id: 4,
+    title: "Empleados",
+    path: "/employees",
+  },
+  {
+    id: 5,
     title: "Servicios",
     path: "/services",
   },

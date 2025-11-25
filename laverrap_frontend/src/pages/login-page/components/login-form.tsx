@@ -28,6 +28,7 @@ export const LoginForm = () => {
       const response = await authService.login(data);
       setErrorMessage(null);
       localStorage.setItem("token", response.token!);
+      localStorage.setItem("user", JSON.stringify(response.user));
       navigate("/");
     } catch (error) {
       console.log("Error en el login:", error);

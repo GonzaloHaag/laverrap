@@ -1,0 +1,1 @@
+export type ServiceCategory = "BASIC" | "COMPLETE" | "PREMIUM" | "OTHER";

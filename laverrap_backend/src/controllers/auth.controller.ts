@@ -22,31 +22,37 @@ export const authController = {
         });
       }
       /** Una vez que encontro email, validar password */
-      const isValidPassword =  await bcrypt.compare(result.password, user.password);
+      const isValidPassword = await bcrypt.compare(
+        result.password,
+        user.password
+      );
 
-      if(!isValidPassword) {
+      if (!isValidPassword) {
         return res.status(401).json({
           ok: false,
           message: "Credenciales inválidas",
         });
       }
-
       /** Crear token, devuelve un string */
-      const token = jwt.sign({
-         id: user.id,
-         email:user.email,
-         username: user.username,
-
-      }, config.SECRET_KEY, {
+      const token = jwt.sign(
+        {
+          id: user.id,
+          email: user.email,
+          username: user.username,
+          role: user.role,
+        },
+        config.SECRET_KEY,
+        {
           expiresIn: "2h",
-      });
+        }
+      );
 
       const { password: _, ...publicUser } = user;
       return res.status(200).json({
         ok: true,
         message: "Login exitoso",
         user: publicUser,
-        token: token
+        token: token,
       });
     } catch (error) {
       console.error(error);

@@ -3,7 +3,6 @@ import { Navigate, Outlet } from "react-router";
 
 export const ProtectedLayout = () => {
   const token = localStorage.getItem("token");
-  console.log("ProtectedLayout token:", token);
   if (!token) {
     return <Navigate to="/auth/login" replace />;
   }

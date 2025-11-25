@@ -1,4 +1,4 @@
-import { number, object, string } from "yup";
+import { number, object, string, type InferType } from "yup";
 
 export const serviceSchema = object({
   name: string().required("El nombre del servicio es obligatorio"),
@@ -17,3 +17,5 @@ export const serviceSchema = object({
     .defined()
     .nullable(),
 }).required();
+
+export type Service = InferType<typeof serviceSchema> & { id: number };
