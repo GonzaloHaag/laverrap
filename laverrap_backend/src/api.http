@@ -11,3 +11,36 @@ Content-Type: application/json
     "email": "gonza13@gmail.com",
     "password": "prueba12345"
 }
+
+
+### Service
+GET http://localhost:3001/api/services
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJnb256YTEzQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiR29uemFsbyIsImlhdCI6MTc2NDAzNTAxOCwiZXhwIjoxNzY0MDQyMjE4fQ.qFFyblAlwVzVeFTG7hHG61bEHe3w6I6y9KrP3OQOjPs
+
+### Create Service
+POST http://localhost:3001/api/services
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJnb256YTEzQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiR29uemFsbyIsImlhdCI6MTc2NDAzNTAxOCwiZXhwIjoxNzY0MDQyMjE4fQ.qFFyblAlwVzVeFTG7hHG61bEHe3w6I6y9KrP3OQOjPs
+
+{
+    "name": "Lavado Completo 2",
+    "description": "Lavado completo del vehiculo, incluyendo interior y exterior.",
+    "price": 120,
+    "duration": 90,
+    "category": "COMPLETE",
+    "userId": 1
+}
+
+### Update service 
+PUT http://localhost:3001/api/services/4
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJnb256YTEzQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiR29uemFsbyIsImlhdCI6MTc2NDAzNTAxOCwiZXhwIjoxNzY0MDQyMjE4fQ.qFFyblAlwVzVeFTG7hHG61bEHe3w6I6y9KrP3OQOjPs
+
+{
+    "name": "Lavado Completo Actualizado",
+    "description": "Lavado completo del vehiculo, incluyendo interior y exterior. Ahora con cera.",
+    "price": 130,
+    "duration": 100,
+    "category": "COMPLETE",
+    "userId": 1
+}

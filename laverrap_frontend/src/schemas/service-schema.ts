@@ -9,13 +9,9 @@ export const serviceSchema = object({
     .required("La duración del servicio es obligatoria")
     .min(1, "La duración debe ser al menos 1 minuto"),
   category: string()
-    .oneOf(["basic", "complete", "premium", "other"], "Categoría inválida")
+    .oneOf(["BASIC", "COMPLETE", "PREMIUM", "OTHER"], "Categoría inválida")
     .required("La categoría del servicio es obligatoria")
-    .default("basic"),
-  status: string()
-    .oneOf(["active", "inactive"], "Estado inválido")
-    .required("El estado del servicio es obligatorio")
-    .default("active"),
+    .default("BASIC"),
   description: string()
     .max(500, "La descripción no puede exceder los 500 caracteres")
     .defined()
