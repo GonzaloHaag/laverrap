@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { prisma } from "../utils/db";
+import { prisma } from "../lib/prisma";
 import { serviceSchema } from "../schemas/service.schema";
 import z from "zod";
 
