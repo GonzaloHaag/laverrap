@@ -68,5 +68,5 @@ export const authController = {
         message: "Error en el servidor",
       });
     }
-  },
+  }
 };

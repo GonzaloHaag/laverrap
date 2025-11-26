@@ -44,3 +44,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiO
     "category": "COMPLETE",
     "userId": 1
 }
+
+
+### Get Clients
+GET http://localhost:3001/api/clients
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJHb256YWxvIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzY0MTI2MzI5LCJleHAiOjE3NjQxMzM1Mjl9.oGsWXMoTFM7b00gsiHE-M9m5bWfhxL1S1LdU1BvfTbw

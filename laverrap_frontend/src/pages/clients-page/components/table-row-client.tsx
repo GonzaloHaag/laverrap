@@ -9,10 +9,8 @@ import {
   DialogTrigger,
 } from "@/components/ui";
 import { TableCell, TableRow } from "@/components/ui/table";
-import { formatCategoryService, formatMoney } from "@/utils/formatters";
-import { ClockIcon } from "lucide-react";
-import { FormService } from "./form-service";
-import type { Service } from "@/schemas";
+import { MailIcon, PhoneIcon } from "lucide-react";
+import type { Client } from "@/schemas";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -24,48 +22,45 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { serviceService } from "@/services";
-import { useServices } from "@/hooks";
-import { toast } from "sonner";
 
 interface Props {
-  service: Service;
+  client: Client;
 }
-export const TableRowService = ({ service }: Props) => {
+export const TableRowClient = ({ client }: Props) => {
   const [open, setOpen] = useState(false);
   const [openAlertDialogDelete, setOpenAlertDialogDelete] = useState(false);
-  const { mutate } = useServices();
 
-  const closeDialog = () => {
-    setOpen((prev) => !prev);
-  };
+  // const onClickDelete = async () => {
+  //   try {
 
-  const onClickDelete = async () => {
-    try {
-      await serviceService.delete({ id: service.id });
-      mutate();
-      setOpenAlertDialogDelete(false);
-      toast.success("Servicio eliminado con éxito");
-    } catch (error) {
-      console.error("Error deleting service:", error);
-      toast.error("Hubo un error al eliminar el servicio");
-    }
-  };
+  //     setOpenAlertDialogDelete(false);
+  //     toast.success("Servicio eliminado con éxito");
+  //   } catch (error) {
+  //     console.error("Error deleting service:", error);
+  //     toast.error("Hubo un error al eliminar el servicio");
+  //   }
+  // };
+
+  console.log("client", client);
 
   return (
     <TableRow>
-      <TableCell className="font-medium">{service.name}</TableCell>
-      <TableCell>{service.description}</TableCell>
-      <TableCell>{formatCategoryService(service.category)}</TableCell>
+      <TableCell className="font-medium">{client.name}</TableCell>
       <TableCell>
-        <div className="flex items-center gap-x-0">
-          <ClockIcon size={16} className="text-gray-400" />
-          <span className="ml-1">{service.duration} min</span>
+        <div className="flex flex-col gap-y-1">
+          <div className="flex items-center gap-x-2">
+            <PhoneIcon size={16} className="text-gray-400" />
+            <span>{client.phone}</span>
+          </div>
+          <div className="flex items-center gap-x-2">
+            <MailIcon size={16} className="text-gray-400" />
+            <span>{client.email }</span>
+          </div>
         </div>
       </TableCell>
-      <TableCell className="font-medium">
-        {formatMoney(service.price)}
-      </TableCell>
+      <TableCell>{`${client.car_model} -${client.car_plate}`}</TableCell>
+      <TableCell className="font-medium">{client._count.washed}</TableCell>
+      <TableCell className="font-medium">{"12/06/2024"}</TableCell>
       <TableCell>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
@@ -80,7 +75,7 @@ export const TableRowService = ({ service }: Props) => {
                 Modificá los detalles del servicio seleccionado
               </DialogDescription>
             </DialogHeader>
-            <FormService service={service} closeDialog={closeDialog} />
+            {/* <FormService service={service} closeDialog={closeDialog} /> */}
           </DialogContent>
         </Dialog>
         <AlertDialog
@@ -98,14 +93,17 @@ export const TableRowService = ({ service }: Props) => {
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>¿Estás seguro de eliminar este servicio?</AlertDialogTitle>
+              <AlertDialogTitle>
+                ¿Estás seguro de eliminar este servicio?
+              </AlertDialogTitle>
               <AlertDialogDescription>
-                Esta acción no se puede deshacer. Esto eliminará permanentemente el servicio seleccionado.
+                Esta acción no se puede deshacer. Esto eliminará permanentemente
+                el servicio seleccionado.
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel className="min-w-24">Cancel</AlertDialogCancel>
-              <AlertDialogAction className="min-w-24" onClick={onClickDelete}>
+              <AlertDialogAction className="min-w-24">
                 Eliminar
               </AlertDialogAction>
             </AlertDialogFooter>

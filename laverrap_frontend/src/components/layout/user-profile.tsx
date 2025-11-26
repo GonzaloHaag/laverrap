@@ -1,4 +1,4 @@
-import { Navigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,11 +11,18 @@ import type { User } from "@/schemas";
 
 export const UserProfile = () => {
   const user = localStorage.getItem("user");
+  const navigate = useNavigate();
   if (!user) {
     return <Navigate to={"/auth/login"} replace={true} />;
   }
-
   const userData: User = JSON.parse(user);
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    localStorage.removeItem("token");
+    navigate("/auth/login");
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex items-center gap-x-2">
@@ -37,7 +44,9 @@ export const UserProfile = () => {
       <DropdownMenuContent>
         <DropdownMenuLabel>Perfil</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Cerrar sesión</DropdownMenuItem>
+        <DropdownMenuItem onClick={handleLogout}>
+          Cerrar sesión
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

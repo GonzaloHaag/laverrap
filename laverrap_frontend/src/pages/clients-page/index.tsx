@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   Button,
   Card,
@@ -14,45 +13,35 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui";
-import {
-  FormService,
-  SectionCards,
-  ServiceFilters,
-  TableServices,
-} from "./components";
 import { PlusCircleIcon } from "lucide-react";
-import { useServices } from "@/hooks";
+import { SectionCards, TableClients } from "./components";
+import { useClients } from "@/hooks";
 
-export const ServicesPage = () => {
-  const { services, isLoading, error } = useServices();
-  const [open, setOpen] = useState(false);
-
-  const closeDialog = () => {
-    setOpen((prev) => !prev);
-  };
+export const ClientsPage = () => {
+  const { clients, isLoading, error } = useClients();
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Gestión de servicios</CardTitle>
+        <CardTitle>Gestión de clientes</CardTitle>
         <CardDescription>
-          Administra los servicios de tu lavadero
+          Administra los clientes de tu lavadero
         </CardDescription>
         <CardAction>
-          <Dialog open={open} onOpenChange={setOpen}>
+          <Dialog>
             <DialogTrigger asChild>
-              <Button type="button" title="Agregar servicio">
+              <Button type="button" title="Agregar cliente">
                 <PlusCircleIcon />
-                Agregar servicio
+                Agregar cliente
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Nuevo servicio</DialogTitle>
+                <DialogTitle>Nuevo cliente</DialogTitle>
                 <DialogDescription>
-                  Colocá los detalles del nuevo servicio que ofrecerás
+                  Colocá los detalles del nuevo cliente
                 </DialogDescription>
               </DialogHeader>
-              <FormService service={null} closeDialog={closeDialog} />
+              {/* <FormService service={null} closeDialog={closeDialog} /> */}
             </DialogContent>
           </Dialog>
         </CardAction>
@@ -60,12 +49,12 @@ export const ServicesPage = () => {
       <CardContent className="flex flex-col gap-y-4">
         <SectionCards />
         <div className="flex items-center justify-between">
-          <ServiceFilters />
+          {/* <ServiceFilters /> */}
         </div>
-        <TableServices
+        <TableClients
           isLoading={isLoading}
+          clients={clients ?? []}
           error={error}
-          services={services ?? []}
         />
       </CardContent>
     </Card>

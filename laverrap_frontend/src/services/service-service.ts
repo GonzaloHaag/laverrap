@@ -32,4 +32,8 @@ export const serviceService = {
     );
     return data.data;
   },
+
+  delete: async ({ id }: { id: Service["id"] }): Promise<void> => {
+    await api.delete(`/services/${id}`);
+  },
 };

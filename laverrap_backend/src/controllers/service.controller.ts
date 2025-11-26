@@ -43,9 +43,6 @@ export const serviceController = {
         message: "Usuario no autenticado",
       });
     }
-
-    console.log(userId);
-
     try {
       const validatedFields = serviceSchema.parse(req.body);
       const service = await prisma.service.create({

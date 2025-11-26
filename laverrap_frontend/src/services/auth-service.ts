@@ -15,12 +15,5 @@ export const authService = {
       password,
     });
     return data;
-  },
-
-  getCurrentUser: async () => {
-    const { data } = await api.get("/auth/me");
-
-    console.log(data);
-    return data;
-  },
+  }
 };

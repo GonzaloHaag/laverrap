@@ -1,7 +1,8 @@
 import express from "express";
 import cors from "cors";
 import authRoutes from "./routes/auth.routes";
-import servicesRoutes from "./routes/services.routes";
+import serviceRoutes from "./routes/service.routes";
+import clientRoutes from "./routes/client.routes";
 import config from "./utils/config";
 import authMiddleware from "./middlewares/auth.middleware";
 
@@ -19,7 +20,8 @@ app.get("/", (req, res) => {
   console.log(req.user); // tngo el user por el middleware
   res.send("Hello, Laverrap Backend!");
 });
-app.use("/api/services", servicesRoutes);
+app.use("/api/services", serviceRoutes);
+app.use("/api/clients", clientRoutes);
 
 app.listen(config.PORT, () => {
   console.log(`Server is running on http://localhost:${config.PORT}`);
