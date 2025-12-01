@@ -15,12 +15,12 @@ Content-Type: application/json
 
 ### Service
 GET http://localhost:3001/api/services
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJnb256YTEzQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiR29uemFsbyIsImlhdCI6MTc2NDAzNTAxOCwiZXhwIjoxNzY0MDQyMjE4fQ.qFFyblAlwVzVeFTG7hHG61bEHe3w6I6y9KrP3OQOjPs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJHb256YWxvIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzY0NjIxMzQzLCJleHAiOjE3NjQ2Mjg1NDN9.mP6_2P6NG8k1x5fJYPjI7huz4-vTh4r_ZqnVSZZ0RNo
 
 ### Create Service
 POST http://localhost:3001/api/services
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJnb256YTEzQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiR29uemFsbyIsImlhdCI6MTc2NDAzNTAxOCwiZXhwIjoxNzY0MDQyMjE4fQ.qFFyblAlwVzVeFTG7hHG61bEHe3w6I6y9KrP3OQOjPs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJHb256YWxvIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzY0NjE5NDE0LCJleHAiOjE3NjQ2MjY2MTR9.xGvOjggsETqeKynfixKk3Bvu5V7GULE22zbFQywz_mw
 
 {
     "name": "Lavado Completo 2",
@@ -32,9 +32,9 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiO
 }
 
 ### Update service 
-PUT http://localhost:3001/api/services/4
+PUT http://localhost:3001/api/services/50
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJnb256YTEzQGdtYWlsLmNvbSIsInVzZXJuYW1lIjoiR29uemFsbyIsImlhdCI6MTc2NDAzNTAxOCwiZXhwIjoxNzY0MDQyMjE4fQ.qFFyblAlwVzVeFTG7hHG61bEHe3w6I6y9KrP3OQOjPs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJHb256YWxvIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzY0NjIwODU0LCJleHAiOjE3NjQ2MjgwNTR9.oD-WjhV08ff6HH0vLCU4RNzhW4_NTbMHKm_donDHgl4
 
 {
     "name": "Lavado Completo Actualizado",
@@ -45,7 +45,33 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiO
     "userId": 1
 }
 
+### Get Service by ID
+GET http://localhost:3001/api/services/6
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJHb256YWxvIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzY0NjA1NDE4LCJleHAiOjE3NjQ2MTI2MTh9.AmcHwzpMy294pY9RVFv-TsVPZcb2Z0F_VGWsouG7gFU
+
 
 ### Get Clients
 GET http://localhost:3001/api/clients
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJHb256YWxvIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzY0MTI2MzI5LCJleHAiOjE3NjQxMzM1Mjl9.oGsWXMoTFM7b00gsiHE-M9m5bWfhxL1S1LdU1BvfTbw
+
+
+### Employees
+GET http://localhost:3001/api/employees
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJHb256YWxvIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzY0NjIyNzI2LCJleHAiOjE3NjQ2Mjk5MjZ9.3whd_r8PXm-5f25-9qGR4mzxaPZE2qA0Y0t_FlSeMcU
+
+
+#### Create Employee
+POST http://localhost:3001/api/employees
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJHb256YWxvIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzY0NjIyNzI2LCJleHAiOjE3NjQ2Mjk5MjZ9.3whd_r8PXm-5f25-9qGR4mzxaPZE2qA0Y0t_FlSeMcU
+
+{
+    "name": "Juan Perez",
+    "entry_time": "08:00",
+    "departure_time": "17:00"
+}
+
+
+### Change status 
+PATCH http://localhost:3001/api/employees/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJHb256YWxvIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzY0NjIyNzI2LCJleHAiOjE3NjQ2Mjk5MjZ9.3whd_r8PXm-5f25-9qGR4mzxaPZE2qA0Y0t_FlSeMcU

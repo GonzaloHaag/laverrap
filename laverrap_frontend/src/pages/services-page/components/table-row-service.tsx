@@ -13,27 +13,16 @@ import { formatCategoryService, formatMoney } from "@/utils/formatters";
 import { ClockIcon } from "lucide-react";
 import { FormService } from "./form-service";
 import type { Service } from "@/schemas";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import { serviceService } from "@/services";
 import { useServices } from "@/hooks";
 import { toast } from "sonner";
+import { AlertDialogDelete } from "@/components/shared";
 
 interface Props {
   service: Service;
 }
 export const TableRowService = ({ service }: Props) => {
   const [open, setOpen] = useState(false);
-  const [openAlertDialogDelete, setOpenAlertDialogDelete] = useState(false);
   const { mutate } = useServices();
 
   const closeDialog = () => {
@@ -44,7 +33,6 @@ export const TableRowService = ({ service }: Props) => {
     try {
       await serviceService.delete({ id: service.id });
       mutate();
-      setOpenAlertDialogDelete(false);
       toast.success("Servicio eliminado con éxito");
     } catch (error) {
       console.error("Error deleting service:", error);
@@ -83,34 +71,7 @@ export const TableRowService = ({ service }: Props) => {
             <FormService service={service} closeDialog={closeDialog} />
           </DialogContent>
         </Dialog>
-        <AlertDialog
-          open={openAlertDialogDelete}
-          onOpenChange={setOpenAlertDialogDelete}
-        >
-          <AlertDialogTrigger asChild>
-            <Button
-              variant={"link"}
-              size={"sm"}
-              className="text-red-600 p-0 ml-2"
-            >
-              Eliminar
-            </Button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>¿Estás seguro de eliminar este servicio?</AlertDialogTitle>
-              <AlertDialogDescription>
-                Esta acción no se puede deshacer. Esto eliminará permanentemente el servicio seleccionado.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel className="min-w-24">Cancel</AlertDialogCancel>
-              <AlertDialogAction className="min-w-24" onClick={onClickDelete}>
-                Eliminar
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+        <AlertDialogDelete onClickDelete={onClickDelete} />
       </TableCell>
     </TableRow>
   );

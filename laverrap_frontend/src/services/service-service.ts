@@ -1,9 +1,10 @@
 import type { Service } from "@/schemas";
 import { api } from "./api";
 import type { ServiceResponse } from "@/types";
+const SERVICES_URL = "/services";
 export const serviceService = {
   getAll: async (): Promise<Service[]> => {
-    const { data } = await api.get<ServiceResponse<Service[]>>("/services");
+    const { data } = await api.get<ServiceResponse<Service[]>>(SERVICES_URL);
     return data.data;
   },
 
@@ -13,7 +14,7 @@ export const serviceService = {
     service: Omit<Service, "id">;
   }): Promise<Service> => {
     const { data } = await api.post<ServiceResponse<Service>>(
-      "/services",
+      SERVICES_URL,
       service
     );
     return data.data;
@@ -27,13 +28,13 @@ export const serviceService = {
     service: Partial<Omit<Service, "id">>;
   }): Promise<Service> => {
     const { data } = await api.put<ServiceResponse<Service>>(
-      `/services/${id}`,
+      `${SERVICES_URL}/${id}`,
       service
     );
     return data.data;
   },
 
   delete: async ({ id }: { id: Service["id"] }): Promise<void> => {
-    await api.delete(`/services/${id}`);
+    await api.delete(`${SERVICES_URL}/${id}`);
   },
 };

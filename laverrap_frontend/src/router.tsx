@@ -1,5 +1,11 @@
 import { createBrowserRouter } from "react-router";
-import { ClientsPage, HomePage, LoginPage, ServicesPage } from "@/pages";
+import {
+  ClientsPage,
+  EmployeesPage,
+  HomePage,
+  LoginPage,
+  ServicesPage,
+} from "@/pages";
 import { ProtectedLayout } from "@/layouts";
 
 export const router = createBrowserRouter([
@@ -15,6 +21,7 @@ export const router = createBrowserRouter([
       { path: "/", Component: HomePage },
       { path: "services", Component: ServicesPage },
       { path: "clients", Component: ClientsPage },
+      { path: "employees", Component: EmployeesPage },
     ],
   },
 ]);

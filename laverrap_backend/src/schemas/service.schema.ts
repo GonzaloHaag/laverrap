@@ -7,3 +7,5 @@ export const serviceSchema = z.object({
     duration: z.coerce.number("La duracion en minutos es requerida").min(1, "La duracion debe ser al menos de 1 minuto"),
     category: z.enum(["BASIC", "COMPLETE", "PREMIUM", "OTHER"], "La categoria es requerida")
 }).required();
+
+export type Service = z.infer<typeof serviceSchema>;

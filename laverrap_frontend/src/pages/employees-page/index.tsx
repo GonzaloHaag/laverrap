@@ -15,53 +15,54 @@ import {
   DialogTrigger,
 } from "@/components/ui";
 import { PlusCircleIcon } from "lucide-react";
-import { FormClient, SectionCards, TableClients } from "./components";
-import { useClients } from "@/hooks";
+import { FormEmployee, SectionCards, TableEmployees } from "./components";
+import { useEmployees } from "@/hooks";
 
-export const ClientsPage = () => {
+export const EmployeesPage = () => {
+  const { isLoading, error, employees } = useEmployees();
   const [open, setOpen] = useState(false);
 
   const closeDialog = () => {
     setOpen((prev) => !prev);
   };
-  const { clients, isLoading, error } = useClients();
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Gestión de clientes</CardTitle>
+        <CardTitle>Gestión de empleados</CardTitle>
         <CardDescription>
-          Administra los clientes de tu lavadero
+          Administra los empleados de tu lavadero
         </CardDescription>
         <CardAction>
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <Button type="button" title="Agregar cliente">
                 <PlusCircleIcon />
-                Agregar cliente
+                Agregar empleado
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Nuevo cliente</DialogTitle>
+                <DialogTitle>Nuevo empleado</DialogTitle>
                 <DialogDescription>
-                  Colocá los detalles del nuevo cliente
+                  Colocá los detalles del nuevo empleado
                 </DialogDescription>
               </DialogHeader>
               {/* <FormService service={null} closeDialog={closeDialog} /> */}
-              <FormClient client={null} closeDialog={closeDialog} />
+              <FormEmployee employee={null} closeDialog={closeDialog} />
             </DialogContent>
           </Dialog>
         </CardAction>
       </CardHeader>
       <CardContent className="flex flex-col gap-y-4">
+        {/* <SectionCards /> */}
         <SectionCards />
         <div className="flex items-center justify-between">
           {/* <ServiceFilters /> */}
         </div>
-        <TableClients
+        <TableEmployees
           isLoading={isLoading}
-          clients={clients ?? []}
           error={error}
+          employees={employees || []}
         />
       </CardContent>
     </Card>

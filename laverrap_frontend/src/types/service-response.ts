@@ -1,6 +1,5 @@
 export type ServiceResponse<T> =  {
     ok: boolean;
-    message: string;
+    message?: string;
     data: T;
-    errors?: Record<string, string>;
 }

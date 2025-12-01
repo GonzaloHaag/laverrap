@@ -19,12 +19,12 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
   } catch (error) {
     console.error("Error verifying token:", error);
     if(error instanceof jwt.JsonWebTokenError) {
-        return res.status(403).json({ message: "Token invalido" });
+        return res.status(403).json({ ok:false, message: "Token invalido" });
     }
     if(error instanceof jwt.TokenExpiredError) {
-        return res.status(403).json({ message: "Token expirado" });
+        return res.status(403).json({ ok:false, message: "Token expirado" });
     }
-    return res.status(500).json({ message: "Error interno del servidor" });
+    return res.status(500).json({ ok:false, message: "Error interno del servidor" });
   }
 
   next();

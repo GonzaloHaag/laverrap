@@ -31,13 +31,13 @@ export const TableClients = ({ isLoading, error, clients }: Props) => {
   }
   return (
     <Table>
-      <TableCaption>Listado de tus servicios.</TableCaption>
+      <TableCaption>Listado de tus clientes</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>Cliente</TableHead>
           <TableHead>Contacto</TableHead>
           <TableHead>Vehículo</TableHead>
-          <TableHead>Lavados</TableHead>
+          <TableHead className="text-center">Lavados</TableHead>
           <TableHead>Último lavado</TableHead>
           <TableHead>Acciones</TableHead>
         </TableRow>
