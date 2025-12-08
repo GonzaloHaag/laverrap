@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/table";
 import type { Employee } from "@/schemas";
 import { TableRowEmployee } from "./table-row-employee";
+import { EmptyMessage } from "@/components/shared";
 
 interface Props {
   isLoading: boolean;
@@ -34,7 +35,7 @@ export const TableEmployees = ({ isLoading, error, employees }: Props) => {
         <TableRow>
           <TableHead>Nombre</TableHead>
           <TableHead>Horario laboral</TableHead>
-          <TableHead>Lavados</TableHead>
+          <TableHead className="text-center">Lavados realizados</TableHead>
           <TableHead>Estado</TableHead>
           <TableHead>Acciones</TableHead>
         </TableRow>
@@ -43,7 +44,7 @@ export const TableEmployees = ({ isLoading, error, employees }: Props) => {
         {employees.length === 0 ? (
           <TableRow>
             <TableCell colSpan={5} className="text-center">
-              No se encontraron empleados.
+              <EmptyMessage />
             </TableCell>
           </TableRow>
         ) : (

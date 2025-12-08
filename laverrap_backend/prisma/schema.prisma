@@ -13,7 +13,6 @@ datasource db {
   provider = "postgresql"
 }
 
-
 model User {
   id        Int        @id @default(autoincrement())
   createdAt DateTime   @default(now())
@@ -86,6 +85,8 @@ model Washing {
   employeeId Int
   client     Client        @relation(fields: [clientId], references: [id])
   clientId   Int
+  details    String?
+  notify     Boolean       @default(true)
 }
 
 enum Role {
@@ -116,5 +117,5 @@ enum WashingStatus {
   PENDING
   IN_PROGRESS
   COMPLETED
-  CANCELED
+  CANCELLED
 }

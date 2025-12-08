@@ -42,7 +42,7 @@ export const TableRowEmployee = ({ employee }: Props) => {
       <TableCell>
         {employee.entry_time} - {employee.departure_time}
       </TableCell>
-      <TableCell>{employee._count.washed}</TableCell>
+      <TableCell className="text-center">{employee._count.washed}</TableCell>
       <TableCell>
         <span
           className={

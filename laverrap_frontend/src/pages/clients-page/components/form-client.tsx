@@ -1,8 +1,8 @@
-import { DialogFooterForm, InputForm } from "@/components/shared";
-import { Label, NativeSelect, NativeSelectOption } from "@/components/ui";
+import { DialogFooterForm, InputForm, SelectForm } from "@/components/shared";
 import { useClients } from "@/hooks";
 import { ClientSchema, type Client } from "@/schemas";
 import { clientService } from "@/services";
+import { TYPES_OF_VEHICLES } from "@/utils/consts";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -71,20 +71,7 @@ export const FormClient = ({ client, closeDialog }: Props) => {
         />
       </div>
       <div className="grid grid-cols-2 gap-4 items-start">
-        <div className="flex flex-col gap-y-1 text-sm">
-          <Label htmlFor="car_type" className="font-medium text-gray-700">
-            Tipo de vehículo
-          </Label>
-          <NativeSelect
-            {...register("car_type")}
-            aria-invalid={errors.car_type ? "true" : "false"}
-          >
-            <NativeSelectOption value="CAR">Auto</NativeSelectOption>
-            <NativeSelectOption value="PICKUP">Camioneta</NativeSelectOption>
-            <NativeSelectOption value="MOTORCYCLE">Moto</NativeSelectOption>
-            <NativeSelectOption value="OTHER">Otro</NativeSelectOption>
-          </NativeSelect>
-        </div>
+        <SelectForm label="Tipo de vehículo" options={TYPES_OF_VEHICLES} error={errors.car_type?.message} {...register("car_type")} />
         <InputForm
           label="Patente del vehículo"
           type="text"

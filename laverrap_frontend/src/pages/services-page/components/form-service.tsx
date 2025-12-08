@@ -1,14 +1,9 @@
-import { DialogFooterForm, InputForm } from "@/components/shared";
-import {
-  Label,
-  NativeSelect,
-  NativeSelectOption,
-  Textarea,
-} from "@/components/ui";
+import { DialogFooterForm, InputForm, SelectForm } from "@/components/shared";
+import { Label, Textarea } from "@/components/ui";
 import { useServices } from "@/hooks";
 import { serviceSchema, type Service } from "@/schemas";
 import { serviceService } from "@/services";
-import { SERVICES_CATEGORY, SERVICES_STATUS } from "@/utils/const";
+import { SERVICES_CATEGORY, SERVICES_STATUS } from "@/utils/consts";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -69,16 +64,12 @@ export const FormService = ({ service, closeDialog }: Props) => {
           {...register("price")}
           error={errors.price?.message}
         />
-        <div className="flex flex-col gap-y-1 w-full">
-          <Label htmlFor="duration">Categoría</Label>
-          <NativeSelect {...register("category")} className="w-full">
-            {SERVICES_CATEGORY.map((type) => (
-              <NativeSelectOption key={type.id} value={type.value}>
-                {type.label}
-              </NativeSelectOption>
-            ))}
-          </NativeSelect>
-        </div>
+        <SelectForm
+          label="Categoría *"
+          options={SERVICES_CATEGORY}
+          error={errors.category?.message}
+          {...register("category")}
+        />
       </div>
       <div className="grid grid-cols-2 gap-4 items-start">
         <InputForm
@@ -88,16 +79,12 @@ export const FormService = ({ service, closeDialog }: Props) => {
           {...register("duration")}
           error={errors.duration?.message}
         />
-        <div className="flex flex-col gap-y-1 w-full">
-          <Label htmlFor="duration">Estado</Label>
-          <NativeSelect {...register("status")} className="w-full">
-            {SERVICES_STATUS.map((status) => (
-              <NativeSelectOption key={status.id} value={status.value}>
-                {status.label}
-              </NativeSelectOption>
-            ))}
-          </NativeSelect>
-        </div>
+        <SelectForm
+          label="Estado"
+          options={SERVICES_STATUS}
+          error={errors.status?.message}
+          {...register("status")}
+        />
       </div>
       <div className="flex flex-col gap-y-1">
         <Label htmlFor="description">Descripción</Label>
@@ -107,7 +94,7 @@ export const FormService = ({ service, closeDialog }: Props) => {
           rows={4}
         />
       </div>
-      <DialogFooterForm title="Crear servicio" isLoading={isSubmitting} />
+      <DialogFooterForm title={service ? "Actualizar servicio" : "Crear servicio"} isLoading={isSubmitting} />
     </form>
   );
 };

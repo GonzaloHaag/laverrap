@@ -1,58 +1,55 @@
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import type { Client } from "@/schemas";
-import { TableRowClient } from "./table-row-client";
+import type { Washing } from "@/schemas";
+import { TableRowWashing } from "./table-row-washing";
 import { EmptyMessage } from "@/components/shared";
 
 interface Props {
   isLoading: boolean;
   error: string | null;
-  clients: Client[];
+  washed: Washing[];
 }
-
-export const TableClients = ({ isLoading, error, clients }: Props) => {
+export const TableWashed = ({ isLoading, error, washed }: Props) => {
   if (isLoading) {
     return (
-      <span className="text-center text-gray-400">Cargando clientes...</span>
+      <span className="text-center text-gray-400">Cargando lavados...</span>
     );
   }
   if (error) {
     return (
       <span className="text-center text-red-500">
-        Error al cargar los clientes
+        Error al cargar los lavados
       </span>
     );
   }
   return (
     <Table>
-      <TableCaption>Listado de tus clientes</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>Cliente</TableHead>
-          <TableHead>Contacto</TableHead>
           <TableHead>Vehículo</TableHead>
-          <TableHead className="text-center">Lavados</TableHead>
-          <TableHead>Último lavado</TableHead>
+          <TableHead>Empleado</TableHead>
+          <TableHead>Precio</TableHead>
+          <TableHead>Estado</TableHead>
           <TableHead>Acciones</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        {clients.length === 0 ? (
+        {washed.length === 0 ? (
           <TableRow>
             <TableCell colSpan={6} className="text-center">
-               <EmptyMessage />
+              <EmptyMessage />
             </TableCell>
           </TableRow>
         ) : (
-          clients.map((client) => (
-            <TableRowClient key={client.id} client={client} />
+          washed.map((washing) => (
+            <TableRowWashing key={washing.id} washing={washing} />
           ))
         )}
       </TableBody>

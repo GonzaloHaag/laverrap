@@ -1,4 +1,4 @@
-import { buttonVariants } from "@/utils/const";
+import { buttonVariants } from "@/utils/consts";
 import { Link, useLocation } from "react-router";
 
 const NAV_LINKS = [

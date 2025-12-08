@@ -31,10 +31,12 @@ export const axiosInterceptor = () => {
       /** Hacer algo con el error de la respuesta */
       if (error.response.data) {
         if (error.response.status === 403 || error.response.status === 401) {
-          /** Expiro el token o es inváido, redirigr */
-          localStorage.removeItem("token");
-          localStorage.removeItem("user");
-          window.location.href = "/auth/login";
+          /** Solo redirigir si NO es una petición de login */
+          if (!error.config.url?.includes("/auth/login")) {
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            window.location.href = "/auth/login";
+          }
         }
         console.log("Error backend", error.response.data);
         if (error.response) return Promise.reject(error.response.data.message); // el catch lo agarrar con el message ya

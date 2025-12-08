@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/table";
 import type { Service } from "@/schemas";
 import { TableRowService } from "./table-row-service";
+import { EmptyMessage } from "@/components/shared";
 
 interface Props {
   isLoading: boolean;
@@ -45,8 +46,8 @@ export const TableServices = ({ isLoading, error, services }: Props) => {
       <TableBody>
         {services.length === 0 ? (
           <TableRow>
-            <TableCell colSpan={6} className="text-center text-gray-500">
-              No hay servicios disponibles.
+            <TableCell colSpan={6} className="text-center">
+              <EmptyMessage />
             </TableCell>
           </TableRow>
         ) : (

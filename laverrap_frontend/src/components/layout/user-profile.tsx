@@ -21,6 +21,8 @@ export const UserProfile = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
     navigate("/auth/login");
+    /** Borrar cache de swr */
+    window.location.reload();
   };
 
   return (

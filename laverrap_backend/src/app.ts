@@ -4,6 +4,7 @@ import authRoutes from "./routes/auth.routes";
 import serviceRoutes from "./routes/service.routes";
 import clientRoutes from "./routes/client.routes";
 import employeeRoutes from "./routes/employee.routes";
+import washingRoutes from "./routes/washing.routes";
 import config from "./utils/config";
 import authMiddleware from "./middlewares/auth.middleware";
 import errorMiddleware from "./middlewares/error.middleware";
@@ -25,6 +26,7 @@ app.get("/", (req, res) => {
 app.use("/api/services", serviceRoutes);
 app.use("/api/clients", clientRoutes);
 app.use("/api/employees", employeeRoutes);
+app.use("/api/washed", washingRoutes);
 
 // Middleware de errores debe ir AL FINAL
 app.use(errorMiddleware);

@@ -1,5 +1,6 @@
 import { prisma } from "../lib/prisma";
 import type { Client } from "../schemas/client.schema";
+import { ClientError } from "../utils/errors";
 
 export const clientService = {
   getAllClients: async (userId: number) => {
@@ -48,7 +49,7 @@ export const clientService = {
         userId: userId,
       },
     });
-    if (!findClient) throw new Error("Id inválido");
+    if (!findClient) throw new ClientError("Id inválido", 400);
 
     const updatedClient = await prisma.client.update({
       where: {

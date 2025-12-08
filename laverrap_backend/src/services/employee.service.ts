@@ -1,5 +1,6 @@
 import { prisma } from "../lib/prisma";
 import type { Employee } from "../schemas/employee.schema";
+import { ClientError } from "../utils/errors";
 
 export const employeeService = {
   getAllEmployees: async (userId: number) => {
@@ -50,7 +51,7 @@ export const employeeService = {
         userId: userId,
       },
     });
-    if (!findEmployee) throw new Error("Id inválido");
+    if (!findEmployee) throw new ClientError("Id inválido", 400);
 
     const updatedEmployee = await prisma.employee.update({
       where: {
@@ -75,7 +76,7 @@ export const employeeService = {
         userId: userId,
       },
     });
-    if (!findEmployee) throw new Error("Id inválido");
+    if (!findEmployee) throw new ClientError("Id inválido");
 
     const updatedEmployee = await prisma.employee.update({
       where: {

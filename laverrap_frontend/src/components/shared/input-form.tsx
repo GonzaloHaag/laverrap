@@ -1,6 +1,7 @@
 import { Label } from "../ui";
 import { Input } from "../ui/input";
 import { forwardRef, type InputHTMLAttributes } from "react";
+import { ErrorMessage } from "./error-message";
 
 interface InputFormProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
@@ -24,7 +25,7 @@ export const InputForm = forwardRef<HTMLInputElement, InputFormProps>(
           aria-invalid={error ? "true" : "false"}
           {...props}
         />
-        {error && <p className="text-xs text-red-600">{error}</p>}
+        {error && <ErrorMessage message={error} />}
       </div>
     );
   }

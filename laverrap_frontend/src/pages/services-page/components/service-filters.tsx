@@ -1,6 +1,6 @@
 import { Search } from "@/components/shared";
 import { NativeSelect, NativeSelectOption } from "@/components/ui";
-import { SERVICES_CATEGORY } from "@/utils/const";
+import { SERVICES_CATEGORY } from "@/utils/consts";
 
 
 export const ServiceFilters = () => {

@@ -43,3 +43,18 @@ export const SERVICES_STATUS = [
   { id: 1, value: "ACTIVE", label: "Activo" },
   { id: 2, value: "INACTIVE", label: "Inactivo" }
 ];
+
+
+export const WASHING_STATUS = [
+  { id: 1, value: "PENDING", label: "Pendiente" },
+  { id: 2, value: "IN_PROGRESS", label: "En progreso" },
+  { id: 3, value: "COMPLETED", label: "Completado" },
+  { id: 4, value: "CANCELLED", label: "Cancelado" },
+];
+
+export const TYPES_OF_VEHICLES = [
+  { id: 1, value: "CAR", label: "Auto" },
+  { id: 2, value: "PICKUP", label: "Camioneta" },
+  { id: 3, value: "MOTORCYCLE", label: "Moto" },
+  { id: 4, value: "OTHER", label: "Otro" },
+];

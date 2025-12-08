@@ -5,6 +5,7 @@ import {
   HomePage,
   LoginPage,
   ServicesPage,
+  WashedPage,
 } from "@/pages";
 import { ProtectedLayout } from "@/layouts";
 
@@ -22,6 +23,7 @@ export const router = createBrowserRouter([
       { path: "services", Component: ServicesPage },
       { path: "clients", Component: ClientsPage },
       { path: "employees", Component: EmployeesPage },
+      { path: "washed", Component: WashedPage },
     ],
   },
 ]);
