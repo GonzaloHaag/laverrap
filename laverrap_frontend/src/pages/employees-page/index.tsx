@@ -47,14 +47,12 @@ export const EmployeesPage = () => {
                   Colocá los detalles del nuevo empleado
                 </DialogDescription>
               </DialogHeader>
-              {/* <FormService service={null} closeDialog={closeDialog} /> */}
               <FormEmployee employee={null} closeDialog={closeDialog} />
             </DialogContent>
           </Dialog>
         </CardAction>
       </CardHeader>
       <CardContent className="flex flex-col gap-y-4">
-        {/* <SectionCards /> */}
         <SectionCards />
         <div className="flex items-center justify-between">
           {/* <ServiceFilters /> */}

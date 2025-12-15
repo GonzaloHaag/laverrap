@@ -5,3 +5,4 @@ export { Search } from "./search";
 export { AlertDialogDelete } from "./alert-dialog-delete";
 export { SelectForm } from "./select-form";
 export { EmptyMessage } from "./empty-message";
+export { CardPage } from "./card-page";
