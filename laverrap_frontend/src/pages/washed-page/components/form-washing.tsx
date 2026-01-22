@@ -50,6 +50,10 @@ export const FormWashing = ({ closeDialog }: Props) => {
   const client = clients && clients.find((c) => c.id === clientIdValue);
 
   const onSubmit = handleSubmit(async (data) => {
+    if(data.notify && !client?.email) {
+      toast.error("El cliente seleccionado no tiene correo electrónico");
+      return;
+    }
     try {
       await washingService.create({ washing: data });
       toast.success("Lavado creado con éxito");
@@ -133,7 +137,7 @@ export const FormWashing = ({ closeDialog }: Props) => {
         </NativeSelect>
       </div>
       <div className="flex flex-col gap-y-1 w-full">
-        <Label htmlFor="notifyClient">Notificar por whatsapp *</Label>
+        <Label htmlFor="notifyClient">Notificar por correo *</Label>
         <NativeSelect {...register("notify")} defaultValue="true">
           <NativeSelectOption value="true">Sí</NativeSelectOption>
           <NativeSelectOption value="false">No</NativeSelectOption>

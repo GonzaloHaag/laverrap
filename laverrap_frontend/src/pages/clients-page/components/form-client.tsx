@@ -21,7 +21,6 @@ export const FormClient = ({ client, closeDialog }: Props) => {
     defaultValues: {
       name: client ? client.name : "",
       email: client ? client.email : "",
-      phone: client ? client.phone : "",
       car_type: client ? client.car_type : "CAR",
       car_model: client ? client.car_model : "",
       car_plate: client ? client.car_plate : "",
@@ -48,32 +47,24 @@ export const FormClient = ({ client, closeDialog }: Props) => {
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-y-4">
       <InputForm
-        label="Nombre"
+        label="Nombre *"
         type="text"
         placeholder="Nombre del cliente"
         {...register("name")}
         error={errors.name?.message}
       />
-      <div className="grid grid-cols-2 gap-4 items-start">
         <InputForm
-          label="Whatsapp"
-          type="text"
-          placeholder="Teléfono del cliente"
-          {...register("phone")}
-          error={errors.phone?.message}
-        />
-        <InputForm
-          label="Correo electrónico"
+          label="Correo electrónico *"
           type="email"
           placeholder="Correo del cliente"
           {...register("email")}
           error={errors.email?.message}
+          className="w-full"
         />
-      </div>
       <div className="grid grid-cols-2 gap-4 items-start">
         <SelectForm label="Tipo de vehículo" options={TYPES_OF_VEHICLES} error={errors.car_type?.message} {...register("car_type")} />
         <InputForm
-          label="Patente del vehículo"
+          label="Patente del vehículo *"
           type="text"
           placeholder="ABC 2902"
           {...register("car_plate")}
@@ -81,7 +72,7 @@ export const FormClient = ({ client, closeDialog }: Props) => {
         />
       </div>
       <InputForm
-        label="Modelo del vehículo"
+        label="Modelo del vehículo *"
         type="text"
         placeholder="Ej: Toyota corolla 2016"
         {...register("car_model")}

@@ -8,7 +8,6 @@ import washingRoutes from "./routes/washing.routes";
 import config from "./utils/config";
 import authMiddleware from "./middlewares/auth.middleware";
 import errorMiddleware from "./middlewares/error.middleware";
-import { WhatsAppClient } from "@kapso/whatsapp-cloud-api";
 
 const app = express();
 app.disable("x-powered-by");
@@ -28,18 +27,6 @@ app.use("/api/services", serviceRoutes);
 app.use("/api/clients", clientRoutes);
 app.use("/api/employees", employeeRoutes);
 app.use("/api/washed", washingRoutes);
-
-/** TESTING KAPSO */
-const client = new WhatsAppClient({
-  baseUrl: "https://api.kapso.ai/meta/whatsapp",
-  kapsoApiKey: process.env.KAPSO_API_KEY!,
-});
-
-await client.messages.sendText({
-  phoneNumberId: "647015955153740",
-  to: "5493425111071",
-  body: "Order confirmed! 📦",
-});
 
 // Middleware de errores debe ir AL FINAL
 app.use(errorMiddleware);

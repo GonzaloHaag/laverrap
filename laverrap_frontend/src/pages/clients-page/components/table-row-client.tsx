@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from "@/components/ui";
 import { TableCell, TableRow } from "@/components/ui/table";
-import { MailIcon, PhoneIcon } from "lucide-react";
+import { MailIcon } from "lucide-react";
 import type { Client } from "@/schemas";
 import { Link } from "react-router";
 import { AlertDialogDelete } from "@/components/shared";
@@ -37,22 +37,16 @@ export const TableRowClient = ({ client }: Props) => {
     <TableRow>
       <TableCell className="font-medium">{client.name}</TableCell>
       <TableCell>
-        <div className="flex flex-col gap-y-1">
-          <div className="flex items-center gap-x-2">
-            <PhoneIcon size={16} className="text-gray-400" />
-            <span>{client.phone}</span>
-          </div>
-          <div className="flex items-center gap-x-2">
-            <MailIcon size={16} className="text-gray-400" />
-            <Link
-              to={`mailto:${client.email}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline"
-            >
-              {client.email}
-            </Link>
-          </div>
+        <div className="flex items-center gap-x-2">
+          <MailIcon size={16} className="text-gray-400" />
+          <Link
+            to={`mailto:${client.email}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-600 hover:underline"
+          >
+            {client.email}
+          </Link>
         </div>
       </TableCell>
       <TableCell>

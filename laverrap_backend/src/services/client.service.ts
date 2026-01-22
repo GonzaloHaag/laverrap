@@ -11,7 +11,6 @@ export const clientService = {
       select: {
         id: true,
         name: true,
-        phone: true,
         email: true,
         car_model: true,
         car_plate: true,
@@ -30,7 +29,6 @@ export const clientService = {
     const client = await prisma.client.create({
       data: {
         name: data.name,
-        phone: data.phone,
         email: data.email,
         car_type: data.car_type,
         car_model: data.car_model,
@@ -58,7 +56,6 @@ export const clientService = {
       },
       data: {
         name: data.name,
-        phone: data.phone,
         email: data.email,
         car_type: data.car_type,
         car_model: data.car_model,

@@ -8,9 +8,6 @@ export const ClientSchema = object({
     .email("El correo no es válido")
     .required("El correo es requerido")
     .max(100, "El correo no puede tener más de 100 caracteres"),
-  phone: string()
-    .required("El teléfono es requerido")
-    .max(15, "El teléfono no puede tener más de 15 caracteres"),
   car_type: string()
     .oneOf(
       ["CAR", "PICKUP", "MOTORCYCLE", "OTHER"],

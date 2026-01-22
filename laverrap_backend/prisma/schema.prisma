@@ -62,7 +62,6 @@ model Client {
   updatedAt DateTime  @updatedAt
   name      String    @db.VarChar(100)
   email     String    @db.VarChar(100)
-  phone     String    @db.VarChar(15)
   car_type  CarType   @default(CAR)
   car_model String    @db.VarChar(100)
   car_plate String    @db.VarChar(20)

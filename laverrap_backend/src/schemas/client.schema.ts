@@ -6,10 +6,6 @@ export const clientSchema = z.object({
     .min(1, "El nombre del cliente es requerido")
     .max(100, "El nombre del cliente no puede exceder los 100 caracteres"),
   email: z.email("El correo electrónico no es válido"),
-  phone: z
-    .string("El teléfono es requerido")
-    .min(7, "El teléfono debe tener al menos 7 caracteres")
-    .max(15, "El teléfono no puede exceder los 15 caracteres"),
   car_type: z
     .enum(
       ["CAR", "PICKUP", "MOTORCYCLE", "OTHER"],

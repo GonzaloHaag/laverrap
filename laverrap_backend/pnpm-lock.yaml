@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@kapso/whatsapp-cloud-api':
-        specifier: ^0.1.1
-        version: 0.1.1
       '@prisma/adapter-pg':
         specifier: ^7.0.0
         version: 7.0.0
@@ -322,10 +319,6 @@ packages:
   '@humanwhocodes/retry@0.4.3':
     resolution: {integrity: sha512-bV0Tgo9K4hfPCek+aMAn81RppFKv2ySDQeMoSZuvTASywNTnVJCArCZE2FWqpvIatKu7VMRLWlR1EazvVhDyhQ==}
     engines: {node: '>=18.18'}
-
-  '@kapso/whatsapp-cloud-api@0.1.1':
-    resolution: {integrity: sha512-TnT8Mq08twUHgermibkdpnjEdOVPr/fuXaOz5RUEnAh8QKdCYDeqTmPJO54GZ8AOxTIGPH4N+Q+YN++Gt+gDBg==}
-    engines: {node: '>=20.19'}
 
   '@mrleebo/prisma-ast@0.12.1':
     resolution: {integrity: sha512-JwqeCQ1U3fvccttHZq7Tk0m/TMC6WcFAQZdukypW3AzlJYKYTGNVd1ANU2GuhKnv4UQuOFj3oAl0LLG/gxFN1w==}
@@ -1682,10 +1675,6 @@ snapshots:
   '@humanwhocodes/module-importer@1.0.1': {}
 
   '@humanwhocodes/retry@0.4.3': {}
-
-  '@kapso/whatsapp-cloud-api@0.1.1':
-    dependencies:
-      zod: 4.1.12
 
   '@mrleebo/prisma-ast@0.12.1':
     dependencies:
