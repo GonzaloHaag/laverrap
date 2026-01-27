@@ -29,7 +29,6 @@ export const FormClient = ({ client, closeDialog }: Props) => {
     mode: "onSubmit",
   });
   const onSubmit = handleSubmit(async (data) => {
-    try {
       if (client) {
         await clientService.update({ id: client.id, client: data });
         toast.success("Cliente actualizado con éxito");
@@ -39,10 +38,6 @@ export const FormClient = ({ client, closeDialog }: Props) => {
       }
       mutate();
       closeDialog();
-    } catch (error) {
-      console.log("Error al guardar el cliente:", error);
-      toast.error("Error al guardar el cliente");
-    }
   });
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-y-4">

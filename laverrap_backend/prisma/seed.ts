@@ -19,7 +19,6 @@ async function main() {
         create: {
           name: "Juan Pérez",
           email: "juan.perez@example.com",
-          phone: "3425111071",
           car_model: "Toyota Corolla",
           car_plate: "ABC-1234",
         },

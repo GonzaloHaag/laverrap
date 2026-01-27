@@ -4,12 +4,9 @@ import { Button } from "@/components/ui";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "@/schemas";
 import { authService } from "@/services";
-import { useState } from "react";
-import { AlertCircleIcon } from "lucide-react";
 import { useNavigate } from "react-router";
 
 export const LoginForm = () => {
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const navigate = useNavigate();
   const {
     register,
@@ -24,17 +21,15 @@ export const LoginForm = () => {
     },
   });
   const onSubmit = handleSubmit(async (data) => {
-    try {
       const response = await authService.login(data);
-      setErrorMessage(null);
       localStorage.setItem("token", response.token!);
       localStorage.setItem("user", JSON.stringify(response.user));
       navigate("/");
-    } catch (error) {
-      console.log("Error en el login:", error);
-      setErrorMessage(error as string);
-    }
   });
+
+  if(errors) {
+     console.log(errors);
+  }
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-y-4">
       <InputForm
@@ -53,18 +48,6 @@ export const LoginForm = () => {
         error={errors.password?.message}
         placeholder="Ingrese su contraseña"
       />
-      {errorMessage && (
-        <div
-          className="flex items-center p-4 text-sm text-red-800 rounded-lg bg-red-50 gap-x-2"
-          role="alert"
-        >
-          <AlertCircleIcon />
-          <span className="sr-only">Info</span>
-          <div>
-            <span className="font-medium">{errorMessage}</span>
-          </div>
-        </div>
-      )}
       <Button
         type="submit"
         variant={"default"}

@@ -94,3 +94,14 @@ Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOi
     "details": "Lavar con cera adicional",
     "notify": true
 }
+
+
+### UPDATE STATUS LAVADO
+PATCH http://localhost:3001/api/washed/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0QGV4YW1wbGUuY29tIiwidXNlcm5hbWUiOiJHb256YWxvIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzY5MzkzNzI0LCJleHAiOjE3Njk0MDA5MjR9.473yeCpJZFFG-Q8Sa-2q8jmqkmfJDubWATzo3LDn6b8
+
+{
+    "status": "COMPLETED"
+}
+

@@ -14,7 +14,7 @@ export const clientController = {
     const validatedFields = clientSchema.parse(req.body);
     const newClient = await clientService.createClient(
       userId!,
-      validatedFields
+      validatedFields,
     );
     responseSuccess<Client>(res, 201, newClient);
   },
@@ -25,14 +25,17 @@ export const clientController = {
     const updatedClient = await clientService.updateClient(
       clientId,
       userId!,
-      validatedFields
+      validatedFields,
     );
     responseSuccess<Client>(res, 200, updatedClient);
   },
-  deleteById: async (req: Request, res: Response) => {
+  updateStatusById: async (req: Request, res: Response) => {
     const userId = req.user?.id;
     const clientId = Number(req.params.id);
-    await clientService.deleteClient(clientId, userId!);
-    responseSuccess<null>(res, 204, null);
+    const updatedClient = await clientService.updateStatusClient(
+      clientId,
+      userId!,
+    );
+    responseSuccess<Client>(res, 200, updatedClient);
   },
 };

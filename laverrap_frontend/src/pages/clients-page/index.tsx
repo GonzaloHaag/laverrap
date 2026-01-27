@@ -47,7 +47,6 @@ export const ClientsPage = () => {
                   Colocá los detalles del nuevo cliente
                 </DialogDescription>
               </DialogHeader>
-              {/* <FormService service={null} closeDialog={closeDialog} /> */}
               <FormClient client={null} closeDialog={closeDialog} />
             </DialogContent>
           </Dialog>

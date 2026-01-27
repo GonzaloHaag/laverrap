@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import {
   DialogFooterForm,
   ErrorMessage,
@@ -51,7 +52,7 @@ export const FormWashing = ({ closeDialog }: Props) => {
 
   const onSubmit = handleSubmit(async (data) => {
     if(data.notify && !client?.email) {
-      toast.error("El cliente seleccionado no tiene correo electrónico");
+      toast.error("El cliente seleccionado no tiene correo electrónico para notificar.");
       return;
     }
     try {
@@ -64,6 +65,10 @@ export const FormWashing = ({ closeDialog }: Props) => {
       toast.error("Hubo un error al crear o actualizar el lavado");
     }
   });
+
+  const filterActiveEmployees = useMemo(() => {
+     return employees?.filter((employee) => employee.status === "ACTIVE");
+  },[ employees ]);
 
   return (
     <form onSubmit={onSubmit} className="w-full grid grid-cols-2 gap-4">
@@ -93,8 +98,8 @@ export const FormWashing = ({ closeDialog }: Props) => {
         <Label htmlFor="employeeId">Empleado a cargo *</Label>
         <NativeSelect {...register("employeeId", { valueAsNumber: true })}>
           <NativeSelectOption value="">Seleccionar empleado</NativeSelectOption>
-          {employees && employees.length > 0 ? (
-            employees.map((employee) => (
+          {filterActiveEmployees && filterActiveEmployees.length > 0 ? (
+            filterActiveEmployees.map((employee) => (
               <NativeSelectOption key={employee.id} value={employee.id}>
                 {employee.name} - {employee.entry_time} a{" "}
                 {employee.departure_time}

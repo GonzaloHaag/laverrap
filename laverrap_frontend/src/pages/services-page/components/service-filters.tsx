@@ -8,7 +8,7 @@ export const ServiceFilters = () => {
     <form className="w-full flex items-center gap-x-4">
       <Search placeholder="Buscar servicios" />
       <NativeSelect>
-        <NativeSelectOption value="">Seleccionar tipo</NativeSelectOption>
+        <NativeSelectOption value="">Seleccionar categoría</NativeSelectOption>
         {SERVICES_CATEGORY.map((type) => (
           <NativeSelectOption key={type.id} value={type.value}>
             {type.label}

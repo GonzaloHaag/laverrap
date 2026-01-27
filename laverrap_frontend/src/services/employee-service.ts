@@ -32,7 +32,7 @@ export const employeeService = {
     return data.data;
   },
 
-  changeStatus: async ({ id }: { id: Employee["id"] }) => {
+  updateStatus: async ({ id }: { id: Employee["id"] }) => {
     const { data } = await api.patch<ServiceResponse<Employee>>(
       `${EMPLOYEES_URL}/${id}`
     );

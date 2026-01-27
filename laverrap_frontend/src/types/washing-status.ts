@@ -1,0 +1,1 @@
+export type WashingStatus = "PENDING" | "IN_PROGRESS" | "COMPLETED" | "CANCELLED";

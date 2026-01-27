@@ -32,7 +32,6 @@ export const FormService = ({ service, closeDialog }: Props) => {
   });
 
   const onSubmit = handleSubmit(async (data) => {
-    try {
       if (service) {
         await serviceService.update({ id: service.id, service: data });
         toast.success("Servicio actualizado con éxito");
@@ -42,10 +41,6 @@ export const FormService = ({ service, closeDialog }: Props) => {
       }
       mutate();
       closeDialog();
-    } catch (error) {
-      console.error("Error creating or updating service:", error);
-      toast.error("Hubo un error al crear o actualizar el servicio");
-    }
   });
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-y-4 w-full">

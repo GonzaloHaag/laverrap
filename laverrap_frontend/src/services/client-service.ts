@@ -11,7 +11,7 @@ export const clientService = {
   create: async ({ client }: { client: Partial<Client> }): Promise<Client> => {
     const { data } = await api.post<ServiceResponse<Client>>(
       CLIENTS_URL,
-      client
+      client,
     );
     return data.data;
   },
@@ -25,14 +25,14 @@ export const clientService = {
   }): Promise<Client> => {
     const { data } = await api.put<ServiceResponse<Client>>(
       `${CLIENTS_URL}/${id}`,
-      client
+      client,
     );
     return data.data;
   },
 
-  delete: async ({ id }: { id: Client["id"] }) => {
-    const { data } = await api.delete<ServiceResponse<Client>>(
-      `${CLIENTS_URL}/${id}`
+  updateStatus: async ({ id }: { id: Client["id"] }): Promise<Client> => {
+    const { data } = await api.patch<ServiceResponse<Client>>(
+      `${CLIENTS_URL}/${id}`,
     );
     return data.data;
   },

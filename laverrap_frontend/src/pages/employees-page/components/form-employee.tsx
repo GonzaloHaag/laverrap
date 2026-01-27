@@ -28,7 +28,6 @@ export const FormEmployee = ({ employee, closeDialog }: Props) => {
   });
 
   const onSubmit = handleSubmit(async (data) => {
-    try {
       if (employee) {
         // Update employee logic here
         await employeeService.update({ id: employee.id, employee: data });
@@ -40,9 +39,6 @@ export const FormEmployee = ({ employee, closeDialog }: Props) => {
       }
       mutate();
       closeDialog();
-    } catch (error) {
-      console.error("Error creating or updating employee:", error);
-    }
   });
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-y-4">

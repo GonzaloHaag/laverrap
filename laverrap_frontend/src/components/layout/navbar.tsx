@@ -38,7 +38,7 @@ export const NavBar = () => {
             <Link
               title={link.title}
               to={link.path}
-              className={`${ pathname === link.path ? "bg-blue-500 text-slate-100 hover:bg-blue-500 hover:text-slate-100" : ""} ${buttonVariants({ variant: "outline" })}`}
+              className={`${buttonVariants({ variant: link.path === pathname ? "default" : "outline" })}`}
             >
               {link.title}
             </Link>

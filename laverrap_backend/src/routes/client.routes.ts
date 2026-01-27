@@ -7,6 +7,6 @@ const router = express.Router();
 router.get("/", catchedAsync(clientController.getAll));
 router.post("/", catchedAsync(clientController.create));
 router.put("/:id", catchedAsync(clientController.updateById));
-router.delete("/:id", catchedAsync(clientController.deleteById));
+router.patch("/:id", catchedAsync(clientController.updateStatusById));
 
 export default router;

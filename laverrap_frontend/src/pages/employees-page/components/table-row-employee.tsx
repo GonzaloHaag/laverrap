@@ -15,6 +15,7 @@ import { formatStatus } from "@/utils/formatters";
 import { useEmployees } from "@/hooks";
 import { employeeService } from "@/services";
 import { toast } from "sonner";
+import { AlertDialogConfirm } from "@/components/shared";
 interface Props {
   employee: Employee;
 }
@@ -25,16 +26,12 @@ export const TableRowEmployee = ({ employee }: Props) => {
     setOpen((prev) => !prev);
   };
 
-  const onClickChangeStatus = async () => {
-    try {
-      await employeeService.changeStatus({
-        id: employee.id,
-      });
-      toast.success("Estado del empleado actualizado con éxito");
-      mutate();
-    } catch (error) {
-      console.error("Error updating employee status:", error);
-    }
+  const onClickConfirmUpdateStatus = async () => {
+    await employeeService.updateStatus({
+      id: employee.id,
+    });
+    toast.success("Estado del empleado actualizado con éxito");
+    mutate();
   };
   return (
     <TableRow>
@@ -73,16 +70,17 @@ export const TableRowEmployee = ({ employee }: Props) => {
             <FormEmployee employee={employee} closeDialog={closeDialog} />
           </DialogContent>
         </Dialog>
-        <Button
-          variant={"link"}
-          size={"sm"}
-          className={`p-0 ml-2 ${
-            employee.status === "ACTIVE" ? "text-red-600" : "text-green-600"
-          }`}
-          onClick={onClickChangeStatus}
-        >
-          {employee.status === "ACTIVE" ? "Desactivar" : "Activar"}
-        </Button>
+        {employee.status === "ACTIVE" ? (
+          <AlertDialogConfirm
+            onClickConfirm={onClickConfirmUpdateStatus}
+            isRestore={false}
+          />
+        ) : (
+          <AlertDialogConfirm
+            onClickConfirm={onClickConfirmUpdateStatus}
+            isRestore={true}
+          />
+        )}
       </TableCell>
     </TableRow>
   );

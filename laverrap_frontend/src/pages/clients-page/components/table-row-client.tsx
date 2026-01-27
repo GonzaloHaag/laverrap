@@ -12,9 +12,11 @@ import { TableCell, TableRow } from "@/components/ui/table";
 import { MailIcon } from "lucide-react";
 import type { Client } from "@/schemas";
 import { Link } from "react-router";
-import { AlertDialogDelete } from "@/components/shared";
+import { AlertDialogConfirm } from "@/components/shared";
 import { toast } from "sonner";
 import { FormClient } from "./form-client";
+import { useClients } from "@/hooks";
+import { clientService } from "@/services";
 
 interface Props {
   client: Client;
@@ -22,21 +24,25 @@ interface Props {
 export const TableRowClient = ({ client }: Props) => {
   const [open, setOpen] = useState(false);
 
+  const { mutate } = useClients();
+  const onClickConfirmUpdateStatus = async () => {
+    await clientService.updateStatus({ id: client.id });
+    mutate();
+    toast.success("Estado del cliente actualizado con éxito");
+  };
   const closeDialog = () => {
     setOpen((prev) => !prev);
   };
-  const onClickDelete = async () => {
-    try {
-      toast.success("Servicio eliminado con éxito");
-    } catch (error) {
-      console.error("Error deleting service:", error);
-      toast.error("Hubo un error al eliminar el servicio");
-    }
-  };
   return (
     <TableRow>
-      <TableCell className="font-medium">{client.name}</TableCell>
-      <TableCell>
+      <TableCell
+        className={`font-medium ${client.status === "INACTIVE" && "line-through text-gray-500"}`}
+      >
+        {client.name}
+      </TableCell>
+      <TableCell
+        className={`${client.status === "INACTIVE" && "line-through text-gray-500"}`}
+      >
         <div className="flex items-center gap-x-2">
           <MailIcon size={16} className="text-gray-400" />
           <Link
@@ -49,7 +55,9 @@ export const TableRowClient = ({ client }: Props) => {
           </Link>
         </div>
       </TableCell>
-      <TableCell>
+      <TableCell
+        className={`${client.status === "INACTIVE" && "line-through text-gray-500"}`}
+      >
         <div className="flex flex-col gap-y-1">
           {client.car_model}
           <span className="text-xs bg-muted/50 px-2 py-1 rounded-full w-max">
@@ -57,10 +65,16 @@ export const TableRowClient = ({ client }: Props) => {
           </span>
         </div>
       </TableCell>
-      <TableCell className="font-medium text-center">
+      <TableCell
+        className={`font-medium text-center ${client.status === "INACTIVE" && "line-through text-gray-500"}`}
+      >
         {client._count.washed}
       </TableCell>
-      <TableCell className="font-medium">{"12/06/2024"}</TableCell>
+      <TableCell
+        className={`font-medium ${client.status === "INACTIVE" && "line-through text-gray-500"}`}
+      >
+        {"12/06/2024"}
+      </TableCell>
       <TableCell>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
@@ -78,7 +92,17 @@ export const TableRowClient = ({ client }: Props) => {
             <FormClient client={client} closeDialog={closeDialog} />
           </DialogContent>
         </Dialog>
-        <AlertDialogDelete onClickDelete={onClickDelete} />
+        {client.status === "ACTIVE" ? (
+          <AlertDialogConfirm
+            onClickConfirm={onClickConfirmUpdateStatus}
+            isRestore={false}
+          />
+        ) : (
+          <AlertDialogConfirm
+            onClickConfirm={onClickConfirmUpdateStatus}
+            isRestore={true}
+          />
+        )}
       </TableCell>
     </TableRow>
   );

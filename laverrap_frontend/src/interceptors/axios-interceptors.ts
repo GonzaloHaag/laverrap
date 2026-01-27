@@ -1,4 +1,5 @@
 import { api } from "@/services";
+import { toast } from "sonner";
 
 export const axiosInterceptor = () => {
   api.interceptors.request.use(
@@ -19,7 +20,7 @@ export const axiosInterceptor = () => {
     (error) => {
       /** Hacer algo con el error de la peticion */
       return Promise.reject(error);
-    }
+    },
   );
 
   api.interceptors.response.use(
@@ -39,10 +40,12 @@ export const axiosInterceptor = () => {
           }
         }
         console.log("Error backend", error.response.data);
-        if (error.response) return Promise.reject(error.response.data.message); // el catch lo agarrar con el message ya
+        const message = `Error: ${error.response.data.message}`;
+        toast.error(message || "Error en la petición");
+        return Promise.reject(error); // el catch lo agarrar con el message ya
       }
       console.log(error);
       return Promise.reject(error);
-    }
+    },
   );
 };

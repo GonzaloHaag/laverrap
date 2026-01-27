@@ -6,6 +6,6 @@ const router = express.Router();
 router.get("/", catchedAsync(employeeController.getAll));
 router.post("/", catchedAsync(employeeController.create));
 router.put("/:id", catchedAsync(employeeController.updateById));
-router.patch("/:id", catchedAsync(employeeController.changeStatusById));
+router.patch("/:id", catchedAsync(employeeController.updateStatusById));
 
 export default router;

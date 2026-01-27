@@ -26,6 +26,13 @@ export const clientService = {
   },
 
   createClient: async (userId: number, data: Client) => {
+    const existingClient = await prisma.client.findUnique({
+      where: {
+        email: data.email,
+        userId: userId,
+      },
+    });
+    if (existingClient) throw new ClientError("El email ya esta en uso", 409);
     const client = await prisma.client.create({
       data: {
         name: data.name,
@@ -47,7 +54,7 @@ export const clientService = {
         userId: userId,
       },
     });
-    if (!findClient) throw new ClientError("Id inválido", 400);
+    if (!findClient) throw new ClientError("Id inválido", 404);
 
     const updatedClient = await prisma.client.update({
       where: {
@@ -65,21 +72,37 @@ export const clientService = {
     });
     return updatedClient;
   },
-
-  deleteClient: async (clientId: number, userId: number) => {
+  updateStatusClient: async (clientId: number, userId: number) => {
     const findClient = await prisma.client.findUnique({
       where: {
         id: clientId,
         userId: userId,
       },
     });
-    if (!findClient) throw new Error("Id inválido");
+    if (!findClient) throw new ClientError("Id inválido", 404);
 
-    await prisma.client.delete({
+    const newStatus = findClient.status === "ACTIVE" ? "INACTIVE" : "ACTIVE";
+
+    const updatedClient = await prisma.client.update({
+      where: {
+        id: clientId,
+        userId: userId,
+      },
+      data: {
+        status: newStatus,
+      },
+    });
+    return updatedClient;
+  },
+
+  getClientById: async (clientId: number, userId: number) => {
+    const client = await prisma.client.findUnique({
       where: {
         id: clientId,
         userId: userId,
       },
     });
-  }
+    if (!client) throw new ClientError("Cliente no encontrado", 404);
+    return client;
+  },
 };

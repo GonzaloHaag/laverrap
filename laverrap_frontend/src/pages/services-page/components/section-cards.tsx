@@ -3,7 +3,7 @@ import { DollarSignIcon, PlusIcon, TrendingUpIcon } from "lucide-react";
 
 export const SectionCards = () => {
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <section className="container-cards">
       <CardPage title="Total servicios" value={40} Icon={PlusIcon} />
       <CardPage
         title="Más Popular"

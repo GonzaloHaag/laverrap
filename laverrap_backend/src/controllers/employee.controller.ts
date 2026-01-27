@@ -29,10 +29,10 @@ export const employeeController = {
     );
     responseSuccess(res, 200, updatedEmployee);
   },
-  changeStatusById: async (req: Request, res: Response) => {
+  updateStatusById: async (req: Request, res: Response) => {
     const userId = req.user?.id;
     const employeeId = Number(req.params.id);
-    const updatedEmployee = await employeeService.changeStatusEmployee(
+    const updatedEmployee = await employeeService.updateStatusEmployee(
       employeeId,
       userId!
     );

@@ -16,7 +16,8 @@ import type { Service } from "@/schemas";
 import { serviceService } from "@/services";
 import { useServices } from "@/hooks";
 import { toast } from "sonner";
-import { AlertDialogDelete } from "@/components/shared";
+import { AlertDialogConfirm } from "@/components/shared";
+
 
 interface Props {
   service: Service;
@@ -29,15 +30,10 @@ export const TableRowService = ({ service }: Props) => {
     setOpen((prev) => !prev);
   };
 
-  const onClickDelete = async () => {
-    try {
+  const onClickConfirmDelete = async () => {
       await serviceService.delete({ id: service.id });
       mutate();
       toast.success("Servicio eliminado con éxito");
-    } catch (error) {
-      console.error("Error deleting service:", error);
-      toast.error("Hubo un error al eliminar el servicio");
-    }
   };
 
   return (
@@ -71,7 +67,7 @@ export const TableRowService = ({ service }: Props) => {
             <FormService service={service} closeDialog={closeDialog} />
           </DialogContent>
         </Dialog>
-        <AlertDialogDelete onClickDelete={onClickDelete} />
+        <AlertDialogConfirm onClickConfirm={onClickConfirmDelete} isRestore={false} />
       </TableCell>
     </TableRow>
   );

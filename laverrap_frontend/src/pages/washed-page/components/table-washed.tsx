@@ -36,7 +36,9 @@ export const TableWashed = ({ isLoading, error, washed }: Props) => {
           <TableHead>Vehículo</TableHead>
           <TableHead>Empleado</TableHead>
           <TableHead>Precio</TableHead>
-          <TableHead>Estado</TableHead>
+          <TableHead className="w-40">Estado</TableHead>
+          <TableHead>Notificar</TableHead>
+          <TableHead>Estado email</TableHead>
           <TableHead>Acciones</TableHead>
         </TableRow>
       </TableHeader>

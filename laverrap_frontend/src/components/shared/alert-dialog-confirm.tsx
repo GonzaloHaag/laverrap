@@ -5,7 +5,6 @@ import {
   AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
-  AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
@@ -13,32 +12,33 @@ import {
 } from "../ui/alert-dialog";
 
 interface Props {
-  onClickDelete: () => Promise<void>;
+  onClickConfirm: () => Promise<void>;
+  isRestore: boolean;
 }
 
-export const AlertDialogDelete = ({ onClickDelete }: Props) => {
-  const [openAlertDialogDelete, setOpenAlertDialogDelete] = useState(false);
+export const AlertDialogConfirm = ({ onClickConfirm, isRestore }: Props) => {
+  const [openAlertDialogConfirm, setOpenAlertDialogConfirm] = useState(false);
   return (
     <AlertDialog
-      open={openAlertDialogDelete}
-      onOpenChange={setOpenAlertDialogDelete}
+      open={openAlertDialogConfirm}
+      onOpenChange={setOpenAlertDialogConfirm}
     >
       <AlertDialogTrigger asChild>
-        <Button variant={"link"} size={"sm"} className="text-red-600 p-0 ml-2">
-          Eliminar
+        <Button variant={"link"} size={"sm"} className={`${isRestore ? "text-green-600" : "text-red-600"} p-0 ml-2`}>
+          {isRestore ? "Restaurar" : "Eliminar"}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>¿Estás seguro?</AlertDialogTitle>
-          <AlertDialogDescription>
+          {/* <AlertDialogDescription>
             Esta acción no se puede deshacer.
-          </AlertDialogDescription>
+          </AlertDialogDescription> */}
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel className="min-w-24">Cancel</AlertDialogCancel>
-          <AlertDialogAction className="min-w-24" onClick={onClickDelete}>
-            Eliminar
+          <AlertDialogAction className={`min-w-24 ${isRestore ? "bg-green-600 hover:bg-green-700" : "bg-red-600 hover:bg-red-700"}`} onClick={onClickConfirm}>
+            {isRestore ? "Restaurar" : "Eliminar"}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

@@ -31,7 +31,7 @@ model Service {
   id          Int             @id @default(autoincrement())
   createdAt   DateTime        @default(now())
   updatedAt   DateTime        @updatedAt
-  name        String          @db.VarChar(100)
+  name        String          @unique @db.VarChar(100)
   description String?
   price       Float
   duration    Int
@@ -61,7 +61,7 @@ model Client {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   name      String    @db.VarChar(100)
-  email     String    @db.VarChar(100)
+  email     String    @unique @db.VarChar(100)
   car_type  CarType   @default(CAR)
   car_model String    @db.VarChar(100)
   car_plate String    @db.VarChar(20)
@@ -72,20 +72,21 @@ model Client {
 }
 
 model Washing {
-  id         Int           @id @default(autoincrement())
-  createdAt  DateTime      @default(now())
-  updatedAt  DateTime      @updatedAt
-  status     WashingStatus @default(PENDING)
-  user       User          @relation(fields: [userId], references: [id])
-  userId     Int
-  service    Service       @relation(fields: [serviceId], references: [id])
-  serviceId  Int
-  employee   Employee      @relation(fields: [employeeId], references: [id])
-  employeeId Int
-  client     Client        @relation(fields: [clientId], references: [id])
-  clientId   Int
-  details    String?
-  notify     Boolean       @default(true)
+  id          Int           @id @default(autoincrement())
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  status      WashingStatus @default(PENDING)
+  user        User          @relation(fields: [userId], references: [id])
+  userId      Int
+  service     Service       @relation(fields: [serviceId], references: [id])
+  serviceId   Int
+  employee    Employee      @relation(fields: [employeeId], references: [id])
+  employeeId  Int
+  client      Client        @relation(fields: [clientId], references: [id])
+  clientId    Int
+  details     String?
+  notify      Boolean       @default(true)
+  emailSentAt DateTime?
 }
 
 enum Role {

@@ -16,6 +16,13 @@ export const serviceService = {
   },
 
   createService: async (userId: number, data: Service): Promise<Service> => {
+    const existingService = await prisma.service.findUnique({
+      where: {
+        name: data.name,
+      },
+    });
+    if (existingService)
+      throw new ClientError("El nombre del servicio ya está en uso", 409);
     const service = await prisma.service.create({
       data: {
         name: data.name,
@@ -30,7 +37,11 @@ export const serviceService = {
     return service;
   },
 
-  updateService: async (serviceId: number, userId: number, data: Service): Promise<Service> => {
+  updateService: async (
+    serviceId: number,
+    userId: number,
+    data: Service,
+  ): Promise<Service> => {
     const findService = await prisma.service.findUnique({
       where: {
         id: serviceId,
@@ -48,7 +59,7 @@ export const serviceService = {
         name: data.name,
         description: data.description,
         price: data.price,
-        duration: data.duration,    
+        duration: data.duration,
         category: data.category,
       },
     });
@@ -57,6 +68,16 @@ export const serviceService = {
   },
 
   deleteService: async (serviceId: number, userId: number): Promise<void> => {
+    const findRelation = await prisma.washing.findFirst({
+      where: {
+        serviceId: serviceId,
+      },
+    });
+    if (findRelation)
+      throw new ClientError(
+        "No se puede eliminar el servicio porque tiene lavados asociados",
+        400,
+      );
     const findService = await prisma.service.findUnique({
       where: {
         id: serviceId,

@@ -8,7 +8,7 @@ import {
 
 export const SectionCards = () => {
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <section className="container-cards">
       <CardPage title="Total hoy" value={50} Icon={CalendarIcon} />
       <CardPage title="Completados" value={20} Icon={CheckCircleIcon} />
       <CardPage title="En proceso" value={10} Icon={ClockIcon} />

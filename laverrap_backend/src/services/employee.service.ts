@@ -43,7 +43,7 @@ export const employeeService = {
   updateEmployee: async (
     employeeId: number,
     userId: number,
-    data: Employee
+    data: Employee,
   ) => {
     const findEmployee = await prisma.employee.findUnique({
       where: {
@@ -51,7 +51,7 @@ export const employeeService = {
         userId: userId,
       },
     });
-    if (!findEmployee) throw new ClientError("Id inválido", 400);
+    if (!findEmployee) throw new ClientError("Id inválido", 404);
 
     const updatedEmployee = await prisma.employee.update({
       where: {
@@ -69,15 +69,14 @@ export const employeeService = {
     return updatedEmployee;
   },
 
-  changeStatusEmployee: async (employeeId: number, userId: number) => {
+  updateStatusEmployee: async (employeeId: number, userId: number) => {
     const findEmployee = await prisma.employee.findUnique({
       where: {
         id: employeeId,
         userId: userId,
       },
     });
-    if (!findEmployee) throw new ClientError("Id inválido");
-
+    if (!findEmployee) throw new ClientError("Id inválido", 404);
     const updatedEmployee = await prisma.employee.update({
       where: {
         id: employeeId,

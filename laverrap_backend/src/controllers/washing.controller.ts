@@ -1,11 +1,14 @@
 import { Request, Response } from "express";
 import { washingService } from "../services/washing.service";
 import { responseSuccess } from "../utils/response-success";
-import { Washing, washingSchema } from "../schemas/washing.schema";
+import {
+  Washing,
+  washingSchema,
+  washingStatus,
+} from "../schemas/washing.schema";
 
 export const washingController = {
   getAll: async (req: Request, res: Response) => {
-    // Lógica para obtener todos los lavados
     const userId = req.user?.id;
     const washed = await washingService.getAllWashed(userId!);
     responseSuccess<Washing[]>(res, 200, washed);
@@ -16,8 +19,21 @@ export const washingController = {
     const validatedFields = washingSchema.parse(req.body);
     const washingCreated = await washingService.createWashing(
       userId!,
-      validatedFields
+      validatedFields,
     );
     responseSuccess<Washing>(res, 201, washingCreated);
+  },
+
+  updateStatusById: async (req: Request, res: Response) => {
+    const userId = req.user?.id;
+    const washingId = parseInt(req.params.id);
+    const { status } = req.body;
+    const validatedStatus = washingStatus.parse(status);
+    const updatedWashing = await washingService.changeStatusWashing(
+      userId!,
+      washingId,
+      validatedStatus,
+    );
+    responseSuccess<Washing>(res, 200, updatedWashing);
   },
 };
