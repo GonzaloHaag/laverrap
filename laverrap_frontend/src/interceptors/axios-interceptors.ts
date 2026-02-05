@@ -31,7 +31,7 @@ export const axiosInterceptor = () => {
     (error) => {
       /** Hacer algo con el error de la respuesta */
       if (error.response.data) {
-        if (error.response.status === 403 || error.response.status === 401) {
+        if (error.response.status === 403) {
           /** Solo redirigir si NO es una petición de login */
           if (!error.config.url?.includes("/auth/login")) {
             localStorage.removeItem("token");

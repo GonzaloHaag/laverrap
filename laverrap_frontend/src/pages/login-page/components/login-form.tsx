@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { InputForm } from "@/components/shared";
 import { Button } from "@/components/ui";
@@ -5,8 +6,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "@/schemas";
 import { authService } from "@/services";
 import { useNavigate } from "react-router";
+import { AlertCircleIcon } from "lucide-react";
 
 export const LoginForm = () => {
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const navigate = useNavigate();
   const {
     register,
@@ -21,14 +24,29 @@ export const LoginForm = () => {
     },
   });
   const onSubmit = handleSubmit(async (data) => {
+    try {
       const response = await authService.login(data);
       localStorage.setItem("token", response.token!);
       localStorage.setItem("user", JSON.stringify(response.user));
       navigate("/");
+    } catch (error) {
+      console.log(error);
+      if (error instanceof Error) {
+        if (error.message === "Request failed with status code 401") {
+          setErrorMessage(
+            "Credenciales inválidas.",
+          );
+        } else {
+          setErrorMessage(
+            "Ocurrió un error al intentar iniciar sesión.",
+          );
+        }
+      }
+    }
   });
 
-  if(errors) {
-     console.log(errors);
+  if (errors) {
+    console.log(errors);
   }
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-y-4">
@@ -48,6 +66,15 @@ export const LoginForm = () => {
         error={errors.password?.message}
         placeholder="Ingrese su contraseña"
       />
+      {errorMessage && (
+        <div
+          className="flex items-start sm:items-center gap-2 p-4 bg-red-500/40 rounded-md"
+          role="alert"
+        >
+          <AlertCircleIcon size={24} />
+          <span className="font-medium">{errorMessage}</span>
+        </div>
+      )}
       <Button
         type="submit"
         variant={"default"}

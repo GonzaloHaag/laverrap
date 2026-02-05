@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import type { User } from "@/schemas";
-
+import { mutate } from "swr";
 export const UserProfile = () => {
   const user = localStorage.getItem("user");
   const navigate = useNavigate();
@@ -22,7 +22,11 @@ export const UserProfile = () => {
     localStorage.removeItem("token");
     navigate("/auth/login");
     /** Borrar cache de swr */
-    window.location.reload();
+    mutate(
+      (key) => true, // which cache keys are updated
+      undefined, // update cache data to `undefined`
+      { revalidate: false }, // do not revalidate
+    );
   };
 
   return (
