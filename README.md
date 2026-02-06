@@ -17,7 +17,7 @@ LAVERRAP es una aplicación web completa que permite administrar un lavadero de 
 - 📊 **Dashboard**: Estadísticas e informes visuales de ingresos
 - 🔐 **Autenticación**: Sistema de login seguro con JWT
 - 📱 **Responsive**: Diseño adaptable para todos los dispositivos
-- 📲 **Notificaciones SMS**: Integración con Twilio para envío de mensajes
+- 📲 **Notificaciones Email**: Integración con nodemailer para envío de notificaciones
 
 ## 📁 Estructura del Proyecto
 
@@ -45,7 +45,7 @@ laverrap/
 - TypeScript
 - Prisma (PostgreSQL)
 - JWT Authentication
-- Twilio API
+- Nodemailer
 
 ## 📚 Documentación
 
