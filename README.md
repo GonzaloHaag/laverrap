@@ -43,7 +43,7 @@ laverrap/
 - Node.js
 - Express
 - TypeScript
-- Supabase (PostgreSQL)
+- Prisma (PostgreSQL)
 - JWT Authentication
 - Twilio API
 
