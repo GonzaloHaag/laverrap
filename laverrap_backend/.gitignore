@@ -3,3 +3,8 @@
 .env
 
 /generated/prisma
+
+pnpm-lock.yaml
+
+api.http
+
