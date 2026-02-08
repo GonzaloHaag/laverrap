@@ -2,12 +2,20 @@ import { Request, Response } from "express";
 import { clientService } from "../services/client.service";
 import { responseSuccess } from "../utils/response-success";
 import { clientSchema, type Client } from "../schemas/client.schema";
+import { ClientResponse } from "../types/api/client.response";
 
 export const clientController = {
   getAll: async (req: Request, res: Response) => {
     const userId = req.user?.id;
-    const clients = await clientService.getAllClients(userId!);
-    responseSuccess<Client[]>(res, 200, clients);
+    const { clients, total, totalActive, totalInactive, totalNewsMonth } =
+      await clientService.getAllClients(userId!);
+    responseSuccess<ClientResponse>(res, 200, {
+      clients,
+      total,
+      totalActive,
+      totalInactive,
+      totalNewsMonth,
+    });
   },
   create: async (req: Request, res: Response) => {
     const userId = req.user?.id;

@@ -11,7 +11,11 @@ export const useClients = () => {
     isLoading,
     isValidating,
     error,
-    clients: data,
+    clients: data?.clients,
+    total: data?.total,
+    totalActive: data?.totalActive,
+    totalInactive: data?.totalInactive,
+    totalNewsMonth: data?.totalNewsMonth,
     mutate,
   };
 };

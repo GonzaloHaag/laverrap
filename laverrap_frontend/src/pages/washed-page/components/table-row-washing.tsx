@@ -1,3 +1,4 @@
+import { AlertDialogConfirm } from "@/components/shared";
 import { Button } from "@/components/ui";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { useWashed } from "@/hooks";
@@ -5,7 +6,7 @@ import type { Washing } from "@/schemas";
 import { washingService } from "@/services";
 import type { WashingStatus } from "@/types";
 import { formatMoney, formatWashingStatus } from "@/utils/formatters";
-import { CheckIcon } from "lucide-react";
+import { CheckIcon, HourglassIcon, XIcon } from "lucide-react";
 import { useTransition, type MouseEvent } from "react";
 import { toast } from "sonner";
 
@@ -36,6 +37,12 @@ export const TableRowWashing = ({ washing }: Props) => {
         console.log(error);
       }
     });
+  };
+
+  const onClickConfirmDelete = async () => {
+    await washingService.delete({ id: washing.id });
+    mutate();
+    toast.success("Lavado eliminado con éxito");
   };
   return (
     <TableRow>
@@ -111,7 +118,7 @@ export const TableRowWashing = ({ washing }: Props) => {
             onClick={updateWashingStatus}
             disabled={isPending}
           >
-            ✖
+            <XIcon size={20} />
           </Button>
           <Button
             type="button"
@@ -122,7 +129,7 @@ export const TableRowWashing = ({ washing }: Props) => {
             onClick={updateWashingStatus}
             disabled={isPending}
           >
-            ⏳
+            <HourglassIcon size={20} />
           </Button>
           <Button
             type="button"
@@ -135,6 +142,11 @@ export const TableRowWashing = ({ washing }: Props) => {
           >
             ✔
           </Button>
+          <AlertDialogConfirm
+            onClickConfirm={onClickConfirmDelete}
+            isRestore={false}
+            isIcon={true}
+          />
         </div>
       </TableCell>
     </TableRow>

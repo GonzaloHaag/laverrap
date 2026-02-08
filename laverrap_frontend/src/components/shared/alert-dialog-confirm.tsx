@@ -10,13 +10,19 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "../ui/alert-dialog";
+import { RefreshCcwIcon, TrashIcon } from "lucide-react";
 
 interface Props {
   onClickConfirm: () => Promise<void>;
   isRestore: boolean;
+  isIcon?: boolean;
 }
 
-export const AlertDialogConfirm = ({ onClickConfirm, isRestore }: Props) => {
+export const AlertDialogConfirm = ({
+  onClickConfirm,
+  isRestore,
+  isIcon = false,
+}: Props) => {
   const [openAlertDialogConfirm, setOpenAlertDialogConfirm] = useState(false);
   return (
     <AlertDialog
@@ -24,9 +30,24 @@ export const AlertDialogConfirm = ({ onClickConfirm, isRestore }: Props) => {
       onOpenChange={setOpenAlertDialogConfirm}
     >
       <AlertDialogTrigger asChild>
-        <Button variant={"link"} size={"sm"} className={`${isRestore ? "text-green-600" : "text-red-600"} p-0 ml-2`}>
-          {isRestore ? "Restaurar" : "Eliminar"}
-        </Button>
+        {isIcon ? (
+          <Button
+            type="button"
+            variant={"outline"}
+            size={"icon"}
+            title={isRestore ? "Restaurar" : "Eliminar"}
+          >
+            {isRestore ? <RefreshCcwIcon size={20} /> : <TrashIcon size={20} className="text-red-500" />}
+          </Button>
+        ) : (
+          <Button
+            variant={"link"}
+            size={"sm"}
+            className={`${isRestore ? "text-green-600" : "text-red-600"} p-0 ml-2`}
+          >
+            {isRestore ? "Restaurar" : "Eliminar"}
+          </Button>
+        )}
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -37,7 +58,10 @@ export const AlertDialogConfirm = ({ onClickConfirm, isRestore }: Props) => {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel className="min-w-24">Cancel</AlertDialogCancel>
-          <AlertDialogAction className={`min-w-24 ${isRestore ? "bg-green-600 hover:bg-green-700" : "bg-red-600 hover:bg-red-700"}`} onClick={onClickConfirm}>
+          <AlertDialogAction
+            className={`min-w-24 ${isRestore ? "bg-green-600 hover:bg-green-700" : "bg-red-600 hover:bg-red-700"}`}
+            onClick={onClickConfirm}
+          >
             {isRestore ? "Restaurar" : "Eliminar"}
           </AlertDialogAction>
         </AlertDialogFooter>

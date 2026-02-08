@@ -6,13 +6,21 @@ import {
   ClockIcon,
 } from "lucide-react";
 
-export const SectionCards = () => {
+interface Props {
+  isLoading: boolean;
+  totalToday: number;
+  totalCompleted: number;
+  totalInProgress: number;
+  totalPending: number;
+}
+
+export const SectionCards = ({ isLoading, totalToday, totalCompleted, totalInProgress, totalPending } : Props) => {
   return (
     <section className="container-cards">
-      <CardPage title="Total hoy" value={50} Icon={CalendarIcon} />
-      <CardPage title="Completados" value={20} Icon={CheckCircleIcon} />
-      <CardPage title="En proceso" value={10} Icon={ClockIcon} />
-      <CardPage title="Pendientes" value={20} Icon={CheckIcon} />
+      <CardPage title="Totales hoy" value={totalToday} Icon={CalendarIcon} isLoading={isLoading} />
+      <CardPage title="Completados" value={totalCompleted} Icon={CheckCircleIcon} isLoading={isLoading} />
+      <CardPage title="En proceso" value={totalInProgress} Icon={ClockIcon} isLoading={isLoading} />
+      <CardPage title="Pendientes" value={totalPending} Icon={CheckIcon} isLoading={isLoading} />
     </section>
   );
 };

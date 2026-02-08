@@ -24,7 +24,7 @@ import { PlusCircleIcon } from "lucide-react";
 import { useServices } from "@/hooks";
 
 export const ServicesPage = () => {
-  const { services, isLoading, error } = useServices();
+  const { services, total, averagePrice, isLoading, error } = useServices();
   const [open, setOpen] = useState(false);
 
   const closeDialog = () => {
@@ -58,7 +58,11 @@ export const ServicesPage = () => {
         </CardAction>
       </CardHeader>
       <CardContent className="flex flex-col gap-y-4">
-        <SectionCards />
+        <SectionCards
+          isLoading={isLoading}
+          totalServices={total ?? 0}
+          averagePrice={averagePrice ?? 0}
+        />
         <div className="flex items-center justify-between">
           <ServiceFilters />
         </div>

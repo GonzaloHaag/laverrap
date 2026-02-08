@@ -45,7 +45,7 @@ export const TableWashed = ({ isLoading, error, washed }: Props) => {
       <TableBody>
         {washed.length === 0 ? (
           <TableRow>
-            <TableCell colSpan={6} className="text-center">
+            <TableCell colSpan={8} className="text-center">
               <EmptyMessage />
             </TableCell>
           </TableRow>

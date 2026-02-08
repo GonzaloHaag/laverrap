@@ -17,6 +17,8 @@ import { toast } from "sonner";
 import { FormClient } from "./form-client";
 import { useClients } from "@/hooks";
 import { clientService } from "@/services";
+import { formatStatus } from "@/utils/formatters";
+import { Badge } from "@/components/ui/badge";
 
 interface Props {
   client: Client;
@@ -33,16 +35,11 @@ export const TableRowClient = ({ client }: Props) => {
   const closeDialog = () => {
     setOpen((prev) => !prev);
   };
+  const isInactive = client.status === "INACTIVE";
   return (
-    <TableRow>
-      <TableCell
-        className={`font-medium ${client.status === "INACTIVE" && "line-through text-gray-500"}`}
-      >
-        {client.name}
-      </TableCell>
-      <TableCell
-        className={`${client.status === "INACTIVE" && "line-through text-gray-500"}`}
-      >
+    <TableRow className={isInactive ? "line-through text-gray-500" : ""}>
+      <TableCell className="font-medium">{client.name}</TableCell>
+      <TableCell>
         <div className="flex items-center gap-x-2">
           <MailIcon size={16} className="text-gray-400" />
           <Link
@@ -55,9 +52,7 @@ export const TableRowClient = ({ client }: Props) => {
           </Link>
         </div>
       </TableCell>
-      <TableCell
-        className={`${client.status === "INACTIVE" && "line-through text-gray-500"}`}
-      >
+      <TableCell>
         <div className="flex flex-col gap-y-1">
           {client.car_model}
           <span className="text-xs bg-muted/50 px-2 py-1 rounded-full w-max">
@@ -65,15 +60,14 @@ export const TableRowClient = ({ client }: Props) => {
           </span>
         </div>
       </TableCell>
-      <TableCell
-        className={`font-medium text-center ${client.status === "INACTIVE" && "line-through text-gray-500"}`}
-      >
+      <TableCell className="font-medium text-center">
         {client._count.washed}
       </TableCell>
-      <TableCell
-        className={`font-medium ${client.status === "INACTIVE" && "line-through text-gray-500"}`}
-      >
-        {"12/06/2024"}
+      <TableCell className="font-medium">{"12/06/2024"}</TableCell>
+      <TableCell>
+        <Badge variant={isInactive ? "destructive" : "default"}>
+          {formatStatus(client.status)}
+        </Badge>
       </TableCell>
       <TableCell>
         <Dialog open={open} onOpenChange={setOpen}>
@@ -86,13 +80,13 @@ export const TableRowClient = ({ client }: Props) => {
             <DialogHeader>
               <DialogTitle>Editar cliente</DialogTitle>
               <DialogDescription>
-                Modificá los detalles del cliente| seleccionado
+                Modificá los detalles del cliente seleccionado
               </DialogDescription>
             </DialogHeader>
             <FormClient client={client} closeDialog={closeDialog} />
           </DialogContent>
         </Dialog>
-        {client.status === "ACTIVE" ? (
+        {!isInactive ? (
           <AlertDialogConfirm
             onClickConfirm={onClickConfirmUpdateStatus}
             isRestore={false}

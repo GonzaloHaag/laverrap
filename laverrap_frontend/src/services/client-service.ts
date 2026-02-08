@@ -3,8 +3,23 @@ import type { ServiceResponse } from "@/types";
 import { api } from "./api";
 const CLIENTS_URL = "/clients";
 export const clientService = {
-  getAll: async (): Promise<Client[]> => {
-    const { data } = await api.get<ServiceResponse<Client[]>>(CLIENTS_URL);
+  getAll: async (): Promise<{
+    clients: Client[];
+    total: number;
+    totalActive: number;
+    totalInactive: number;
+    totalNewsMonth: number;
+  }> => {
+    const { data } =
+      await api.get<
+        ServiceResponse<{
+          clients: Client[];
+          total: number;
+          totalActive: number;
+          totalInactive: number;
+          totalNewsMonth: number;
+        }>
+      >(CLIENTS_URL);
     return data.data;
   },
 

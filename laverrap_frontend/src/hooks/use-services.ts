@@ -10,7 +10,9 @@ export const useServices = () => {
     isLoading,
     isValidating,
     error,
-    services: data,
+    services: data?.services,
+    total: data?.total,
+    averagePrice: data?.averagePrice,
     mutate,
   };
 };

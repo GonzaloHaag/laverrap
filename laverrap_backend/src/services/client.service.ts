@@ -1,10 +1,12 @@
 import { prisma } from "../lib/prisma";
 import type { Client } from "../schemas/client.schema";
+import { ClientResponse } from "../types/api/client.response";
 import { ClientError } from "../utils/errors";
 
 export const clientService = {
-  getAllClients: async (userId: number) => {
-    const clients = await prisma.client.findMany({
+  getAllClients: async (userId: number): Promise<ClientResponse> => {
+    const [clients, total, totalActive, totalInactive, totalNewsMonth] = await Promise.all([
+      prisma.client.findMany({
       where: {
         userId: userId,
       },
@@ -20,9 +22,35 @@ export const clientService = {
           select: { washed: true },
         },
       },
-    });
+    }),
+    await prisma.client.count({
+      where: {
+        userId: userId,
+      },
+    }),
+    await prisma.client.count({
+      where: {
+        userId: userId,
+        status: "ACTIVE",
+      },
+    }),
+     await prisma.client.count({
+      where: {
+        userId: userId,
+        status: "INACTIVE",
+      },
+    }),
+    await prisma.client.count({
+      where: {
+        userId: userId,
+        createdAt: {
+          gte: new Date(new Date().setDate(new Date().getDate() - 30)),
+        },
+      },
+    }),
+    ]);
 
-    return clients;
+    return { clients, total, totalActive, totalInactive, totalNewsMonth };
   },
 
   createClient: async (userId: number, data: Client) => {

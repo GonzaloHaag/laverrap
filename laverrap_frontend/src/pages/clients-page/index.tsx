@@ -19,12 +19,20 @@ import { FormClient, SectionCards, TableClients } from "./components";
 import { useClients } from "@/hooks";
 
 export const ClientsPage = () => {
+  const {
+    isLoading,
+    error,
+    clients,
+    total,
+    totalActive,
+    totalInactive,
+    totalNewsMonth,
+  } = useClients();
   const [open, setOpen] = useState(false);
 
   const closeDialog = () => {
     setOpen((prev) => !prev);
   };
-  const { clients, isLoading, error } = useClients();
   return (
     <Card>
       <CardHeader>
@@ -53,7 +61,13 @@ export const ClientsPage = () => {
         </CardAction>
       </CardHeader>
       <CardContent className="flex flex-col gap-y-4">
-        <SectionCards />
+        <SectionCards
+          isLoading={isLoading}
+          total={total ?? 0}
+          totalActive={totalActive ?? 0}
+          totalInactive={totalInactive ?? 0}
+          totalNewsMonth={totalNewsMonth ?? 0}
+        />
         <div className="flex items-center justify-between">
           {/* <ServiceFilters /> */}
         </div>

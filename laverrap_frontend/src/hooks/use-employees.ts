@@ -3,14 +3,17 @@ import useSWR from "swr";
 export const useEmployees = () => {
   const { data, error, isLoading, isValidating, mutate } = useSWR(
     "/employees",
-    employeeService.getAll
+    employeeService.getAll,
   );
 
   return {
     isLoading,
     isValidating,
     error,
-    employees: data,
+    employees: data?.employees,
+    total: data?.total,
+    totalActive: data?.totalActive,
+    totalInactive: data?.totalInactive,
     mutate,
   };
 };

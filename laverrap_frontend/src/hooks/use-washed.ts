@@ -10,7 +10,11 @@ export const useWashed = () => {
     isLoading,
     isValidating,
     error,
-    washed: data,
+    washed: data?.washed,
+    totalToday: data?.totalToday,
+    totalCompleted: data?.totalCompleted,
+    totalInProgress: data?.totalInProgress,
+    totalPending: data?.totalPending,
     mutate,
   };
 };

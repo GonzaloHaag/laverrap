@@ -3,8 +3,23 @@ import { api } from "./api";
 import type { ServiceResponse, WashingStatus } from "@/types";
 const WASHED_URL = "/washed";
 export const washingService = {
-  getAll: async (): Promise<Washing[]> => {
-    const { data } = await api.get<ServiceResponse<Washing[]>>(WASHED_URL);
+  getAll: async (): Promise<{
+    washed: Washing[];
+    totalToday: number;
+    totalCompleted: number;
+    totalInProgress: number;
+    totalPending: number;
+  }> => {
+    const { data } =
+      await api.get<
+        ServiceResponse<{
+          washed: Washing[];
+          totalToday: number;
+          totalCompleted: number;
+          totalInProgress: number;
+          totalPending: number;
+        }>
+      >(WASHED_URL);
     return data.data;
   },
 
@@ -31,5 +46,8 @@ export const washingService = {
       { status },
     );
     return data.data;
+  },
+  delete: async ({ id }: { id: Washing["id"] }): Promise<void> => {
+    await api.delete(`${WASHED_URL}/${id}`);
   },
 };

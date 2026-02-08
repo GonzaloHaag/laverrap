@@ -17,6 +17,7 @@ import { serviceService } from "@/services";
 import { useServices } from "@/hooks";
 import { toast } from "sonner";
 import { AlertDialogConfirm } from "@/components/shared";
+import { Badge } from "@/components/ui/badge";
 
 
 interface Props {
@@ -40,7 +41,11 @@ export const TableRowService = ({ service }: Props) => {
     <TableRow>
       <TableCell className="font-medium">{service.name}</TableCell>
       <TableCell>{service.description}</TableCell>
-      <TableCell>{formatCategoryService(service.category)}</TableCell>
+      <TableCell>
+        <Badge variant={"default"}>
+          {formatCategoryService(service.category)}
+        </Badge>
+      </TableCell>
       <TableCell>
         <div className="flex items-center gap-x-0">
           <ClockIcon size={16} className="text-gray-400" />

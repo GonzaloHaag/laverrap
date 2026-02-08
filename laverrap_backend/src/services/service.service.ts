@@ -1,18 +1,45 @@
 import { prisma } from "../lib/prisma";
 import { Service } from "../schemas/service.schema";
+import { ServiceResponse } from "../types/api/service.response";
 import { ClientError } from "../utils/errors";
 
 export const serviceService = {
-  getAllServices: async (userId: number): Promise<Service[]> => {
-    const services = await prisma.service.findMany({
-      where: {
-        userId: userId,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
-    return services;
+  getAllServices: async (
+    userId: number,
+  ): Promise<ServiceResponse> => {
+    const [services, total, averagePrice] = await Promise.all([
+      prisma.service.findMany({
+        where: {
+          userId: userId,
+        },
+        select: {
+          id: true,
+          name: true,
+          price: true,
+          category: true,
+          duration: true,
+          status: true,
+          description: true,
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      }),
+      prisma.service.count({
+        where: {
+          userId: userId,
+        },
+      }),
+      prisma.service.aggregate({
+        _avg: {
+           price: true,
+        },
+        where: {
+          userId: userId,
+        }
+      })
+    ]);
+    return { services, total, averagePrice: averagePrice._avg.price};
   },
 
   createService: async (userId: number, data: Service): Promise<Service> => {
@@ -71,6 +98,7 @@ export const serviceService = {
     const findRelation = await prisma.washing.findFirst({
       where: {
         serviceId: serviceId,
+        userId: userId,
       },
     });
     if (findRelation)

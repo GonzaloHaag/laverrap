@@ -16,6 +16,7 @@ import { useEmployees } from "@/hooks";
 import { employeeService } from "@/services";
 import { toast } from "sonner";
 import { AlertDialogConfirm } from "@/components/shared";
+import { Badge } from "@/components/ui/badge";
 interface Props {
   employee: Employee;
 }
@@ -33,26 +34,21 @@ export const TableRowEmployee = ({ employee }: Props) => {
     toast.success("Estado del empleado actualizado con éxito");
     mutate();
   };
+
+  const isInactive = employee.status === "INACTIVE";
   return (
-    <TableRow>
+    <TableRow className={isInactive ? "line-through text-gray-500" : ""}>
       <TableCell>{employee.name}</TableCell>
       <TableCell>
         {employee.entry_time} - {employee.departure_time}
       </TableCell>
       <TableCell className="text-center">{employee._count.washed}</TableCell>
       <TableCell>
-        <span
-          className={
-            employee.status === "ACTIVE"
-              ? "text-green-600 font-medium"
-              : "text-red-600 font-medium"
-          }
-        >
+        <Badge variant={isInactive ? "destructive" : "default"}>
           {formatStatus(employee.status)}
-        </span>
+        </Badge>
       </TableCell>
       <TableCell>
-        {/* Actions can be added here in the future */}
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
             <Button variant={"link"} size={"sm"} className="p-0">
@@ -70,7 +66,7 @@ export const TableRowEmployee = ({ employee }: Props) => {
             <FormEmployee employee={employee} closeDialog={closeDialog} />
           </DialogContent>
         </Dialog>
-        {employee.status === "ACTIVE" ? (
+        {!isInactive ? (
           <AlertDialogConfirm
             onClickConfirm={onClickConfirmUpdateStatus}
             isRestore={false}

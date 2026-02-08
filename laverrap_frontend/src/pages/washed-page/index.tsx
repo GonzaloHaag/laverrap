@@ -19,7 +19,15 @@ import { FormWashing, SectionCards, TableWashed } from "./components";
 import { useWashed } from "@/hooks";
 
 export const WashedPage = () => {
-  const { isLoading, error, washed } = useWashed();
+  const {
+    isLoading,
+    error,
+    washed,
+    totalToday,
+    totalCompleted,
+    totalInProgress,
+    totalPending,
+  } = useWashed();
   const [open, setOpen] = useState(false);
   const closeDialog = () => {
     setOpen((prev) => !prev);
@@ -51,7 +59,13 @@ export const WashedPage = () => {
         </CardAction>
       </CardHeader>
       <CardContent className="flex flex-col gap-y-4">
-        <SectionCards />
+        <SectionCards
+          isLoading={isLoading}
+          totalToday={totalToday ?? 0}
+          totalCompleted={totalCompleted ?? 0}
+          totalInProgress={totalInProgress ?? 0}
+          totalPending={totalPending ?? 0}
+        />
         <div className="flex items-center justify-between">
           {/* <ServiceFilters /> */}
         </div>

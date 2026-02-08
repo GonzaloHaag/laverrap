@@ -1,30 +1,51 @@
 import { prisma } from "../lib/prisma";
 import type { Employee } from "../schemas/employee.schema";
+import { EmployeeResponse } from "../types/api/employee.response";
 import { ClientError } from "../utils/errors";
 
 export const employeeService = {
-  getAllEmployees: async (userId: number) => {
-    const employees = await prisma.employee.findMany({
-      where: {
-        userId: userId,
-      },
-      orderBy: [
-        { status: "asc" }, // Primero activos (true)
-        { createdAt: "desc" }, // Luego ordenados por fecha
-      ],
-      select: {
-        id: true,
-        name: true,
-        phone: true,
-        entry_time: true,
-        departure_time: true,
-        status: true,
-        _count: {
-          select: { washed: true },
+  getAllEmployees: async (userId: number): Promise<EmployeeResponse> => {
+    const [employees, total, totalActive, totalInactive] = await Promise.all([
+      prisma.employee.findMany({
+        where: {
+          userId: userId,
         },
-      },
-    });
-    return employees;
+        orderBy: [
+          { status: "asc" }, // Primero activos (true)
+          { createdAt: "desc" }, // Luego ordenados por fecha
+        ],
+        select: {
+          id: true,
+          name: true,
+          phone: true,
+          entry_time: true,
+          departure_time: true,
+          status: true,
+          _count: {
+            select: { washed: true },
+          },
+        },
+      }),
+      prisma.employee.count({
+        where: {
+          userId: userId,
+        },
+      }),
+      prisma.employee.count({
+        where: {
+          userId: userId,
+          status: "ACTIVE",
+        },
+      }),
+      prisma.employee.count({
+        where: {
+          userId: userId,
+          status: "INACTIVE",
+        },
+      }),
+    ]);
+
+    return { employees, total, totalActive, totalInactive };
   },
   createEmployee: async (userId: number, data: Employee) => {
     const employee = await prisma.employee.create({

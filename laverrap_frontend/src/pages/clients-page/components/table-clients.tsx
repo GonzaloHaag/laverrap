@@ -40,13 +40,14 @@ export const TableClients = ({ isLoading, error, clients }: Props) => {
           <TableHead>Vehículo</TableHead>
           <TableHead className="text-center">Lavados</TableHead>
           <TableHead>Último lavado</TableHead>
+           <TableHead>Estado</TableHead>
           <TableHead>Acciones</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         {clients.length === 0 ? (
           <TableRow>
-            <TableCell colSpan={6} className="text-center">
+            <TableCell colSpan={7} className="text-center">
                <EmptyMessage />
             </TableCell>
           </TableRow>

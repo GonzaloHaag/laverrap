@@ -19,7 +19,8 @@ import { FormEmployee, SectionCards, TableEmployees } from "./components";
 import { useEmployees } from "@/hooks";
 
 export const EmployeesPage = () => {
-  const { isLoading, error, employees } = useEmployees();
+  const { isLoading, error, employees, total, totalActive, totalInactive } =
+    useEmployees();
   const [open, setOpen] = useState(false);
 
   const closeDialog = () => {
@@ -53,7 +54,12 @@ export const EmployeesPage = () => {
         </CardAction>
       </CardHeader>
       <CardContent className="flex flex-col gap-y-4">
-        <SectionCards />
+        <SectionCards
+          isLoading={isLoading}
+          total={total ?? 0}
+          totalActive={totalActive ?? 0}
+          totalInactive={totalInactive ?? 0}
+        />
         <div className="flex items-center justify-between">
           {/* <ServiceFilters /> */}
         </div>

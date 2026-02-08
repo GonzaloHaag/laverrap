@@ -1,8 +1,6 @@
-
-
 const STATUS_LABELS: Record<"ACTIVE" | "INACTIVE", string> = {
   ACTIVE: "Activo",
-    INACTIVE: "Inactivo",
+  INACTIVE: "Inactivo",
 };
 
 export function formatStatus(status: "ACTIVE" | "INACTIVE") {

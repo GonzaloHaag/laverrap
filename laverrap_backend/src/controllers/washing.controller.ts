@@ -6,12 +6,25 @@ import {
   washingSchema,
   washingStatus,
 } from "../schemas/washing.schema";
+import { WashingResponse } from "../types/api/washing.response";
 
 export const washingController = {
   getAll: async (req: Request, res: Response) => {
     const userId = req.user?.id;
-    const washed = await washingService.getAllWashed(userId!);
-    responseSuccess<Washing[]>(res, 200, washed);
+    const {
+      washed,
+      totalToday,
+      totalCompleted,
+      totalInProgress,
+      totalPending,
+    } = await washingService.getAllWashed(userId!);
+    responseSuccess<WashingResponse>(res, 200, {
+      washed,
+      totalToday,
+      totalCompleted,
+      totalInProgress,
+      totalPending,
+    });
   },
 
   create: async (req: Request, res: Response) => {
@@ -26,7 +39,7 @@ export const washingController = {
 
   updateStatusById: async (req: Request, res: Response) => {
     const userId = req.user?.id;
-    const washingId = parseInt(req.params.id);
+    const washingId = Number(req.params.id);
     const { status } = req.body;
     const validatedStatus = washingStatus.parse(status);
     const updatedWashing = await washingService.changeStatusWashing(
@@ -35,5 +48,12 @@ export const washingController = {
       validatedStatus,
     );
     responseSuccess<Washing>(res, 200, updatedWashing);
+  },
+
+  deleteById: async (req: Request, res: Response) => {
+    const userId = req.user?.id;
+    const washingId = Number(req.params.id);
+    await washingService.deleteWashing(washingId, userId!);
+    responseSuccess<null>(res, 204, null);
   },
 };
