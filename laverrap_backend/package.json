@@ -8,7 +8,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch --env-file=.env src/app.ts",
-    "build": "tsc && pnpm run prisma:deploy",
+    "build": "pnpm run prisma:deploy && tsc",
     "start": "node dist/src/app.js",
     "prisma:deploy": "pnpx prisma migrate deploy && pnpx prisma generate",
     "seed": "tsx --env-file=.env prisma/seed.ts"
