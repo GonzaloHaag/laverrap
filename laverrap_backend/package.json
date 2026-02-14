@@ -4,7 +4,7 @@
   "description": "Laverrap backend: Sistema de gestion para lavaderos de autos",
   "main": "index.ts",
   "type": "module",
-  "exports": "./dist/index.js",
+  "exports": "./dist/src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch --env-file=.env src/app.ts",
