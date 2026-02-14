@@ -23,6 +23,7 @@ export const UserProfile = () => {
     navigate("/auth/login");
     /** Borrar cache de swr */
     mutate(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       (key) => true, // which cache keys are updated
       undefined, // update cache data to `undefined`
       { revalidate: false }, // do not revalidate
