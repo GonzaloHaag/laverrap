@@ -23,7 +23,7 @@ export const authService = {
         username: user.username,
         role: user.role,
       },
-      config.SECRET_KEY,
+      config.SECRET_KEY!,
       {
         expiresIn: "2h",
       }

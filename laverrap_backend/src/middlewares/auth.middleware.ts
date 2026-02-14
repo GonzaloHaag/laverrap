@@ -14,8 +14,8 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
 
   /** Verificar token */
   try {
-    const data = jwt.verify(token, config.SECRET_KEY);
-    req.user = data as UserType; // se inserta el user en cada request
+    const data = jwt.verify(token, config.SECRET_KEY!) as jwt.JwtPayload;
+    req.user = data as unknown as UserType; // se inserta el user en cada request
   } catch (error) {
     console.error("Error verifying token:", error);
     if(error instanceof jwt.JsonWebTokenError) {
