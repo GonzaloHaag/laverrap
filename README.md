@@ -87,3 +87,6 @@ Este proyecto es de código abierto y está disponible bajo la licencia MIT.
 ---
 
 Si este proyecto te fue útil, considera darle una estrella en GitHub
+
+Backend desplegado en fl0.
+Frontend desplegado en vercel.
