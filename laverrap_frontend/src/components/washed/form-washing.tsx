@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import {
   DialogFooterForm,
   ErrorMessage,
-  InputForm,
+  InputForm
 } from "@/components/shared";
 import {
   Label,
@@ -51,8 +51,10 @@ export const FormWashing = ({ closeDialog }: Props) => {
   const client = clients && clients.find((c) => c.id === clientIdValue);
 
   const onSubmit = handleSubmit(async (data) => {
-    if(data.notify && !client?.email) {
-      toast.error("El cliente seleccionado no tiene correo electrónico para notificar.");
+    if (data.notify && !client?.email) {
+      toast.error(
+        "El cliente seleccionado no tiene correo electrónico para notificar.",
+      );
       return;
     }
     try {
@@ -67,14 +69,13 @@ export const FormWashing = ({ closeDialog }: Props) => {
   });
 
   const filterActiveEmployees = useMemo(() => {
-     return employees?.filter((employee) => employee.status === "ACTIVE");
-  },[ employees ]);
-
+    return employees?.filter((employee) => employee.status === "ACTIVE");
+  }, [employees]);
   return (
     <form onSubmit={onSubmit} className="w-full grid grid-cols-2 gap-4">
       <div className="flex flex-col gap-y-1 w-full">
         <Label htmlFor="clientId">Cliente *</Label>
-        <NativeSelect {...register("clientId", { valueAsNumber: true })}>
+        <NativeSelect {...register("clientId", { valueAsNumber: true })} aria-invalid={!!errors.clientId}>
           <NativeSelectOption value="">Seleccionar cliente</NativeSelectOption>
           {clients && clients.length > 0 ? (
             clients.map((client) => (
@@ -96,7 +97,7 @@ export const FormWashing = ({ closeDialog }: Props) => {
       />
       <div className="flex flex-col gap-y-1 w-full">
         <Label htmlFor="employeeId">Empleado a cargo *</Label>
-        <NativeSelect {...register("employeeId", { valueAsNumber: true })}>
+        <NativeSelect {...register("employeeId", { valueAsNumber: true })} aria-invalid={!!errors.employeeId}>
           <NativeSelectOption value="">Seleccionar empleado</NativeSelectOption>
           {filterActiveEmployees && filterActiveEmployees.length > 0 ? (
             filterActiveEmployees.map((employee) => (
@@ -115,7 +116,7 @@ export const FormWashing = ({ closeDialog }: Props) => {
       </div>
       <div className="flex flex-col gap-y-1 w-full">
         <Label htmlFor="serviceId">Servicio *</Label>
-        <NativeSelect {...register("serviceId", { valueAsNumber: true })}>
+        <NativeSelect {...register("serviceId", { valueAsNumber: true })} aria-invalid={!!errors.serviceId}>
           <NativeSelectOption value="">Seleccionar servicio</NativeSelectOption>
           {services && services.length > 0 ? (
             services.map((service) => (
@@ -133,7 +134,7 @@ export const FormWashing = ({ closeDialog }: Props) => {
       </div>
       <div className="flex flex-col gap-y-1 w-full">
         <Label htmlFor="status">Estado *</Label>
-        <NativeSelect {...register("status")}>
+        <NativeSelect {...register("status")} aria-invalid={!!errors.status}>
           {WASHING_STATUS.map((status) => (
             <NativeSelectOption key={status.id} value={status.value}>
               {status.label}

@@ -3,7 +3,7 @@ import { Label, Textarea } from "@/components/ui";
 import { useServices } from "@/hooks";
 import { serviceSchema, type Service } from "@/schemas";
 import { serviceService } from "@/services";
-import { SERVICES_CATEGORY, SERVICES_STATUS } from "@/utils/consts";
+import { SERVICES_CATEGORY, STATUS } from "@/utils/consts";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -76,7 +76,7 @@ export const FormService = ({ service, closeDialog }: Props) => {
         />
         <SelectForm
           label="Estado"
-          options={SERVICES_STATUS}
+          options={STATUS}
           error={errors.status?.message}
           {...register("status")}
         />

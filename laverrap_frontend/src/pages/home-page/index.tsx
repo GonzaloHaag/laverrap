@@ -1,4 +1,5 @@
-import { CardChartIncome, CardChartWashed, CardRecentWashed, CardTopEmployees, SectionCards } from "./components";
+import { CardChartIncome, CardChartWashed, CardRecentWashed, CardTopEmployees, SectionCards } from "@/components/home";
+
 
 export const HomePage = () => {
   return (

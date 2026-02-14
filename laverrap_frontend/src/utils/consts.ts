@@ -37,7 +37,7 @@ export const SERVICES_CATEGORY = [
   { id: 3, value: "PREMIUM", label: "Premium" },
   { id: 4, value: "OTHER", label: "Otro" },
 ];
-export const SERVICES_STATUS = [
+export const STATUS = [
   { id: 1, value: "ACTIVE", label: "Activo" },
   { id: 2, value: "INACTIVE", label: "Inactivo" }
 ];

@@ -15,8 +15,14 @@ import {
   DialogTrigger,
 } from "@/components/ui";
 import { PlusCircleIcon } from "lucide-react";
-import { FormWashing, SectionCards, TableWashed } from "./components";
+import {
+  FormWashing,
+  SectionCards,
+  WashingFilters,
+  columns,
+} from "@/components/washed";
 import { useWashed } from "@/hooks";
+import { DataTable } from "@/components/shared";
 
 export const WashedPage = () => {
   const {
@@ -66,13 +72,12 @@ export const WashedPage = () => {
           totalInProgress={totalInProgress ?? 0}
           totalPending={totalPending ?? 0}
         />
-        <div className="flex items-center justify-between">
-          {/* <ServiceFilters /> */}
-        </div>
-        <TableWashed
+        <DataTable
           isLoading={isLoading}
           error={error}
-          washed={washed || []}
+          columns={columns}
+          data={washed || []}
+          filterComponent={WashingFilters}
         />
       </CardContent>
     </Card>

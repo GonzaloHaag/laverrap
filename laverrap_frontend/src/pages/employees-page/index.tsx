@@ -15,8 +15,14 @@ import {
   DialogTrigger,
 } from "@/components/ui";
 import { PlusCircleIcon } from "lucide-react";
-import { FormEmployee, SectionCards, TableEmployees } from "./components";
+import {
+  columns,
+  EmployeeFilters,
+  FormEmployee,
+  SectionCards,
+} from "@/components/employees";
 import { useEmployees } from "@/hooks";
+import { DataTable } from "@/components/shared";
 
 export const EmployeesPage = () => {
   const { isLoading, error, employees, total, totalActive, totalInactive } =
@@ -60,13 +66,12 @@ export const EmployeesPage = () => {
           totalActive={totalActive ?? 0}
           totalInactive={totalInactive ?? 0}
         />
-        <div className="flex items-center justify-between">
-          {/* <ServiceFilters /> */}
-        </div>
-        <TableEmployees
+        <DataTable
           isLoading={isLoading}
           error={error}
-          employees={employees || []}
+          columns={columns}
+          data={employees || []}
+          filterComponent={EmployeeFilters}
         />
       </CardContent>
     </Card>

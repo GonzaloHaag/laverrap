@@ -15,13 +15,14 @@ import {
   DialogTrigger,
 } from "@/components/ui";
 import {
+  columns,
   FormService,
   SectionCards,
   ServiceFilters,
-  TableServices,
-} from "./components";
+} from "@/components/services";
 import { PlusCircleIcon } from "lucide-react";
 import { useServices } from "@/hooks";
+import { DataTable } from "@/components/shared";
 
 export const ServicesPage = () => {
   const { services, total, averagePrice, isLoading, error } = useServices();
@@ -63,13 +64,12 @@ export const ServicesPage = () => {
           totalServices={total ?? 0}
           averagePrice={averagePrice ?? 0}
         />
-        <div className="flex items-center justify-between">
-          <ServiceFilters />
-        </div>
-        <TableServices
+        <DataTable
           isLoading={isLoading}
           error={error}
-          services={services ?? []}
+          columns={columns}
+          data={services || []}
+          filterComponent={ServiceFilters}
         />
       </CardContent>
     </Card>

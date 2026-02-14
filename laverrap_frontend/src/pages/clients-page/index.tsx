@@ -15,8 +15,14 @@ import {
   DialogTrigger,
 } from "@/components/ui";
 import { PlusCircleIcon } from "lucide-react";
-import { FormClient, SectionCards, TableClients } from "./components";
+import {
+  ClientFilters,
+  FormClient,
+  SectionCards,
+  columns,
+} from "@/components/clients";
 import { useClients } from "@/hooks";
+import { DataTable } from "@/components/shared";
 
 export const ClientsPage = () => {
   const {
@@ -68,13 +74,12 @@ export const ClientsPage = () => {
           totalInactive={totalInactive ?? 0}
           totalNewsMonth={totalNewsMonth ?? 0}
         />
-        <div className="flex items-center justify-between">
-          {/* <ServiceFilters /> */}
-        </div>
-        <TableClients
+        <DataTable
           isLoading={isLoading}
-          clients={clients ?? []}
           error={error}
+          columns={columns}
+          data={clients || []}
+          filterComponent={ClientFilters}
         />
       </CardContent>
     </Card>

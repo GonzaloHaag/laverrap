@@ -6,9 +6,9 @@ export const washingSchema = object({
   status: string()
     .oneOf(["PENDING", "IN_PROGRESS", "COMPLETED", "CANCELLED"])
     .required(),
-  serviceId: number().integer().required("El servicio es obligatorio"),
-  employeeId: number().integer().required("El empleado es obligatorio"),
-  clientId: number().integer().required("El cliente es obligatorio"),
+  serviceId: number().integer().required("El servicio es obligatorio").transform((value) => (isNaN(value) ? undefined : value)),
+  employeeId: number().integer().required("El empleado es obligatorio").transform((value) => (isNaN(value) ? undefined : value)),
+  clientId: number().integer().required("El cliente es obligatorio").transform((value) => (isNaN(value) ? undefined : value)),
   details: string().max(500).nullable(),
   notify: boolean()
     .transform((value, originalValue) => {

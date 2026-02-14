@@ -4,10 +4,10 @@ export const serviceSchema = object({
   name: string().required("El nombre del servicio es obligatorio"),
   price: number()
     .required("El precio del servicio es obligatorio")
-    .min(0, "El precio no puede ser negativo"),
+    .min(0, "El precio no puede ser negativo").transform((value) => (isNaN(value) ? undefined : value)),
   duration: number()
     .required("La duración del servicio es obligatoria")
-    .min(1, "La duración debe ser al menos 1 minuto"),
+    .min(1, "La duración debe ser al menos 1 minuto").transform((value) => (isNaN(value) ? undefined : value)),
   category: string()
     .oneOf(["BASIC", "COMPLETE", "PREMIUM", "OTHER"], "Categoría inválida")
     .required("La categoría del servicio es obligatoria")

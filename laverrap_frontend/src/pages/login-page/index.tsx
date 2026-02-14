@@ -1,3 +1,4 @@
+import { LoginForm } from "@/components/auth";
 import {
   Card,
   CardContent,
@@ -6,7 +7,6 @@ import {
   CardTitle,
 } from "@/components/ui";
 import { CarIcon } from "lucide-react";
-import { LoginForm } from "./components";
 
 export const LoginPage = () => {
   return (
@@ -21,7 +21,9 @@ export const LoginPage = () => {
         <Card>
           <CardHeader className="text-center">
             <CardTitle className="text-lg">Bienvenido</CardTitle>
-            <CardDescription>Ingresá tus credenciales para acceder al sistema</CardDescription>
+            <CardDescription>
+              Ingresá tus credenciales para acceder al sistema
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <LoginForm />

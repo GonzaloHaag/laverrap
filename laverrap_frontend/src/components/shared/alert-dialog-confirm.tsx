@@ -37,7 +37,11 @@ export const AlertDialogConfirm = ({
             size={"icon"}
             title={isRestore ? "Restaurar" : "Eliminar"}
           >
-            {isRestore ? <RefreshCcwIcon size={20} /> : <TrashIcon size={20} className="text-red-500" />}
+            {isRestore ? (
+              <RefreshCcwIcon size={20} />
+            ) : (
+              <TrashIcon size={20} className="text-red-500" />
+            )}
           </Button>
         ) : (
           <Button

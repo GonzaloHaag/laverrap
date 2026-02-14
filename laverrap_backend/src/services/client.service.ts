@@ -5,50 +5,51 @@ import { ClientError } from "../utils/errors";
 
 export const clientService = {
   getAllClients: async (userId: number): Promise<ClientResponse> => {
-    const [clients, total, totalActive, totalInactive, totalNewsMonth] = await Promise.all([
-      prisma.client.findMany({
-      where: {
-        userId: userId,
-      },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        car_model: true,
-        car_plate: true,
-        car_type: true,
-        status: true,
-        _count: {
-          select: { washed: true },
-        },
-      },
-    }),
-    await prisma.client.count({
-      where: {
-        userId: userId,
-      },
-    }),
-    await prisma.client.count({
-      where: {
-        userId: userId,
-        status: "ACTIVE",
-      },
-    }),
-     await prisma.client.count({
-      where: {
-        userId: userId,
-        status: "INACTIVE",
-      },
-    }),
-    await prisma.client.count({
-      where: {
-        userId: userId,
-        createdAt: {
-          gte: new Date(new Date().setDate(new Date().getDate() - 30)),
-        },
-      },
-    }),
-    ]);
+    const [clients, total, totalActive, totalInactive, totalNewsMonth] =
+      await Promise.all([
+        prisma.client.findMany({
+          where: {
+            userId: userId,
+          },
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            car_model: true,
+            car_plate: true,
+            car_type: true,
+            status: true,
+            _count: {
+              select: { washed: true },
+            },
+          },
+        }),
+        prisma.client.count({
+          where: {
+            userId: userId,
+          },
+        }),
+        prisma.client.count({
+          where: {
+            userId: userId,
+            status: "ACTIVE",
+          },
+        }),
+        prisma.client.count({
+          where: {
+            userId: userId,
+            status: "INACTIVE",
+          },
+        }),
+        prisma.client.count({
+          where: {
+            userId: userId,
+            createdAt: {
+              gte: new Date(new Date().setDate(new Date().getDate() - 30)), /** TODO: Modificar esto */
+            },
+          },
+        }),
+      ]);
 
     return { clients, total, totalActive, totalInactive, totalNewsMonth };
   },
