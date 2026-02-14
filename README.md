@@ -7,19 +7,19 @@ Sistema integral para la gestión de un lavadero de autos, desarrollado con tecn
 LAVERRAP es una aplicación web completa que permite administrar un lavadero de autos de manera eficiente. El sistema está dividido en dos proyectos independientes:
 
 - **Frontend**: Aplicación web construida con React + TypeScript + Vite
-- **Backend**: API REST desarrollada con Node.js + Express + Supabase
+- **Backend**: API REST desarrollada con Node.js + Express + Prisma(postgresql)
 
-## 🚀 Características Principales
+## Características Principales
 
-- ✅ **Gestión de Clientes**: Registro y administración completa de clientes
-- 💼 **Catálogo de Servicios**: Gestión de servicios de lavado con precios
-- 🚗 **Control de Lavados**: Seguimiento de lavados realizados y facturación
-- 📊 **Dashboard**: Estadísticas e informes visuales de ingresos
-- 🔐 **Autenticación**: Sistema de login seguro con JWT
-- 📱 **Responsive**: Diseño adaptable para todos los dispositivos
-- 📲 **Notificaciones Email**: Integración con nodemailer para envío de notificaciones
+- **Gestión de Clientes**: Registro y administración completa de clientes
+- **Catálogo de Servicios**: Gestión de servicios de lavado con precios
+- **Control de Lavados**: Seguimiento de lavados realizados y facturación
+- **Dashboard**: Estadísticas e informes visuales de ingresos
+- **Autenticación**: Sistema de login seguro con JWT
+- **Responsive**: Diseño adaptable para todos los dispositivos
+- **Notificaciones Email**: Integración con nodemailer para envío de notificaciones al finalizar un lavado
 
-## 📁 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 laverrap/
@@ -27,34 +27,7 @@ laverrap/
 └── laverrap_backend/     # API REST (Node.js + Express)
 ```
 
-## 🛠️ Tecnologías
-
-### Frontend
-- React 19
-- TypeScript
-- Vite
-- Tailwind CSS 4
-- React Router 7
-- TanStack Query
-- Shadcn UI
-- React Hook Form + Valibot
-
-### Backend
-- Node.js
-- Express
-- TypeScript
-- Prisma (PostgreSQL)
-- JWT Authentication
-- Nodemailer
-
-## 📚 Documentación
-
-Cada proyecto tiene su propia documentación detallada:
-
-- [Frontend README](./laverrap_frontend/README.md) - Configuración e instalación del frontend
-- [Backend README](./laverrap_backend/README.md) - Configuración e instalación del backend
-
-## 🚀 Inicio Rápido
+## Correr el proyecto en desarrollo
 
 ### Requisitos Previos
 
@@ -95,7 +68,7 @@ Consulta los archivos README específicos de cada proyecto para instrucciones de
 - Configuración de base de datos
 - Configuración de APIs externas
 
-## 🤝 Contribuir
+## Contribuir
 
 1. Fork del proyecto
 2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
@@ -103,11 +76,9 @@ Consulta los archivos README específicos de cada proyecto para instrucciones de
 4. Push a la rama (`git push origin feature/AmazingFeature`)
 5. Abre un Pull Request
 
-## 📝 Licencia
+## Licencia
 
 Este proyecto es de código abierto y está disponible bajo la licencia MIT.
-
-## 👤 Autor
 
 **Gonzalo Haag**
 
@@ -115,4 +86,4 @@ Este proyecto es de código abierto y está disponible bajo la licencia MIT.
 
 ---
 
-⭐ Si este proyecto te fue útil, considera darle una estrella en GitHub
+Si este proyecto te fue útil, considera darle una estrella en GitHub
