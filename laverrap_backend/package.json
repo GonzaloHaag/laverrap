@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "description": "Laverrap backend: Sistema de gestion para lavaderos de autos",
   "main": "src/app.ts",
-  "exports": "./dist/src/app.js",
+  "type": "module",
+  "exports": "./dist/app.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "tsx watch --env-file=.env src/app.ts",
-    "build": "pnpm run prisma:deploy && tsc",
-    "start": "node ./dist/src/app.js",
-    "prisma:deploy": "pnpx prisma migrate deploy && pnpx prisma generate",
+    "build": "pnpm run prisma:deploy && pkgroll",
+    "start": "node dist/app.mjs",
+    "prisma:deploy": "pnpx prisma generate && pnpx prisma migrate deploy",
     "seed": "tsx --env-file=.env prisma/seed.ts"
   },
   "keywords": [
@@ -35,6 +36,7 @@
     "eslint": "^9.39.1",
     "globals": "^16.5.0",
     "jiti": "^2.6.1",
+    "pkgroll": "^2.25.2",
     "prisma": "^7.0.0",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3",

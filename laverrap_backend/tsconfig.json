@@ -2,8 +2,8 @@
   "compilerOptions": {
     "strict": true,
     "noImplicitAny": true,
-    "module": "es2022",
-    "target": "es2022",
+    "module": "esnext",
+    "target": "esnext",
     "moduleResolution": "bundler",
     "moduleDetection": "force",
     "allowJs": false,
