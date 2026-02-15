@@ -2,7 +2,7 @@ import type { Service } from "@/schemas";
 import { type ColumnDef } from "@tanstack/react-table";
 import { ColumnServiceActions } from "./column-service-actions";
 import { Badge } from "../ui/badge";
-import { formatCategoryService } from "@/utils/formatters";
+import { formatCategoryService, formatMoney } from "@/utils/formatters";
 
 export const columns: ColumnDef<Service>[] = [
   {
@@ -32,6 +32,13 @@ export const columns: ColumnDef<Service>[] = [
       const duration = row.original.duration;
       return <div>{duration} Minutos</div>;
     },
+  },
+  {
+    accessorKey: "price",
+    header: "Precio",
+    cell: ({ row }) => {
+      return <div className="font-medium">{formatMoney(row.original.price)}</div>;
+    }
   },
   {
     id: "actions",
