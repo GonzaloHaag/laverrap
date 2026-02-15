@@ -11,7 +11,10 @@ import errorMiddleware from "./middlewares/error.middleware";
 
 const app = express();
 app.disable("x-powered-by");
-app.use(cors());
+app.use(cors({
+  origin: ["http://localhost:5173", "https://laverrapfrontend.vercel.app"],
+  credentials: true,
+}));
 app.use(express.json()); // Permite leer body en formato JSON
 
 app.use("/api/auth", authRoutes);
