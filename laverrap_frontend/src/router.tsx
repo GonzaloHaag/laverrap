@@ -12,7 +12,6 @@ import { ProtectedLayout } from "@/layouts";
 export const router = createBrowserRouter([
   {
     path: "/auth",
-    // Component: () => <div>Auth Layout</div>,
     children: [{ path: "login", Component: LoginPage }],
   },
   {
